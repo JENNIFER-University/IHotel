@@ -48,7 +48,18 @@ public class Transaction {
 	public void setCardHolder(String cardHolder) {
 		this.cardHolder = cardHolder;
 	}
-	
+
+	public static Transaction generate(String reservationId){
+		Transaction details = new Transaction();
+		details.setId(reservationId);
+		details.setReservation_id(reservationId);
+		details.setAmmount("125.5");
+		details.setCardExpire("2015-02-12");
+		details.setCardHolder("Khalid Saeed");
+		details.setCardNumber("12345678913");
+		return details;
+	}
+
 	public String toJson(){
 		Gson g = new Gson();
 		return g.toJson(this);

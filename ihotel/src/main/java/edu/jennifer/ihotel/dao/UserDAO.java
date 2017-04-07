@@ -1,9 +1,9 @@
 package edu.jennifer.ihotel.dao;
 
+import edu.jennifer.ihotel.model.User;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import edu.jennifer.ihotel.model.User;
 
 public interface UserDAO {
 

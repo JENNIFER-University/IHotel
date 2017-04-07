@@ -1,17 +1,15 @@
 package edu.jennifer.ihotel.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import javax.sql.DataSource;
-
+import edu.jennifer.ihotel.model.User;
+import edu.jennifer.ihotel.util.Common;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import edu.jennifer.ihotel.model.User;
-import edu.jennifer.ihotel.util.Common;
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO{
 
@@ -22,7 +20,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	public User getUser(String id) throws SQLException{
-		
+
 			String query = "SELECT USERNAME,REALNAME,EMAIL FROM USR WHERE ID = ?";
 			System.out.println("Query " + query);
 			User user = jdbcTemplate.query(query, new String[]{id}, new ResultSetExtractor<User>(){
@@ -32,13 +30,13 @@ public class UserDAOImpl implements UserDAO{
 						u.setId(rs.getString("id"));
 						u.setUsername(rs.getString("username"));
 						u.setRealName(rs.getString("realname"));
-						return u; 
+						return u;
 					}
 					return null;
 				}
 			});
 			return user;
-		
+
 	}
 
 	public String login(String username, String password) {
@@ -57,7 +55,7 @@ public class UserDAOImpl implements UserDAO{
 					return null;
 				}
 			});
-			
+
 			return user.getRealName();
 		}catch(Exception ex){
 			return null;

@@ -1,23 +1,21 @@
 package edu.jennifer.ihotel.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import javax.sql.DataSource;
-
+import edu.jennifer.ihotel.model.Guest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import edu.jennifer.ihotel.model.Guest;
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class GuestDAOImpl implements GuestDAO{
-	
-	private JdbcTemplate jdbcTemplate;
-	
+public class GuestDAOImpl implements GuestDAO {
+
+    private JdbcTemplate jdbcTemplate;
+
 	public GuestDAOImpl(DataSource dataSource){
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	public int saveGuestInformationh(Guest guest) {
@@ -25,7 +23,7 @@ public class GuestDAOImpl implements GuestDAO{
 			String query = "INSERT INTO guests (title,forenames,surename,dob,address,phone,email) VALUES (?,?,?,?,?,?,?)";
 			int saved = jdbcTemplate.update(query,guest.getTitle(),guest.getForName(),guest.getSureName(),guest.getDateOfBirth(),guest.getAddress(),guest.getPhone(),guest.getEmail());
 			if(saved > 0 ){
-				return jdbcTemplate.queryForInt("select max(id) from guests");
+			    return jdbcTemplate.queryForObject("select max(id) from guests", Integer.class);
 			}
 			return -1;
 		}catch(Exception ex){
@@ -39,7 +37,7 @@ public class GuestDAOImpl implements GuestDAO{
 			String query = "SELECT id,title,forenames,surename,dob,address,phone,email,SLEEP(?) from guests where email = ?";
 			Guest g = jdbcTemplate.query(query, new Object[]{randomDelay,email},new ResultSetExtractor<Guest>(){
 				public Guest extractData(ResultSet rs) throws SQLException,
-						DataAccessException {
+                        DataAccessException {
 					if(rs.next()){
 						Guest g = new Guest();
 						g.setId(rs.getInt("id"));
@@ -55,7 +53,7 @@ public class GuestDAOImpl implements GuestDAO{
 					return null;
 				}
 			});
-			
+
 			return g;
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -102,7 +100,7 @@ public class GuestDAOImpl implements GuestDAO{
 					else
 						return 0;
 				}
-				
+
 			});
 			return guestBookingCount;
 		}catch(Exception ex){

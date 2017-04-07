@@ -1,8 +1,8 @@
 package edu.jennifer.ihotel.dao;
 
-import java.util.ArrayList;
-
 import edu.jennifer.ihotel.model.Guest;
+
+import java.util.ArrayList;
 
 public interface GuestDAO {
 

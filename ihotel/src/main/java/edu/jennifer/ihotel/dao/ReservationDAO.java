@@ -1,10 +1,10 @@
 package edu.jennifer.ihotel.dao;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import edu.jennifer.ihotel.model.Guest;
 import edu.jennifer.ihotel.model.Reservation;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface ReservationDAO {
 

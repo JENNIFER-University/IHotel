@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 public class TestMock {
 
     public static void main(String[] args) throws Exception{
-        Class.forName("mock.jdbc.MockDriver");
+        Class.forName("jdbc.GhostDriver");
         Connection connection = DriverManager.getConnection("jdbc:mock");
         System.out.println("Gotcha");
     }

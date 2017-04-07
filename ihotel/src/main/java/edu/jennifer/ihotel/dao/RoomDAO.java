@@ -1,14 +1,16 @@
 package edu.jennifer.ihotel.dao;
 
-import java.util.ArrayList;
-
 import edu.jennifer.ihotel.model.Facility;
 import edu.jennifer.ihotel.model.Room;
 import edu.jennifer.ihotel.util.HotelExceptions;
 
+import java.util.ArrayList;
+
 public interface RoomDAO {
 
-	public ArrayList<Room> findAll(long randomDelay) throws Throwable;
+	public ArrayList<Room> findAll(long randomDelay);
+
+	public ArrayList<Room> findFeatured();
 	
 	public ArrayList<Room> findByGuestSize(int guestSize, long randomDelay);
 	

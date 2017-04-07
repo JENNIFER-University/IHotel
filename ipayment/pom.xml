@@ -14,10 +14,11 @@
     <packaging>war</packaging>
 
     <dependencies>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -31,35 +32,36 @@
         </dependency>
         <dependency>
             <groupId>edu.jennifer</groupId>
-            <artifactId>mock.jdbc</artifactId>
+            <artifactId>ghost.jdbc</artifactId>
             <version>1.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>ipayment</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>redeploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <url>http://192.168.56.101:18080/manager/text</url>
-                    <username>admin</username>
-                    <password>admin</password>
-                    <path>/ipayment</path>
-                </configuration>
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                <!--<version>2.2</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>redeploy</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<url>http://localhost:18080/manager/text</url>-->
+                    <!--<username>admin</username>-->
+                    <!--<password>admin</password>-->
+                    <!--<path>/ipayment</path>-->
+                <!--</configuration>-->
 
-            </plugin>
-        </plugins>
+            <!--</plugin>-->
+        <!--</plugins>-->
     </build>
 
 </project>

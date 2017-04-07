@@ -1,5 +1,7 @@
 package edu.jennifer.ihotel.util;
 
+import edu.jennifer.ihotel.dao.ReservationDAO;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
-import edu.jennifer.ihotel.dao.ReservationDAO;
 
 public class Common {
 
@@ -77,10 +77,7 @@ public class Common {
 		try{
 			Thread.sleep(napTime);
 		}catch(Exception ex){}
-		
-//		long start = System.currentTimeMillis();
-		///Delay without Thread
-//		while(System.currentTimeMillis() - start < napTime){}
+
 	}
 	
 	public static String reservationToString(int reservationCode){

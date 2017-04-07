@@ -4,7 +4,7 @@ public class Payment {
 
 	private String id;
 	private String reservationId;
-	private String ammount;
+	private double ammount;
 	private String cardNumber;
 	private String cardHolder;
 	private String expire;
@@ -12,7 +12,7 @@ public class Payment {
 	
 	public Payment(){}
 	
-	public Payment(String id, String reservationId, String ammount, String cardNumber, String cardHolder,String expire, String ccv){
+	public Payment(String id, String reservationId, double ammount, String cardNumber, String cardHolder,String expire, String ccv){
 		this.id = id;
 		this.reservationId = reservationId;
 		this.ammount = ammount;
@@ -34,10 +34,10 @@ public class Payment {
 	public void setReservationId(String reservationId) {
 		this.reservationId = reservationId;
 	}
-	public String getAmmount() {
+	public double getAmmount() {
 		return ammount;
 	}
-	public void setAmmount(String ammount) {
+	public void setAmmount(double ammount) {
 		this.ammount = ammount;
 	}
 	public String getCardNumber() {
@@ -64,6 +64,17 @@ public class Payment {
 	public void setCcv(String ccv) {
 		this.ccv = ccv;
 	}
-	
-	
+
+	public String getAmmountAsString(){
+		return getAmmount() + "";
+	}
+
+	public void print() {
+		System.out.println("ReservationId " + getReservationId());
+		System.out.println("Card " + getCardNumber());
+		System.out.println("Holder " + getCardHolder());
+		System.out.println("CC " + getCcv());
+		System.out.println("Expire" + getExpire());
+		System.out.println("Amount " + getAmmountAsString());
+	}
 }

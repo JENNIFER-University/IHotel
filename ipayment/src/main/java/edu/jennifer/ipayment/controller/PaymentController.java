@@ -1,8 +1,6 @@
 package edu.jennifer.ipayment.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,8 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.jennifer.ipayment.model.DAOFactory;
 import edu.jennifer.ipayment.model.Transaction;
-import edu.jennifer.ipayment.util.ConnectionUtil;
 
 @WebServlet(name="PaymentController" ,urlPatterns={"/makePayment"})
 public class PaymentController extends BaseController{
@@ -26,11 +24,10 @@ public class PaymentController extends BaseController{
 	
 		try{
 			Transaction data = parse(req);
-			ConnectionUtil.getInstance().saveTransaction(data);
+			DAOFactory.getTransactionDAO().save(data);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		
 	}
 
 
