@@ -28,6 +28,12 @@
             <version>${struts.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -62,6 +68,12 @@
             <version>${apache.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
 
         <!-- Self4j -->
         <dependency>
@@ -81,28 +93,28 @@
 
     <build>
         <finalName>ihotel</finalName>
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>redeploy</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<url>http://localhost:8080/manager/text</url>-->
-                    <!--<username>admin</username>-->
-                    <!--<password>admin</password>-->
-                    <!--<path>/ihotel</path>-->
-                <!--</configuration>-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>redeploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <path>/ihotel</path>
+                </configuration>
 
-            <!--</plugin>-->
-        <!--</plugins>-->
+            </plugin>
+        </plugins>
     </build>
 
 

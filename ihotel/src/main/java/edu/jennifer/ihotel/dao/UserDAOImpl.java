@@ -19,6 +19,12 @@ public class UserDAOImpl implements UserDAO{
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	/**
+	 * Get User by ID
+	 * @param id the user id
+	 * @return User object
+	 * @throws SQLException
+	 */
 	public User getUser(String id) throws SQLException{
 
 			String query = "SELECT USERNAME,REALNAME,EMAIL FROM USR WHERE ID = ?";
@@ -39,25 +45,33 @@ public class UserDAOImpl implements UserDAO{
 
 	}
 
+	/**
+	 * DB Auth ^^
+	 * @param username the Username
+	 * @param password the password
+	 * @return User information as Json
+	 */
 	public String login(String username, String password) {
 		try{
 			String query = "SELECT * FROM users where USERNAME = ? AND PASSWORD = ?";
 			User user = jdbcTemplate.query(query, new String[]{username,Common.plainToMD5(password)}, new ResultSetExtractor<User>() {
 				public User extractData(ResultSet rs) throws SQLException,
 						DataAccessException {
-					if(rs.next()){
-						User u = new User();
-						u.setId(rs.getString("id"));
-						u.setUsername(rs.getString("username"));
-						u.setRealName(rs.getString("realname"));
-						return u;
-					}
+			if(rs.next()){
+				User u = new User();
+				u.setId(rs.getString("id"));
+				u.setPassword("");
+				u.setUsername(rs.getString("username"));
+				u.setRealName(rs.getString("realname"));
+				return u;
+			}
 					return null;
 				}
 			});
 
-			return user.getRealName();
+			return user.toJson();
 		}catch(Exception ex){
+			ex.printStackTrace();
 			return null;
 		}
 	}

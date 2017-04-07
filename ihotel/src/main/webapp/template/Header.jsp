@@ -30,6 +30,14 @@
 						href="${pageContext.request.contextPath}/booking/find">Manage
 							Booking</a></li>
 					<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+
+					<s:if test="#session.isLoggedIn != 'true' ">
+					<li><a href="${pageContext.request.contextPath}/login">Login</a></li>
+					</s:if>
+					<s:else>
+                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                    </s:else>
+
 					<li><a href="javascript:void();" data-toggle="modal" data-target="#aboutModal">About</a></li>
 				</ul>
 			</div>

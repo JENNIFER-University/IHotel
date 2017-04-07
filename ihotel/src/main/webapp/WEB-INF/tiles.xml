@@ -65,6 +65,11 @@
         <put-attribute name="body" value="/jsp/Booking/NoResult.jsp" />
     </definition>
 
+    <definition name="/login.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Login" />
+        <put-attribute name="body" value="/jsp/users/login.jsp" />
+    </definition>
+
 
 
 

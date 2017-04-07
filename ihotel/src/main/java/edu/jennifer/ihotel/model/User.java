@@ -1,5 +1,7 @@
 package edu.jennifer.ihotel.model;
 
+import com.google.gson.Gson;
+
 public class User {
 
 	private String id;
@@ -32,6 +34,9 @@ public class User {
 		this.realName = realName;
 	}
 	
-	
-	
+
+	public String toJson(){
+		Gson g = new Gson();
+		return g.toJson(this);
+	}
 }

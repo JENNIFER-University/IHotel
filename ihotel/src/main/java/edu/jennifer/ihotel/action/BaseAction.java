@@ -14,6 +14,7 @@ public class BaseAction extends ActionSupport{
     private RoomDAO roomService;
     private GuestDAO guestDAO;
     private ReservationDAO reservationDAO;
+    private UserDAO userDAO;
 
     private String appVersion;
 
@@ -44,6 +45,11 @@ public class BaseAction extends ActionSupport{
     public ReservationDAO getReservationDAO() {
         reservationDAO = new ReservationDAOImpl(this.connectionUtil.getDataSource());
         return reservationDAO;
+    }
+
+    public UserDAO getUserDAO() {
+        userDAO = new UserDAOImpl(this.connectionUtil.getDataSource());
+        return userDAO;
     }
 
     public void setAppVersion(String appVersion) {
