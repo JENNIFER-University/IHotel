@@ -16,6 +16,7 @@ import java.net.URLEncoder;
  */
 public class PaymentGateway {
 
+    private static final String UTF8 = "UTF-8";
     public static final int OK 						= 200;
     public static final int NOT_FOUND 				= 404;
     public static final int AUTHRIZATION_FAILED 	= 401;
@@ -43,7 +44,7 @@ public class PaymentGateway {
         try{
             String baseUrl = getIpaymentBaseUrl();
             httpClient = HttpClientBuilder.create().build();
-            String callUrl = baseUrl + PAYMENT_DETAILS_ACTIONS +"/" + reservationId;
+            String callUrl = baseUrl + PAYMENT_DETAILS_ACTIONS +"?reservation_id=" + URLEncoder.encode(reservationId, UTF8);
 
             HttpGet getRequest = new HttpGet(callUrl);
             response = httpClient.execute(getRequest);
@@ -73,7 +74,8 @@ public class PaymentGateway {
         try{
             String baseUrl = getIpaymentBaseUrl();
             httpClient = HttpClientBuilder.create().build();
-            String callUrl = baseUrl + AUTHORIZE_ACTION +"/" + cardNumber;
+            String callUrl = baseUrl + AUTHORIZE_ACTION +"?cardNumber=" + URLEncoder.encode(cardNumber, UTF8);
+
             HttpGet getRequest = new HttpGet(callUrl);
             response = httpClient.execute(getRequest);
 

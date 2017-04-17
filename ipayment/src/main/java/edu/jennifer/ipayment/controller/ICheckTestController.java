@@ -2,23 +2,22 @@ package edu.jennifer.ipayment.controller;
 
 import edu.jennifer.ipayment.util.Conf;
 import edu.jennifer.ipayment.util.Validator;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-@WebServlet(name="ICheckTestController" ,urlPatterns={"/icheck_test"})
-public class ICheckTestController extends BaseController{
+/**
+ * ICheck Test Controller. Check connection to Credit Card Check Server
+ */
+@RestController
+public class ICheckTestController{
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    @Override
-    public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping("/icheck_test")
+    public void doTest() {
         debug("Checking if Icheck is enabled .... ");
         debug("Icheck Settings " + Conf.getInstance().icheckEnabled());
         if(Conf.getInstance().icheckEnabled()){

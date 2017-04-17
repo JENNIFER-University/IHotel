@@ -8,6 +8,9 @@ import java.sql.DriverManager;
  */
 public class ConnectionManager {
 
+    private final String DRIVER     = "org.apache.derby.jdbc.EmbeddedDriver";
+    private final String JDBC_URL   = "jdbc:derby:cards_db;create=true";
+
 
     private static ConnectionManager instance;
 
@@ -15,15 +18,17 @@ public class ConnectionManager {
 
     public static ConnectionManager getInstance() {
         if(instance == null) {
+            System.setProperty("derby.system.home", "db");
             instance = new ConnectionManager(); //Lazy ^^
+
         }
         return instance;
     }
 
     public Connection getConnection(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/ihotel");
+            Class.forName(DRIVER);
+            return DriverManager.getConnection(JDBC_URL);
         }catch (Exception ex){
             return null;
         }

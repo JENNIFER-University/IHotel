@@ -11,12 +11,15 @@ public class Conf {
 	private static Conf inst = null;
 	private static Properties prop = null;
 	
-	public static synchronized Conf getInstance(){
+	public static Conf getInstance(){
 		try{
 			if(inst == null)
 				inst = new Conf();
 			return inst;
 		}catch (Exception ex){
+			if(ex instanceof IOException) {
+				System.out.println("app.conf was not found");
+			}
 			return null;
 		}
 

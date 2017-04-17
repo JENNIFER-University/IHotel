@@ -11,57 +11,53 @@
 
     <groupId>edu.jennifer.ipayment</groupId>
     <artifactId>ipayment</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.2.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+
         <dependency>
             <groupId>edu.jennifer.icheck</groupId>
             <artifactId>icheck</artifactId>
             <version>1.1</version>
         </dependency>
-        <dependency>
-            <groupId>edu.jennifer</groupId>
-            <artifactId>ghost.jdbc</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <finalName>ipayment</finalName>
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>redeploy</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<url>http://localhost:18080/manager/text</url>-->
-                    <!--<username>admin</username>-->
-                    <!--<password>admin</password>-->
-                    <!--<path>/ipayment</path>-->
-                <!--</configuration>-->
-
-            <!--</plugin>-->
-        <!--</plugins>-->
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

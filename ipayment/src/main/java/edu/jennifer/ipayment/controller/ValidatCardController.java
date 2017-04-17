@@ -1,54 +1,33 @@
 package edu.jennifer.ipayment.controller;
 
-import com.google.gson.JsonObject;
 import edu.jennifer.ipayment.util.Conf;
 import edu.jennifer.ipayment.util.Validator;
-
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@WebServlet(name="ValidatCardController" ,urlPatterns={"/validateCard/*"})
-public class ValidatCardController extends BaseController{
-
-	private static final long serialVersionUID = 1L;
+@RestController
+public class ValidatCardController{
 
 
-	@Override
-	public void doProcess(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
-		String pathInfo = req.getPathInfo();
-	    String[] parts = pathInfo.split("/");
-	    String cardNumber = parts[1];
+	@RequestMapping("/validateCard")
+	public CheckResult validate(@RequestParam(name = "cardNumber") String cardNumber){
 		boolean useICheck = Conf.getInstance().icheckEnabled();
-		System.out.println("ICHECK ENABLED RESULT : " + useICheck);
-		String result = validateCard(cardNumber,useICheck);
-	    resp.setContentType("application/json");
-	    resp.getWriter().print(result);
-
+		CheckResult result = validateCard(cardNumber,useICheck);
+		return result;
 	}
 
-	private String validateCard(String cardNumber,boolean useICheck){
-		JsonObject result = new JsonObject();
+	private CheckResult validateCard(String cardNumber,boolean useICheck){
+		CheckResult result = new CheckResult();
+		result.setCardNumber(cardNumber);
 		if(useICheck){
 			String IP   =  Conf.getInstance().getICheckIP();
 			String port =  Conf.getInstance().getICheckPort();
 			Validator validator = new Validator();
 			validator.initialize(IP,port);
-			if(validator.checkCard(cardNumber)){
-				result.addProperty("error",0);
-
-			}else{
-				result.addProperty("error",1);
-			}
-
-			return result.toString();
-
+			int error = validator.checkCard(cardNumber) ? 0 : 1;
+			result.setError(error);
 		}else{
 			int levels = cardNumber.length();
 			if(levels < 5){
@@ -57,15 +36,12 @@ public class ValidatCardController extends BaseController{
 			checkDigists(levels);
 
 			if(cardNumber.startsWith("500"))
-				result.addProperty("error",1);
-
-			result.addProperty("error",0);
-
-			return result.toString();
+				result.setError(1);
+			else
+				result.setError(0);
 		}
-
+		return result;
 	}
-
 
 	private void checkDigists(int levels){
 		if(levels == 0){
@@ -76,4 +52,26 @@ public class ValidatCardController extends BaseController{
 		checkDigists(levels-1);
 	}
 
+
+	class CheckResult{
+		String cardNumber;
+		int error;
+
+		public String getCardNumber() {
+			return cardNumber;
+		}
+
+		public void setCardNumber(String cardNumber) {
+			this.cardNumber = cardNumber;
+		}
+
+
+		public int getError() {
+			return error;
+		}
+
+		public void setError(int error) {
+			this.error = error;
+		}
+	}
 }

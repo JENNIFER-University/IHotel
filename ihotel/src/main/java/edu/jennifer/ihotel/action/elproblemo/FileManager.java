@@ -29,13 +29,15 @@ public class FileManager {
 
     public void writeToFile(){
         try{
-            writer = new FileOutputStream(new File(System.getProperty("java.io.tmpdir"),LOCK_FILE_NAME));
+            File lockFile = new File(System.getProperty("java.io.tmpdir"),LOCK_FILE_NAME);
+            if(!lockFile.exists()){
+                lockFile.createNewFile();
+            }
+            writer = new FileOutputStream(lockFile);
             fileLock = writer.getChannel().lock();
             writer.write(fakeData);
             waitForRelease();
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+        }catch(Exception ex){}
     }
 
     public void readTheFile(){

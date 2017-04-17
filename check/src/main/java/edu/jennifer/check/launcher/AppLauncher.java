@@ -1,6 +1,7 @@
 package edu.jennifer.check.launcher;
 
 import edu.jennifer.check.service.CheckCardImpl;
+import edu.jennifer.check.service.DBMaker;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -29,7 +30,10 @@ public class AppLauncher {
             portNumber = PORT;
         }
 
-        new AppLauncher().startServer(portNumber);
+        AppLauncher app = new AppLauncher();
+        app.checkDatabase();
+        app.startServer(portNumber);
+
     }
 
     /**
@@ -47,5 +51,13 @@ public class AppLauncher {
             System.err.println("Error while starting app the server. Reason [" + ex.getMessage() +"]");
             ex.printStackTrace();
         }
+    }
+
+
+    /**
+     * Call the DB Maker to check the database
+     */
+    private void checkDatabase(){
+        new DBMaker().checkDatabase();
     }
 }

@@ -1,17 +1,18 @@
 package edu.jennifer.ipayment.model;
 
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 public class Database {
 
+	public static final String DATABASE_NAME 	= "acme_transactions";
+	public static final String COLLECTION_NAME 	= "transactions";
+
+
 	private static Database instance;
-	private DataSource dataSource = null;
+	private MongoClient mongoClient;
+	private MongoDatabase mongoDatabase;
+
 
 	public static Database getInstance() {
 		if(instance == null){
@@ -21,35 +22,12 @@ public class Database {
 	}
 
 	private Database(){
-		try{
-			Context context = new InitialContext();
-			context = (Context)context.lookup("java:/comp/env");
-			dataSource = (DataSource) context.lookup("jdbc/ipaymentDS");
-		}catch (Exception ex){
-			//dont handle me :)
-		}
-	}
-
-	public Connection getConnection() throws Exception{
-		return dataSource.getConnection();
-	}
-
-	public Connection getConnectionDM() throws Exception {
-		System.out.println("Direct");
-		Class.forName("jdbc.GhostDriver");
-		Connection connection = DriverManager.getConnection("jdbc:ghost://127.0.0.1", "ghost", "ghost");
-		return connection;
+		mongoClient = new MongoClient("192.168.0.194");
+		mongoDatabase = mongoClient.getDatabase(DATABASE_NAME);
 
 	}
 
-	public void disconnect(Connection connection){
-		if(connection != null){
-			try{
-				connection.close();
-			}catch (Exception e){}
-		}
+	public MongoDatabase getMongoDatabase() {
+		return mongoDatabase;
 	}
-
-
-	
 }

@@ -1,10 +1,11 @@
 package edu.jennifer.ipayment.model;
 
 import com.google.gson.Gson;
+import org.bson.Document;
 
 
 public class Transaction {
-	
+
 	private String id;
 	private String reservation_id;
 	private String ammount;
@@ -63,6 +64,18 @@ public class Transaction {
 	public String toJson(){
 		Gson g = new Gson();
 		return g.toJson(this);
+	}
+
+	public Document toMongoDocument(){
+		Document document = new Document();
+		document.put("id",getId());
+		document.put("reservation_id",getReservation_id());
+		document.put("ammount",getAmmount());
+		document.put("cardNumber",getCardNumber());
+		document.put("cardHolder",getCardHolder());
+		document.put("cardExpire",getCardExpire());
+
+		return document;
 	}
 
 	

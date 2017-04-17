@@ -1,39 +1,24 @@
 package edu.jennifer.ipayment.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import edu.jennifer.ipayment.model.DAOFactory;
+import edu.jennifer.ipayment.model.Transaction;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@WebServlet(name="PaymentDetailsController", urlPatterns={"/payment_detail/*"})
-public class PaymentDetailsController extends BaseController{
+@RestController
+public class PaymentDetailsController {
 
-	private static final long serialVersionUID = 1L;
 
-	@Override
-	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String pathInfo = req.getPathInfo();
-	    String[] parts = pathInfo.split("/");
-	    String reservationId = parts[1];
-	    String result;
-		try {
-			result = getTransactionDetails(reservationId);
-			resp.getWriter().println(result);
-		} catch (Throwable e) {
+	@RequestMapping("/payment_detail")
+	public @ResponseBody  Transaction getPaymentDetails(@RequestParam(value = "resverationId") String resverationId){
 
+		Transaction result = DAOFactory.getTransactionDAO().findByReservationId(resverationId);
+		if(result == null) {
+			result = new Transaction();
+			result.setId("-1");
 		}
-
-	}
-
-	private String getTransactionDetails(String reservationId) throws Throwable{
-		try{
-			return DAOFactory.getTransactionDAO().get(reservationId).toJson();
-		}catch(Exception ex){
-			return "404";
-		}
+		return  result;
 	}
 }

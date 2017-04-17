@@ -1,8 +1,10 @@
 package edu.jennifer.ipayment.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import com.google.gson.Gson;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
 
 /**
  * @author khalid
@@ -10,27 +12,34 @@ import java.sql.ResultSet;
  */
 public class TransactionsDAO {
 
-    public void save(Transaction transaction) throws Exception{
-        Connection connection = Database.getInstance().getConnection();
-        PreparedStatement pst = connection.prepareStatement("INSERT INTO transactions value (?,?,?,?,?,?)");
-        pst.setString(1, transaction.getId());
-        pst.setString(2, transaction.getReservation_id());
-        pst.setString(3, transaction.getAmmount());
-        pst.setString(4, transaction.getCardHolder());
-        pst.setString(5, transaction.getCardNumber());
-        pst.setString(6, transaction.getCardExpire());
-        ResultSet resultSet = pst.executeQuery();
-        Database.getInstance().disconnect(connection);
+    /**
+     * Save a transaction to the database
+     * @param transaction Transaction object
+     */
+    public void save(Transaction transaction){
+        MongoDatabase database = Database.getInstance().getMongoDatabase();
+        database.getCollection(Database.COLLECTION_NAME).insertOne(transaction.toMongoDocument());
+
+
+
     }
 
-    public Transaction get(String reservationId) throws Exception{
-        Connection connection = Database.getInstance().getConnection();
-        PreparedStatement pst = connection.prepareStatement("SELECT * FROM transactions where reservation_id = ?");
-        pst.setString(1, reservationId);
-        ResultSet resultSet = pst.executeQuery();
-        while(resultSet.next()) {
+    /**
+     * Find a transaction by reservation id
+     * @param reservationId Resevation id
+     * @return Transaction object or null
+     */
+    public Transaction findByReservationId(String reservationId){
+
+        Transaction result = null;
+        for(Document document : Database.getInstance().getMongoDatabase().getCollection("transactions").find()) {
+            Gson g = new Gson();
+            Transaction transaction = g.fromJson(document.toJson(), Transaction.class);
+            if(transaction.getReservation_id().equals(reservationId)) {
+                result = transaction;
+                break;
+            }
         }
-        Database.getInstance().disconnect(connection);
-        return Transaction.generate(reservationId);
+        return result;
     }
 }

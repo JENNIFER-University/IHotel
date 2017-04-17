@@ -21,7 +21,6 @@
         <module>ipayment</module>
         <module>icheck</module>
         <module>check</module>
-        <module>ghost.jdbc</module>
         <module>stress</module>
         <module>ihotel</module>
     </modules>

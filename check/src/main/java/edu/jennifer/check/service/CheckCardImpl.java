@@ -59,17 +59,19 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
 
     private boolean isBlackListed(String card){
         try{
-            System.out.println("Checking Black listed");
-            String query = "select * from users";
+            System.out.println("Checking Black listed credit card db");
+            String query = "SELECT * FROM CARDS WHERE CARD_NUMBER = ?";
             Connection connection = ConnectionManager.getInstance().getConnection();
             PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1, card);
             ResultSet rs = pst.executeQuery();
-            int testBase = 0;
-            Random rand = new Random();
-            while(rs.next()){
-                testBase += rand.nextInt(100);
+            boolean blackListed = false;
+            if(rs.next()){
+                blackListed = true;
             }
-            return testBase % 2 == 0;
+            rs.close();
+            pst.close();
+            return  blackListed;
         }catch (Exception ex){
             return false;
         }
