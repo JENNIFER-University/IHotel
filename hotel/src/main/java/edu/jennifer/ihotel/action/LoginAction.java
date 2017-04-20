@@ -1,7 +1,5 @@
 package edu.jennifer.ihotel.action;
 
-
-import edu.jennifer.pluginmanager.Plugin;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -21,8 +19,6 @@ public class LoginAction extends BaseAction implements SessionAware{
     @Override
     public String execute() throws Exception {
         String userData = getUserDAO().login(getUsername(), getPassword());
-        Plugin profileLoader = pluginLoader.getPluginByName("Slow Login");
-        profileLoader.run();
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");
             sessionMap.put("currentUser",userData);

@@ -22,9 +22,6 @@
         <module>check</module>
         <module>stress</module>
         <module>hotel</module>
-        <module>pluginmanager</module>
-        <module>plugincpu</module>
-        <module>pluginslowlogin</module>
     </modules>
 
     <build>

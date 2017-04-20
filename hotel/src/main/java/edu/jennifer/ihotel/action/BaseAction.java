@@ -3,9 +3,7 @@ package edu.jennifer.ihotel.action;
 import com.opensymphony.xwork2.ActionSupport;
 import edu.jennifer.ihotel.dao.*;
 import edu.jennifer.ihotel.util.Common;
-import edu.jennifer.ihotel.util.Conf;
 import edu.jennifer.ihotel.util.ConnectionUtil;
-import edu.jennifer.pluginmanager.PluginLoader;
 
 /**
  * Created by khalid on 31/03/2017.
@@ -20,22 +18,10 @@ public class BaseAction extends ActionSupport{
 
     private String appVersion;
 
-    public PluginLoader pluginLoader;
-
     public BaseAction(){
 
         connectionUtil = ConnectionUtil.getInstance();
         setAppVersion(Common.APP_VERSION);
-        try{
-            System.out.println(Conf.getInstance().getProperty("plugin_dir"));
-            pluginLoader = PluginLoader.getInstance(Conf.getInstance().getProperty("plugin_dir"));
-            pluginLoader.loadPlugins();
-            System.out.println("Loaded " + pluginLoader.listPluginNames().size());
-        }catch (Exception ex){
-            //handle me later
-            System.out.println("aaosdlkasjdlkasjdlkajsldkjaslkdjlasjdlkajslkdjaslkjlaksd");
-            ex.printStackTrace();
-        }
     }
 
     public long initalize(){
