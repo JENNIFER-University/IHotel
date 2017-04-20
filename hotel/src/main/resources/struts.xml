@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+
+    <package name="default" extends="struts-default" >
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"></result-type>
+        </result-types>
+
+        <action name="welcome" class="edu.jennifer.ihotel.action.WelcomeAction">
+            <result type="tiles">/welcome.tiles</result>
+        </action>
+
+        <action name="about" class="edu.jennifer.ihotel.action.WelcomeAction" method="about">
+            <result type="tiles">/about.tiles</result>
+        </action>
+
+        <action name="login">
+            <result type="tiles">/login.tiles</result>
+        </action>
+
+        <action name="logout" class="edu.jennifer.ihotel.action.LoginAction" method="logout">
+            <result type="tiles" name="success">/welcome.tiles</result>
+        </action>
+
+        <action name="doLogin" class="edu.jennifer.ihotel.action.LoginAction">
+            <result type="tiles" name="success">/welcome.tiles</result>
+            <result type="tiles" name="error">/login.tiles</result>
+        </action>
+
+
+    </package>
+
+    <package name="rooms" extends="default" namespace="/rooms">
+        <action name="list" class="edu.jennifer.ihotel.action.RoomsAction" method="list">
+            <result type="tiles">/rooms.tiles</result>
+        </action>
+
+        <action name="view" class="edu.jennifer.ihotel.action.RoomsAction" method="view">
+            <result type="tiles">/room_view.tiles</result>
+        </action>
+    </package>
+
+    <package name="booking" extends="default" namespace="/booking">
+        <action name="book" class="edu.jennifer.ihotel.action.BookingAction">
+            <result type="tiles">/booking.tiles</result>
+        </action>
+        <action name="doBook" class="edu.jennifer.ihotel.action.BookingSubmitAction">
+            <result type="tiles" name="success">/booking_success.tiles</result>
+            <result type="tiles" name="error">/booking_failed.tiles</result>
+        </action>
+
+        <action name="find">
+            <result type="tiles">/booking_find.tiles</result>
+        </action>
+
+
+        <action name="cancel">
+            <result type="tiles">/booking_cancel.tiles</result>
+        </action>
+
+
+        <action name="doFind" class="edu.jennifer.ihotel.action.FindBookingAction">
+            <result type="tiles" name="success">/find_result.tiles</result>
+            <result type="tiles" name="error">/no_result.tiles</result>
+        </action>
+
+    </package>
+
+    <package name="api" extends="json-default" namespace="/api">
+        <action name="status" class="edu.jennifer.ihotel.action.api.StatusAction">
+            <result type="json" />
+        </action>
+
+        <action name="users" class="edu.jennifer.ihotel.action.api.UsersListAction">
+            <result type="json" />
+        </action>
+
+        <action name="download" class="edu.jennifer.ihotel.action.api.HighCpuAction">
+            <result type="json" />
+        </action>
+
+        <action name="read" class="edu.jennifer.ihotel.action.api.OOMAction">
+            <result type="json" />
+        </action>
+
+        <action name="update" class="edu.jennifer.ihotel.action.api.SqlExceptionAction">
+            <result type="json" />
+        </action>
+
+        <action name="qu" class="edu.jennifer.ihotel.action.api.ActiveServiceAction">
+            <result type="json" />
+        </action>
+
+        <action name="file" class="edu.jennifer.ihotel.action.api.ActiveServiceAction" method="readFile">
+            <result type="json" />
+        </action>
+
+        <action name="sync" class="edu.jennifer.ihotel.action.api.DeadLockAction">
+            <result type="json" />
+        </action>
+
+    </package>
+
+
+</struts>

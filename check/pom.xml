@@ -16,8 +16,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>edu.jennifer.icheck</groupId>
-            <artifactId>icheck</artifactId>
+            <groupId>edu.jennifer.check</groupId>
+            <artifactId>check</artifactId>
             <version>1.1</version>
         </dependency>
 

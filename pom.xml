@@ -19,10 +19,12 @@
 
     <modules>
         <module>ipayment</module>
-        <module>icheck</module>
         <module>check</module>
         <module>stress</module>
-        <module>ihotel</module>
+        <module>hotel</module>
+        <module>pluginmanager</module>
+        <module>plugincpu</module>
+        <module>pluginslowlogin</module>
     </modules>
 
     <build>

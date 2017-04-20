@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.jennifer.check</groupId>
-    <artifactId>check</artifactId>
+    <artifactId>plugin.manager</artifactId>
+
 
 </project>

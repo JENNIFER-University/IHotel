@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition name="baseLayout" template="/template/Layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/template/Header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/template/Footer.jsp" />
+    </definition>
+
+
+
+    <definition name="/welcome.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Welcome" />
+        <put-attribute name="body" value="/jsp/Welcome.jsp" />
+    </definition>
+
+    <definition name="/about.tiles" extends="baseLayout">
+        <put-attribute name="title" value="About iHotel" />
+        <put-attribute name="body" value="/jsp/About.jsp" />
+    </definition>
+
+
+    <definition name="/rooms.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Rooms List" />
+        <put-attribute name="body" value="/jsp/Rooms/List.jsp" />
+    </definition>
+
+    <definition name="/room_view.tiles" extends="baseLayout">
+        <put-attribute name="title" value="View Room" />
+        <put-attribute name="body" value="/jsp/Rooms/View.jsp" />
+    </definition>
+
+    <definition name="/booking.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Book Room" />
+        <put-attribute name="body" value="/jsp/Booking/Start.jsp" />
+    </definition>
+
+    <definition name="/booking_success.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Booking Confirmed Room" />
+        <put-attribute name="body" value="/jsp/Booking/Ok.jsp" />
+    </definition>
+
+    <definition name="/booking_failed.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Booking Failed" />
+        <put-attribute name="body" value="/jsp/Booking/Error.jsp" />
+    </definition>
+
+    <definition name="/booking_find.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Find Booking" />
+        <put-attribute name="body" value="/jsp/Booking/Find.jsp" />
+    </definition>
+
+    <definition name="/booking_cancel.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Cancel Booking" />
+        <put-attribute name="body" value="/jsp/Booking/Cancel.jsp" />
+    </definition>
+
+
+
+    <definition name="/find_result.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Find Booking" />
+        <put-attribute name="body" value="/jsp/Booking/Result.jsp" />
+    </definition>
+
+    <definition name="/no_result.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Find Booking" />
+        <put-attribute name="body" value="/jsp/Booking/NoResult.jsp" />
+    </definition>
+
+    <definition name="/login.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Login" />
+        <put-attribute name="body" value="/jsp/users/login.jsp" />
+    </definition>
+
+
+
+
+
+
+</tiles-definitions>

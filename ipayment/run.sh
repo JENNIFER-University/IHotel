@@ -14,7 +14,7 @@ APP_HOME="$PWD"
 APP_JAR=$APP_HOME/upayment.jar
 APP_LIB=$APP_HOME/lib/*
 
-#ICheck Listen Port. Default is 1099 If you change this value make sure to configure iPayment connection settings as well.
+#ICheck Listen Port. Default is 1099 If you change this value make sure to configure payment connection settings as well.
 LISTEN_PORT=18080
 
 JAVA_OPTS="-javaagent:$AGENT_HOME/jennifer.jar -Djennifer.config=$AGENT_HOME/conf/$CONF_FILE"
