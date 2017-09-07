@@ -85,7 +85,6 @@
             <version>${log4j2.version}</version>
         </dependency>
 
-
         <!-- Self4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
