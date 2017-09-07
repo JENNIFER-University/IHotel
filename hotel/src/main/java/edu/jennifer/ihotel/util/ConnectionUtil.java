@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
  */
 public class ConnectionUtil {
 
+    public static final String DATASOURCE_NAME = "jdbc/iHotelDS";
+
     private static ConnectionUtil instance;
     private DataSource dataSource;
 
@@ -28,7 +30,7 @@ public class ConnectionUtil {
         try{
             Context ctx = new InitialContext();
             Context envCtx = (Context) ctx.lookup("java:comp/env");
-            dataSource = (DataSource) envCtx.lookup("jdbc/iHotelDS");
+            dataSource = (DataSource) envCtx.lookup(ConnectionUtil.DATASOURCE_NAME);
             logger.info("DataSource Lookup Success");
         }catch (NamingException ex){
             logger.error("DataSource Lookup Failed");
