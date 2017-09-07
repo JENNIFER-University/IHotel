@@ -12,13 +12,14 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     private String username;
     private String password;
+    private String profile;
 
     private SessionMap<String, String> sessionMap;
 
 
     @Override
     public String execute() throws Exception {
-        String userData = getUserDAO().login(getUsername(), getPassword());
+        String userData = getUserDAO().login(getUsername(), getPassword(), getProfile());
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");
             sessionMap.put("currentUser",userData);
@@ -54,4 +55,11 @@ public class LoginAction extends BaseAction implements SessionAware{
         this.password = password;
     }
 
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
 }

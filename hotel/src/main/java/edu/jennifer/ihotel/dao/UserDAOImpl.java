@@ -49,9 +49,10 @@ public class UserDAOImpl implements UserDAO{
 	 * DB Auth ^^
 	 * @param username the Username
 	 * @param password the password
+	 * @param profile If this flag is set, simulate slow login
 	 * @return User information as Json
 	 */
-	public String login(String username, String password) {
+	public String login(String username, String password, String profile) {
 		try{
 			String query = "SELECT * FROM users where USERNAME = ? AND PASSWORD = ?";
 			User user = jdbcTemplate.query(query, new String[]{username,Common.plainToMD5(password)}, new ResultSetExtractor<User>() {
@@ -68,6 +69,10 @@ public class UserDAOImpl implements UserDAO{
 					return null;
 				}
 			});
+
+			if(profile != null && profile.equals("yes")) {
+				loadProfie();
+			}
 
 			return user.toJson();
 		}catch(Exception ex){
@@ -121,5 +126,14 @@ public class UserDAOImpl implements UserDAO{
 		}catch(Exception ex){
 			return false;
 		}
+	}
+
+	private void loadProfie(){
+		try{
+			System.out.println("Loading zeft");
+			Thread.sleep(Common.getRandom(9000,10000));
+			System.out.println("Done ???");
+		}catch (Exception ex){}
+
 	}
 }

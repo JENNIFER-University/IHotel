@@ -19,9 +19,9 @@ public class BaseAction extends ActionSupport{
     private String appVersion;
 
     public BaseAction(){
-
         connectionUtil = ConnectionUtil.getInstance();
         setAppVersion(Common.APP_VERSION);
+
     }
 
     public long initalize(){

@@ -5,6 +5,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 /**
  * Created by khalid on 31/03/2017.
  */
@@ -13,6 +17,7 @@ public class ConnectionUtil {
     private static ConnectionUtil instance;
     private DataSource dataSource;
 
+    Logger logger = LogManager.getRootLogger();
     private ConnectionUtil(){
         if(dataSource == null) {
             lookup();
@@ -23,10 +28,10 @@ public class ConnectionUtil {
         try{
             Context ctx = new InitialContext();
             Context envCtx = (Context) ctx.lookup("java:comp/env");
-            dataSource = (DataSource) envCtx.lookup("jdbc/ihotelDS");
+            dataSource = (DataSource) envCtx.lookup("jdbc/iHotelDS");
+            logger.info("DataSource Lookup Success");
         }catch (NamingException ex){
-            System.out.printf("DataSource Lookup Failed");
-            System.exit(1);
+            logger.error("DataSource Lookup Failed");
         }
     }
 

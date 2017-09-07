@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.util.Random;
 
 /**
- * Sample implementation of Credt Check
+ * Sample implementation of Credit Card Check
  * Created by khalid on 8/19/16.
  */
 public class CheckCardImpl extends UnicastRemoteObject implements ICheck {

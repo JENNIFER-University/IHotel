@@ -1,6 +1,8 @@
 package edu.jennifer.ihotel.action;
 
 import edu.jennifer.ihotel.model.Room;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 public class WelcomeAction extends BaseAction {
 
     private ArrayList<Room> rooms;
-
 
     @Override
     public String execute() throws Exception {
