@@ -15,7 +15,7 @@
 			<div class="panel-heading">
 				Guests Information
 				<div class="pull-right">
-					<a href="javascript:void(0)" onclick="autoFill();"><i class="fa fa-lock"></i></a>
+					<a href="javascript:void(0)" onclick="app.autoFill(0);"><i class="fa fa-lock"></i></a>
 				</div>
 			</div>
 

@@ -1,6 +1,7 @@
 package edu.jennifer.ihotel.config;
 
 import edu.jennifer.ihotel.util.ConnectionUtil;
+import edu.jennifer.ihotel.util.DBCleaner;
 import edu.jennifer.ihotel.util.Version;
 
 import javax.servlet.ServletContextEvent;
@@ -27,6 +28,9 @@ public class StartupListener implements ServletContextListener {
         if (!dataSourceExists) {
             System.out.printf("DataSource not found. Please create datasource in your tomcat configuration%n");
             System.out.printf("DataSource Name [%s]%n", ConnectionUtil.DATASOURCE_NAME);
+        }else {
+            System.out.printf("Cleaning up Reservation Table ....%n ");
+            new DBCleaner().cleanReservationTable();
         }
 
     }

@@ -13,7 +13,9 @@ public class ValidatCardController{
 
 	@RequestMapping("/validateCard")
 	public CheckResult validate(@RequestParam(name = "cardNumber") String cardNumber){
+		System.out.printf("<>>>>>>>>>>>>> Validaating");
 		boolean useICheck = Conf.getInstance().icheckEnabled();
+		System.out.println("USE ICHECK = "+ useICheck);
 		CheckResult result = validateCard(cardNumber,useICheck);
 		return result;
 	}

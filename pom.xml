@@ -26,7 +26,6 @@
         <module>hotel</module>
         <module>icheck</module>
     </modules>
-
     <build>
         <plugins>
             <plugin>

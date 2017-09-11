@@ -1,29 +1,37 @@
 package edu.jennifer.ipayment.model;
 
-import com.google.gson.Gson;
-import org.bson.Document;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "transactions")
 public class Transaction {
 
-	private String id;
-	private String reservation_id;
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	private String reservationid;
 	private String ammount;
 	private String cardNumber;
 	private String cardExpire;
 	private String cardHolder;
-	
-	public String getId() {
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getReservation_id() {
-		return reservation_id;
+
+	public String getReservationid() {
+		return reservationid;
 	}
-	public void setReservation_id(String reservation_id) {
-		this.reservation_id = reservation_id;
+	public void setReservationid(String reservation_id) {
+		this.reservationid = reservation_id;
 	}
 	public String getAmmount() {
 		return ammount;
@@ -52,31 +60,11 @@ public class Transaction {
 
 	public static Transaction generate(String reservationId){
 		Transaction details = new Transaction();
-		details.setId(reservationId);
-		details.setReservation_id(reservationId);
+		details.setReservationid(reservationId);
 		details.setAmmount("125.5");
 		details.setCardExpire("2015-02-12");
 		details.setCardHolder("Khalid Saeed");
 		details.setCardNumber("12345678913");
 		return details;
 	}
-
-	public String toJson(){
-		Gson g = new Gson();
-		return g.toJson(this);
-	}
-
-	public Document toMongoDocument(){
-		Document document = new Document();
-		document.put("id",getId());
-		document.put("reservation_id",getReservation_id());
-		document.put("ammount",getAmmount());
-		document.put("cardNumber",getCardNumber());
-		document.put("cardHolder",getCardHolder());
-		document.put("cardExpire",getCardExpire());
-
-		return document;
-	}
-
-	
 }

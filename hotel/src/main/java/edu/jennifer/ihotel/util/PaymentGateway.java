@@ -28,7 +28,7 @@ public class PaymentGateway {
     private static final String PAYMENT_DETAILS_ACTIONS		= "payment_detail";
 
     private static final String JSON_KEY_ID					="id";
-    private static final String JSON_KEY_RESERVATION_ID		="reservation_id";
+    private static final String JSON_KEY_RESERVATION_ID		="reservationid";
     private static final String JSON_KEY_AMMOUNT			="ammount";
     private static final String JSON_KEY_CARD_NUMBER		="cardNumber";
     private static final String JSON_KEY_CARD_HOLDER		="cardHolder";
@@ -44,7 +44,7 @@ public class PaymentGateway {
         try{
             String baseUrl = getIpaymentBaseUrl();
             httpClient = HttpClientBuilder.create().build();
-            String callUrl = baseUrl + PAYMENT_DETAILS_ACTIONS +"?reservation_id=" + URLEncoder.encode(reservationId, UTF8);
+            String callUrl = baseUrl + PAYMENT_DETAILS_ACTIONS +"?resverationId=" + URLEncoder.encode(reservationId, UTF8);
 
             HttpGet getRequest = new HttpGet(callUrl);
             response = httpClient.execute(getRequest);
@@ -57,11 +57,13 @@ public class PaymentGateway {
                 Payment paymentDeatils = null;
                 paymentDeatils = new Payment(object.getString(JSON_KEY_ID), object.getString(JSON_KEY_RESERVATION_ID), object.getDouble(JSON_KEY_AMMOUNT),
                         object.getString(JSON_KEY_CARD_NUMBER), object.getString(JSON_KEY_CARD_HOLDER), object.getString(JSON_KEY_EXPIRE), "");
+
                 return paymentDeatils;
             }
 
             return null;
         }catch(Exception ex){
+            ex.printStackTrace();
             PaymentGateway.lastDetailException = ex;
             return null;
         }

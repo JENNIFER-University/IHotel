@@ -13,24 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatusController {
 
     @RequestMapping("/status")
-    public @ResponseBody
-    Status healthCheck(){
+    public  Status healthCheck(){
         Status s = new Status();
         s.setIpayment("alive");
-        if(Conf.getInstance().icheckEnabled()){
-            String icheckIP   = Conf.getInstance().getICheckIP();
-            String icheckPort = Conf.getInstance().getICheckPort();
-            Validator v  = new Validator();
-            boolean initialized = v.initialize(icheckIP,icheckPort);
-            if(!initialized){
-                s.setIcheck("dead");
+        try{
+            if(Conf.getInstance().icheckEnabled()){
+                String icheckIP   = Conf.getInstance().getICheckIP();
+                String icheckPort = Conf.getInstance().getICheckPort();
+                Validator v  = new Validator();
+                boolean initialized = v.initialize(icheckIP,icheckPort);
+                if(!initialized){
+                    s.setIcheck("dead");
+                }else{
+                    String cardNumber = "123456789";
+                    boolean result = v.checkCard(cardNumber);
+                    s.setIcheck("alive");
+                }
             }else{
-                String cardNumber = "123456789";
-                boolean result = v.checkCard(cardNumber);
-                s.setIcheck("alive");
+                s.setIcheck("dead");
             }
-        }else{
-            s.setIcheck("dead");
+        }catch (Exception ex) {
+            s.setIcheck("Configuration not found");
         }
 
         return  s;

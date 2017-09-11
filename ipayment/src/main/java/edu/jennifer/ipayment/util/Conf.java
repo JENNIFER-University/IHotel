@@ -12,33 +12,32 @@ public class Conf {
 	private static Properties prop = null;
 	
 	public static Conf getInstance(){
-		try{
-			if(inst == null)
-				inst = new Conf();
-			return inst;
-		}catch (Exception ex){
-			if(ex instanceof IOException) {
-				System.out.println("app.conf was not found");
-			}
-			return null;
+		if (inst == null) {
+			inst = new Conf();
 		}
-
+		return inst;
 	}
 	
-	public Conf() throws IOException{
+	public Conf(){
 		prop = load();
 	}
 	
-	private Properties load() throws IOException{
-		File configFile = new File("app.conf");
-		InputStream in  = new FileInputStream(configFile);
-		Properties prop = new Properties();
-		prop.load(in);
-		return prop;
+	private Properties load(){
+		try{
+			File configFile = new File("app.conf");
+			InputStream in  = new FileInputStream(configFile);
+			Properties prop = new Properties();
+			prop.load(in);
+			return prop;
+		}catch (IOException io) {
+			return null;
+		}
 	}
 
 	public boolean icheckEnabled(){
-		return prop.getProperty("icheck_enabled","false").equalsIgnoreCase("true");
+		if (prop == null)
+			return false;
+		return prop.getProperty("icheck_enabled","false").equalsIgnoreCase("false");
 	}
 
 	public String getICheckIP(){

@@ -1,11 +1,9 @@
 package edu.jennifer.ipayment.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-
-import edu.jennifer.ipayment.model.DAOFactory;
 import edu.jennifer.ipayment.model.Transaction;
+import edu.jennifer.ipayment.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PaymentController{
 
+	@Autowired
+	private TransactionService transactionService;
 
 	@RequestMapping("/makePayment")
 	public Transaction makePayment(@RequestParam(name = "reservation_id") String reservation_id,
@@ -21,25 +21,15 @@ public class PaymentController{
 								   @RequestParam(name = "cardholder") String cardholder,
 								   @RequestParam(name = "expire") String expire ){
 		Transaction transaction = new Transaction();
-		transaction.setId(getCurrentTimeStamp());
-		transaction.setReservation_id(reservation_id);
+
+		transaction.setReservationid(reservation_id);
 		transaction.setAmmount(ammount);
 		transaction.setCardNumber(cardnumber);
 		transaction.setCardHolder(cardholder);
 		transaction.setCardExpire(expire);
 
-		try{
-			DAOFactory.getTransactionDAO().save(transaction);
-			return transaction;
-		}catch (Exception ex){
-			return null;
-		}
+		return transactionService.save(transaction);
 
 	}
 
-
-	private static String getCurrentTimeStamp(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
-		return sdf.format(new Date());
-	}
 }
