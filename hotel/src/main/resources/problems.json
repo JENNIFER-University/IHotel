@@ -1,0 +1,44 @@
+[
+  {
+    "id" : "1",
+    "name": "High CPU",
+    "description": "This Problem will cause high cpu usage for a short period of time.",
+    "icon": "level-up",
+    "enabled": false
+  },
+  {
+    "id" : "2",
+    "name": "SQL Exception",
+    "description": "This is an example of SQL exception",
+    "icon": "database",
+    "enabled": false
+  },
+  {
+    "id" : "3",
+    "name": "External Call Exception",
+    "description": "This is an example of an exception occuring during an external call",
+    "icon": "external-link",
+    "enabled": false
+  },
+  {
+    "id" : "4",
+    "name": "Slow Login",
+    "description": "This Problem will try to simulate slow login behavior for a specific user.",
+    "icon": "clock-o",
+    "enabled": false
+  },
+  {
+    "id" : "5",
+    "name": "Service Queue",
+    "description": "This is an example service queueing. You can observe the problem in the Active Service Equalizer graph",
+    "icon": "th-list",
+    "enabled": false
+  },
+  {
+    "id" : "6",
+    "name": "Dead Lock",
+    "description": "A Dead Lock Example. You can see the threads status in the Thread dashboard",
+    "icon": "lock",
+    "enabled": false
+  }
+]

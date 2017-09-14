@@ -9,59 +9,43 @@
   <% } %>
 
 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>iHotel | The Most Luxuary Hotel</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>iHotel | The Most Luxuary Hotel</title>
+	<!-- Google fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500,800|Old+Standard+TT'  rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500,800'  rel='stylesheet' type='text/css'>
 
-<!-- Google fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:300,500,800|Old+Standard+TT'
-	rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Raleway:300,500,800'
-	rel='stylesheet' type='text/css'>
+	<!-- font awesome -->
+	<link  href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-<!-- font awesome -->
-<link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	rel="stylesheet">
+	<!-- bootstrap -->
+	<link rel="stylesheet"  href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 
-<!-- bootstrap -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+	<!-- uniform -->
+	<link type="text/css" rel="stylesheet"
+		href="${pageContext.request.contextPath}/css/uniform.default.min.css" />
 
-<!-- uniform -->
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/uniform.default.min.css" />
-
-<!-- animate.css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/animate.css" />
+	<!-- animate.css -->
+	<link rel="stylesheet"  href="${pageContext.request.contextPath}/css/animate.css" />
 
 
-<!-- Jquery UI -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<!-- Jquery UI -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
-<!-- gallery -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/blueimp-gallery.min.css">
+	<!-- gallery -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/blueimp-gallery.min.css">
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+	<!-- favicon -->
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/decorators/images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="${pageContext.request.contextPath}/decorators/images/favicon.png" type="image/x-icon">
 
 
-<!-- favicon -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/decorators/images/favicon.png"
-	type="image/x-icon">
-<link rel="icon"
-	href="${pageContext.request.contextPath}/decorators/images/favicon.png"
-	type="image/x-icon">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
-
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+	<!-- Jquery -->
+	<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 
 </head>
 
@@ -137,7 +121,7 @@
                 <h4 class="modal-title">About iHotel v <s:property value="appVersion" /> </h4>
             </div>
             <div class="modal-body">
-                <p><strong>iHotel</strong> and its compoents (iHotel,iPayment) are developed for the purpose of illustrating and showing JenniferSoft's product -JENNIFER V5- functions, and to be used in training and educational sessions conducted by JenniferSoft only.</p>
+                <p><strong>iHotel System</strong> with all of its compoents (iHotel,iPayment, iCheck) are developed for the purpose of illustrating and showing JenniferSoft's product -JENNIFER V5- functions, and to be used in training and educational sessions conducted by JenniferSoft only.</p>
                 <p>It shall not be used for any other purposes without permission from the application developer</p>
                 <p>For more information please contact the developer : </p>
                 <p class="text-warning"><small>Khalid Elshafie.</small> <a href="mailto:khalid@jennifersoft.com">khalid@jennifersoft.com</a></p>

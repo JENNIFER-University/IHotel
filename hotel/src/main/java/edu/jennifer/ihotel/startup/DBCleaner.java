@@ -1,4 +1,6 @@
-package edu.jennifer.ihotel.util;
+package edu.jennifer.ihotel.startup;
+
+import edu.jennifer.ihotel.util.ConnectionUtil;
 
 import java.sql.Statement;
 

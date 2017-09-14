@@ -165,6 +165,31 @@ public class PaymentGateway {
         }
     }
 
+    public static String[] getConnectionStatus() {
+        CloseableHttpClient httpClient;
+        CloseableHttpResponse response;
+        try{
+            String baseUrl = PaymentGateway.getIpaymentBaseUrl();
+            httpClient = HttpClientBuilder.create().build();
+            String callUrl = baseUrl + "status";
+
+            HttpGet getRequest = new HttpGet(callUrl);
+            response = httpClient.execute(getRequest);
+            int responseCode = response.getStatusLine().getStatusCode();
+            if(responseCode == 200){
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output = br.readLine();
+                br.close();
+                JSONObject object = new JSONObject(output);
+                String[] result = { object.getString("ipayment") ,object.getString("icheck")};
+                return result;
+            }
+            return null;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+
     public static Exception getLastDetailException() {
         return lastDetailException;
     }

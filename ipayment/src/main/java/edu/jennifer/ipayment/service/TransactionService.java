@@ -8,11 +8,7 @@ import edu.jennifer.ipayment.model.Transaction;
  */
 public interface TransactionService {
 
-    Iterable<Transaction> list();
-
     Transaction save(Transaction transaction);
-
-    Transaction findById(long id);
 
     Transaction findByReservationId(String reservationId);
 }

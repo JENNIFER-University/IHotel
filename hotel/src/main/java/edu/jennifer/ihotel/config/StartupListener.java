@@ -1,8 +1,11 @@
 package edu.jennifer.ihotel.config;
 
+import edu.jennifer.ihotel.startup.UserMaker;
 import edu.jennifer.ihotel.util.ConnectionUtil;
-import edu.jennifer.ihotel.util.DBCleaner;
+import edu.jennifer.ihotel.startup.DBCleaner;
 import edu.jennifer.ihotel.util.Version;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,21 +20,27 @@ import java.util.Scanner;
  */
 @WebListener
 public class StartupListener implements ServletContextListener {
+    Logger logger = LogManager.getRootLogger();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.printf("%s%n",loadSignature());
         System.out.printf("Version: %s%n", Version.getVersion());
-        System.out.printf("Checking Database Connection ... %n");
+        logger.info("Checking Database Connection");
         boolean dataSourceExists = ConnectionUtil.getInstance().getDataSource() == null ? false : true;
 
         if (!dataSourceExists) {
-            System.out.printf("DataSource not found. Please create datasource in your tomcat configuration%n");
-            System.out.printf("DataSource Name [%s]%n", ConnectionUtil.DATASOURCE_NAME);
+            logger.error("DataSource not found. Please create datasource in your tomcat configuration");
+            logger.info(String.format("DataSource Name [%s]", ConnectionUtil.DATASOURCE_NAME));
         }else {
-            System.out.printf("Cleaning up Reservation Table ....%n ");
+            logger.info("Cleaning up Reservation Table .... ");
             new DBCleaner().cleanReservationTable();
+
+            logger.info("Creating Users .... ");
+            new UserMaker().createUsers();
         }
+
+        logger.info("iHotel Startup initialization completed");
 
     }
 

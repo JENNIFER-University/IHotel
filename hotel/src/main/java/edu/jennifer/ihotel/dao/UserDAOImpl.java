@@ -52,9 +52,9 @@ public class UserDAOImpl implements UserDAO{
 	 * @param profile If this flag is set, simulate slow login
 	 * @return User information as Json
 	 */
-	public String login(String username, String password, String profile) {
+	public User login(String username, String password, String profile) {
 		try{
-			String query = "SELECT * FROM users where USERNAME = ? AND PASSWORD = ?";
+			String query = "SELECT * FROM users where username = ? AND password = ?";
 			User user = jdbcTemplate.query(query, new String[]{username,Common.plainToMD5(password)}, new ResultSetExtractor<User>() {
 				public User extractData(ResultSet rs) throws SQLException,
 						DataAccessException {
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO{
 				loadProfie();
 			}
 
-			return user.toJson();
+			return user;
 		}catch(Exception ex){
 			return null;
 		}

@@ -1,51 +1,26 @@
 package edu.jennifer.ipayment.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class Conf {
 
-	private static Conf inst = null;
-	private static Properties prop = null;
-	
-	public static Conf getInstance(){
-		if (inst == null) {
-			inst = new Conf();
-		}
-		return inst;
-	}
-	
-	public Conf(){
-		prop = load();
-	}
-	
-	private Properties load(){
-		try{
-			File configFile = new File("app.conf");
-			InputStream in  = new FileInputStream(configFile);
-			Properties prop = new Properties();
-			prop.load(in);
-			return prop;
-		}catch (IOException io) {
-			return null;
-		}
-	}
 
-	public boolean icheckEnabled(){
-		if (prop == null)
-			return false;
-		return prop.getProperty("icheck_enabled","false").equalsIgnoreCase("false");
-	}
+	@Value("${icheck.enable}")
+	private boolean icheckEnabled;
 
-	public String getICheckIP(){
-		return prop.getProperty("icheck_ip","localhost");
-	}
+	@Value("${icheck.ip}")
+	private String icheckIp;
 
-	public String getICheckPort(){
-		return prop.getProperty("icheck_port","1099");
-	}
+	@Value("${icheck.port}")
+	private String icheckPort;
+
+	public boolean isIcheckEnabled() {return icheckEnabled;}
+
+	public String getIcheckIp() { return icheckIp;}
+
+	public String getIcheckPort() { return icheckPort;}
 
 }

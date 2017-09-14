@@ -1,7 +1,9 @@
 package edu.jennifer.ipayment.controller;
 
+import edu.jennifer.ipayment.model.CheckResult;
 import edu.jennifer.ipayment.util.Conf;
 import edu.jennifer.ipayment.util.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ValidatCardController{
 
+	@Autowired
+	private Conf config;
 
 	@RequestMapping("/validateCard")
 	public CheckResult validate(@RequestParam(name = "cardNumber") String cardNumber){
-		System.out.printf("<>>>>>>>>>>>>> Validaating");
-		boolean useICheck = Conf.getInstance().icheckEnabled();
-		System.out.println("USE ICHECK = "+ useICheck);
+		boolean useICheck =  config.isIcheckEnabled();
 		CheckResult result = validateCard(cardNumber,useICheck);
 		return result;
 	}
@@ -24,10 +26,8 @@ public class ValidatCardController{
 		CheckResult result = new CheckResult();
 		result.setCardNumber(cardNumber);
 		if(useICheck){
-			String IP   =  Conf.getInstance().getICheckIP();
-			String port =  Conf.getInstance().getICheckPort();
 			Validator validator = new Validator();
-			validator.initialize(IP,port);
+			validator.initialize(config.getIcheckIp(),config.getIcheckIp());
 			int error = validator.checkCard(cardNumber) ? 0 : 1;
 			result.setError(error);
 		}else{
@@ -54,26 +54,4 @@ public class ValidatCardController{
 		checkDigists(levels-1);
 	}
 
-
-	class CheckResult{
-		String cardNumber;
-		int error;
-
-		public String getCardNumber() {
-			return cardNumber;
-		}
-
-		public void setCardNumber(String cardNumber) {
-			this.cardNumber = cardNumber;
-		}
-
-
-		public int getError() {
-			return error;
-		}
-
-		public void setError(int error) {
-			this.error = error;
-		}
-	}
 }

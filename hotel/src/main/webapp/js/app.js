@@ -60,7 +60,7 @@ var app = {
         t = t.substr(0, len);
 
         return t;
-    }
+    },
 }
 
 

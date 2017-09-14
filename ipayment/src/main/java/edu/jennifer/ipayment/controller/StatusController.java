@@ -2,8 +2,8 @@ package edu.jennifer.ipayment.controller;
 
 import edu.jennifer.ipayment.util.Conf;
 import edu.jennifer.ipayment.util.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,29 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StatusController {
 
+    @Autowired
+    private Conf config;
+
     @RequestMapping("/status")
     public  Status healthCheck(){
         Status s = new Status();
         s.setIpayment("alive");
-        try{
-            if(Conf.getInstance().icheckEnabled()){
-                String icheckIP   = Conf.getInstance().getICheckIP();
-                String icheckPort = Conf.getInstance().getICheckPort();
-                Validator v  = new Validator();
-                boolean initialized = v.initialize(icheckIP,icheckPort);
-                if(!initialized){
-                    s.setIcheck("dead");
-                }else{
-                    String cardNumber = "123456789";
-                    boolean result = v.checkCard(cardNumber);
-                    s.setIcheck("alive");
-                }
-            }else{
+
+        if(config.isIcheckEnabled()){
+            Validator v  = new Validator();
+            boolean initialized = v.initialize(config.getIcheckIp(),config.getIcheckPort());
+            if(!initialized){
                 s.setIcheck("dead");
+            }else{
+                String cardNumber = "123456789";
+                boolean result = v.checkCard(cardNumber);
+                s.setIcheck("alive");
             }
-        }catch (Exception ex) {
-            s.setIcheck("Configuration not found");
+        }else{
+            s.setIcheck("disabled");
         }
+
 
         return  s;
 

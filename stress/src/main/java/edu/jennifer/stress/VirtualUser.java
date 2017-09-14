@@ -283,7 +283,7 @@ public class VirtualUser extends Thread{
 		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("roomNo",params.getRoomId()));	
 		postParams.add(new BasicNameValuePair("title",params.getGuestInfo().getTitle()));
-		postParams.add(new BasicNameValuePair("surname",params.getGuestInfo().getSureName()));
+		postParams.add(new BasicNameValuePair("surename",params.getGuestInfo().getSureName()));
 		postParams.add(new BasicNameValuePair("firstname",params.getGuestInfo().getFirstName()));
 		postParams.add(new BasicNameValuePair("email",params.getGuestInfo().getEmail()));
 		postParams.add(new BasicNameValuePair("dob","January 31st 1986"));

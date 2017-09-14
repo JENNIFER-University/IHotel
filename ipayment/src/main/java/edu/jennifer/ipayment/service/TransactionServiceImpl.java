@@ -17,20 +17,9 @@ public class TransactionServiceImpl implements TransactionService{
         this.transactionRepository = transactionRepository;
     }
 
-
-    @Override
-    public Iterable<Transaction> list() {
-        return transactionRepository.findAll();
-    }
-
     @Override
     public Transaction save(Transaction transaction) {
         return transactionRepository.save(transaction);
-    }
-
-    @Override
-    public Transaction findById(long id) {
-        return transactionRepository.findOne(id);
     }
 
     @Override

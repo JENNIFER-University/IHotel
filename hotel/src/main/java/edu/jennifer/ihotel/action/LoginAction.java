@@ -1,5 +1,6 @@
 package edu.jennifer.ihotel.action;
 
+import edu.jennifer.ihotel.model.User;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -19,10 +20,10 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     @Override
     public String execute() throws Exception {
-        String userData = getUserDAO().login(getUsername(), getPassword(), getProfile());
+        User userData = getUserDAO().login(getUsername(), getPassword(), getProfile());
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");
-            sessionMap.put("currentUser",userData);
+            sessionMap.put("currentUser",userData.getUsername());
             return SUCCESS;
         }
         return ERROR;

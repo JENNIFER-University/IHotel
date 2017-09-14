@@ -8,6 +8,10 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 /**
  * Created by khalid on 31/03/2017.
@@ -48,7 +52,20 @@ public class ConnectionUtil {
         return  instance;
     }
 
+    public boolean tablesAreOk() {
+        try{
+            DatabaseMetaData md = getDataSource().getConnection().getMetaData();
+            ResultSet rs = md.getTables(null, null, "%", null);
+            int tablesCount = 0;
+            while (rs.next()) {
+                tablesCount++;
+            }
+            return tablesCount >= 7;
+        }catch (SQLException sql){
+            return false;
+        }
 
 
+    }
 
 }

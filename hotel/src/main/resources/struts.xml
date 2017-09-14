@@ -73,6 +73,19 @@
 
     </package>
 
+    <package name="test" extends="json-default" namespace="/test">
+        <action name="all" class="edu.jennifer.ihotel.action.TestAction">
+            <result type="json"></result>
+        </action>
+    </package>
+
+    <package name="config" extends="default">
+        <action name="config" class="edu.jennifer.ihotel.problem.ProblemsAction">
+            <result type="tiles">/config.tiles</result>
+        </action>
+        <action name="updateConfig" class="edu.jennifer.ihotel.problem.ToggleProblemAction" method="updateConfig" />
+    </package>
+
     <package name="api" extends="json-default" namespace="/api">
         <action name="status" class="edu.jennifer.ihotel.action.api.StatusAction">
             <result type="json" />

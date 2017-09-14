@@ -1,2 +1,7 @@
 server:
   port: 18080
+
+icheck:
+  enable: true
+  ip: 127.0.0.1
+  port: 1099
