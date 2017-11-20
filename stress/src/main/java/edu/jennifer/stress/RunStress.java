@@ -48,6 +48,7 @@ public class RunStress {
 			System.out.println("Debug mode is on");
 			debug = true;
 		}
+
 		StressRunner runner = new StressRunner(maxUser, ihotelUrl, debug);
 		runner.start();
 	}
@@ -79,7 +80,7 @@ public class RunStress {
 					synchronized (activeUsers){
 						if(!activeUsers.contains(userId)){
 							activeUsersNumber++;
-							new VirtualUser(activeUsers, userId, this.appUrl, false).start();
+							new VirtualUser(activeUsers, userId, this.appUrl, this.debug).start();
 						}
 					}
 

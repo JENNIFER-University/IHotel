@@ -81,6 +81,21 @@
         <put-attribute name="body" value="/jsp/users/login.jsp" />
     </definition>
 
+    <definition name="/signup.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Create New Account" />
+        <put-attribute name="body" value="/jsp/users/Signup.jsp" />
+    </definition>
+
+    <definition name="/signup_success.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Account Created" />
+        <put-attribute name="body" value="/jsp/users/SingupSuccess.jsp" />
+    </definition>
+
+    <definition name="/signup_failed.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Signup Failed" />
+        <put-attribute name="body" value="/jsp/users/SingupFailed.jsp" />
+    </definition>
+
     <definition name="/config.tiles" extends="configLayout">
         <put-attribute name="title" value="Configuration" />
         <put-attribute name="body" value="/jsp/Config/List.jsp" />

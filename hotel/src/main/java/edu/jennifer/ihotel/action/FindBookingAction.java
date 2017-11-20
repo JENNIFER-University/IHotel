@@ -2,6 +2,7 @@ package edu.jennifer.ihotel.action;
 
 import edu.jennifer.ihotel.model.Payment;
 import edu.jennifer.ihotel.model.Reservation;
+import edu.jennifer.ihotel.problem.ProblemPool;
 import edu.jennifer.ihotel.util.PaymentGateway;
 
 /**
@@ -13,20 +14,30 @@ public class FindBookingAction extends BaseAction {
     private String reservationId;
     private Reservation reservation;
     private Payment payment;
+    private String test = "hehehe";
 
     @Override
     public String execute() throws Exception {
-        Reservation result = getReservationDAO().findByReservationId(getReservationId(), initalize());
-        if(reservationId == null || reservationId.length() == 0 || result == null) {
-            return  ERROR;
+
+        if (ProblemPool.getInstance().makeProblem(ProblemPool.EX_CALL_EXCEPTION)) {
+            Payment p = PaymentGateway.getPaymentDetails("ex1234567");
+            return ERROR;
+        }else {
+            Reservation result = getReservationDAO().findByReservationId(getReservationId(), initalize());
+            if(reservationId == null || reservationId.length() == 0 || result == null) {
+                return  ERROR;
+            }
+
+            Payment p = PaymentGateway.getPaymentDetails(result.getId());
+            if (p == null) {
+                return ERROR;
+            }
+            setReservation(result);
+            setPayment(p);
+            return SUCCESS;
+
         }
 
-        Payment p = PaymentGateway.getPaymentDetails(result.getId());
-        setReservation(result);
-        setPayment(p);
-
-
-        return SUCCESS;
     }
 
 
@@ -52,5 +63,13 @@ public class FindBookingAction extends BaseAction {
 
     public Payment getPayment() {
         return payment;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 }

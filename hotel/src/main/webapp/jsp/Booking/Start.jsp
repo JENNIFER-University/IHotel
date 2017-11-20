@@ -137,6 +137,8 @@
 					<i class="fa fa-credit-card" aria-hidden="true"></i> Book Now
 				</button>
 
+				<a href="/ihotel/booking/cancel" class="btn btn-danger btn-lg"><i class="fa fa-times"></i> Cancel Booking</a>
+
 				<div class="pull-right">
 					<a id="autoFill" href="javascript:void(0)" onclick="app.autoFill(0);"><i class="fa fa-lock"></i></a>
 					<a id="autoFill500" href="javascript:void(0)" onclick="app.autoFill(1);"><i class="fa fa-unlock-alt"></i></a>

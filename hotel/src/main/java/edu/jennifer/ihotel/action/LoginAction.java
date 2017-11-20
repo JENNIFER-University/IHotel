@@ -20,7 +20,7 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     @Override
     public String execute() throws Exception {
-        User userData = getUserDAO().login(getUsername(), getPassword(), getProfile());
+        User userData = getUserDAO().login(getUsername(), getPassword());
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");
             sessionMap.put("currentUser",userData.getUsername());
@@ -58,9 +58,5 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     public void setProfile(String profile) {
         this.profile = profile;
-    }
-
-    public String getProfile() {
-        return profile;
     }
 }

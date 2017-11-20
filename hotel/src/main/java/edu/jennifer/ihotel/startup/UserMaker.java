@@ -38,7 +38,7 @@ public class UserMaker {
             user = new User();
             user.setId(i + "");
             user.setRealName("User " + i);
-            user.setUsername("user"+1);
+            user.setUsername("user"+i);
             user.setPassword(password);
             users.add(user);
         }

@@ -35,6 +35,9 @@
                         <i class="fa fa-credit-card" aria-hidden="true"></i>
                         Login
                      </button>
+                    <div class="pull-right">
+                        <a href="signup">Do not have an account? Sign Up Now</a>
+                    </div>
                 </div>
             </div>
             </form>

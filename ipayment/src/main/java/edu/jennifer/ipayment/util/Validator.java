@@ -21,6 +21,7 @@ public class Validator {
             icheck = (ICheck) registry.lookup("CheckCard");
             return true;
         }catch (Exception ex){
+            ex.printStackTrace();
             return false;
         }
     }

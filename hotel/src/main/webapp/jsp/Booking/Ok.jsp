@@ -2,7 +2,7 @@
 
 <div class="container">
 
-<h2>Booking Complete.Reservation Number [<s:property value="reservationId"/>]</h2>
+<h2>Booking Complete.Reservation Number [<%= request.getParameter("reservationId") %>]</h2>
 
 
 	<div class="row">
@@ -11,7 +11,7 @@
 
 			<div class="panel-body">
 				<p>Your booking is complete. We hope you enjoy your stay at our hotel. If you have any questions, please do not annoy us with it.</p>
-				<p>Your booking reference is <strong id="bookingNumber"><s:property value="reservationId"/></strong>, keep this number save in case you needed to modify your booking</p>
+				<p>Your booking reference is <strong id="searchMe"><%= request.getParameter("reservationId") %></strong>, keep this number save in case you needed to modify your booking</p>
 			</div>
 		</div>
 	</div>

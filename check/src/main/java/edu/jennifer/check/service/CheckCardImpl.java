@@ -1,25 +1,29 @@
 package edu.jennifer.check.service;
 
+import edu.jennifer.check.queue.Observable;
+import edu.jennifer.check.queue.QueueManager;
 import edu.jennifer.icheck.ICheck;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Random;
 
 /**
  * Sample implementation of Credit Card Check
  * Created by khalid on 8/19/16.
  */
-public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
+public class CheckCardImpl extends UnicastRemoteObject implements ICheck, Observable {
+
+    private QueueManager queueManager = QueueManager.getInstnace();
+    private String status;
+    private boolean wasUsingQueue = false;
 
     /**
      * Default Constructor
      * @throws RemoteException
      */
-    public CheckCardImpl() throws RemoteException{}
+    public CheckCardImpl() throws RemoteException{
+        queueManager.register(this);
+    }
 
     /**
      * Simulate checking if a credit card if valid or no.
@@ -28,52 +32,72 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
      * @throws RemoteException
      */
     public String checkCreditCard(String cardNumber) throws RemoteException {
-        System.out.printf("Checking [%s] \n",cardNumber);
-        if(checkDigits(cardNumber)){
-            isBlackListed(cardNumber);
-            return "valid";
+        boolean useQueue = cardNumber.split("-").length == 2;
+        if(useQueue) {
+            wasUsingQueue = true;
+            return checkUsingQueue(cardNumber);
         }else {
-            System.out.println("Card Digits Check Failed");
-            return "invalid";
+            if (wasUsingQueue) {
+                wasUsingQueue = false;
+                queueManager.releaseAll();
+            }
+            return checkWithoutQueue(cardNumber);
         }
     }
 
     /**
-     * Simulate checking card digists
-     * @param cardNumber Credit Card Number
-     * @return <strong>true</strong> if test passed, <strong>false</strong> otherwise.
+     * Change the processing logic to use Queue manager and cause Service Queue
+     * @param cardNumber
+     * @return
      */
-    private boolean checkDigits(String cardNumber){
-        int sum = 0;
-        for(int i = cardNumber.length() - 1; i >= 0; i--){
-            int n = Integer.parseInt(cardNumber.substring(i,i+1));
-            sum += n;
-            try{Thread.sleep(150);}catch (InterruptedException ex){};
-        }
-
-        if(cardNumber.startsWith("500"))
-            return false;
-        else
-            return sum > 10;
+    private String checkUsingQueue(String cardNumber) {
+        queueManager.add(cardNumber);
+        waitForResultFromQueue();
+        String checkResult= status;
+        status = null;
+        return checkResult;
     }
 
-    private boolean isBlackListed(String card){
-        try{
-            System.out.println("Checking Black listed credit card db");
-            String query = "SELECT * FROM CARDS WHERE CARD_NUMBER = ?";
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            PreparedStatement pst = connection.prepareStatement(query);
-            pst.setString(1, card);
-            ResultSet rs = pst.executeQuery();
-            boolean blackListed = false;
-            if(rs.next()){
-                blackListed = true;
+    /**
+     * Delay waiting the result from the queue.
+     */
+    private void waitForResultFromQueue() {
+        long starTime = System.currentTimeMillis();
+        while (status == null) {
+            for(int i =0; ; i++) {
+                long now = System.currentTimeMillis();
+                if (now - starTime >= 1000) break;
             }
-            rs.close();
-            pst.close();
-            return  blackListed;
-        }catch (Exception ex){
-            return false;
+
+            //Attempt to escape the service queue issue
+            if (queueManager.isEmpty()) {
+                status = "valid";
+            }
         }
+    }
+
+    /**
+     * Check card directly without queue maanager
+     * @param card
+     * @return
+     */
+    private String checkWithoutQueue(String card) {
+        if(CheckTask.checkDigits(card)){
+            int iterations = card.length();
+            if (iterations > 10 || iterations == 0) {
+                iterations = 10;
+            }
+            CheckTask.isBlackListed(iterations, card);
+            return "valid";
+        }else {
+            System.out.printf("[%s] Card Digits Check Failed%n", getClass().getSimpleName());
+            return "invalid";
+        }
+    }
+
+
+    @Override
+    public void update(String staus) {
+        this.status = staus;
     }
 }

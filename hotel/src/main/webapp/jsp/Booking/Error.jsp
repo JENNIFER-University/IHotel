@@ -11,7 +11,7 @@
 
 			<div class="panel-body">
 				<p>We are so sorry, but something went wrong with the booking process. Please contact our customer service</p>
-				<p>Failure Reason: <s:property value="reason" />
+				<p>Failure Reason: <strong id="searchMe"> <%= request.getParameter("reason")%> </p>
 			</div>
 		</div>
 	</div>

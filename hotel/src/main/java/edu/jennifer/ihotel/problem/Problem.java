@@ -11,6 +11,7 @@ public class Problem {
     private String description;
     private String icon;
     private boolean enabled;
+    private long lastUsed;
 
     public int getId() {
         return id;
@@ -50,5 +51,13 @@ public class Problem {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public long getLastUsed() {
+        return lastUsed;
+    }
+
+    public void setLastUsed(long lastUsed) {
+        this.lastUsed = lastUsed;
     }
 }

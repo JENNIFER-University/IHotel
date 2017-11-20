@@ -1,15 +1,8 @@
 [
   {
-    "id" : "1",
-    "name": "High CPU",
-    "description": "This Problem will cause high cpu usage for a short period of time.",
-    "icon": "level-up",
-    "enabled": false
-  },
-  {
     "id" : "2",
     "name": "SQL Exception",
-    "description": "This is an example of SQL exception",
+    "description": "This is an example of SQL exception. Enable This problem pattern and then try to create new account.  ",
     "icon": "database",
     "enabled": false
   },
@@ -23,21 +16,21 @@
   {
     "id" : "4",
     "name": "Slow Login",
-    "description": "This Problem will try to simulate slow login behavior for a specific user.",
+    "description": "This Problem will try to simulate slow login behavior for a specific user. Enable this problem pattern and then try to login with username: khalid and password: admin",
     "icon": "clock-o",
     "enabled": false
   },
   {
     "id" : "5",
     "name": "Service Queue",
-    "description": "This is an example service queueing. You can observe the problem in the Active Service Equalizer graph",
+    "description": "This is an example service queueing. You can observe the problem in the Active Service Equalizer graph. Note: This problem pattern requires iCheck to be up and running. ",
     "icon": "th-list",
     "enabled": false
   },
   {
     "id" : "6",
     "name": "Dead Lock",
-    "description": "A Dead Lock Example. You can see the threads status in the Thread dashboard",
+    "description": "A Dead Lock Example. You can see the threads status in the Thread dashboard. Please do not overuse this problem because it will result in multi dead-locked threads",
     "icon": "lock",
     "enabled": false
   }

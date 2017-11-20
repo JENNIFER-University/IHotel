@@ -27,7 +27,7 @@ public class ValidatCardController{
 		result.setCardNumber(cardNumber);
 		if(useICheck){
 			Validator validator = new Validator();
-			validator.initialize(config.getIcheckIp(),config.getIcheckIp());
+			validator.initialize(config.getIcheckIp(),config.getIcheckPort());
 			int error = validator.checkCard(cardNumber) ? 0 : 1;
 			result.setError(error);
 		}else{

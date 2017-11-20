@@ -1,7 +1,6 @@
 package edu.jennifer.check.launcher;
 
 import edu.jennifer.check.service.CheckCardImpl;
-import edu.jennifer.check.service.DBMaker;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -23,7 +22,7 @@ public class AppLauncher {
             try{
                 portNumber = Integer.parseInt(args[0]);
             }catch (NumberFormatException ex){
-                System.out.printf("Invalid port number using default [%d]\n",PORT);
+                System.out.printf("[%s] Invalid port number using default [%d]%n",AppLauncher.class.getSimpleName(), PORT);
                 portNumber = PORT;
             }
         }else{
@@ -31,7 +30,6 @@ public class AppLauncher {
         }
 
         AppLauncher app = new AppLauncher();
-        app.checkDatabase();
         app.startServer(portNumber);
 
     }
@@ -42,22 +40,15 @@ public class AppLauncher {
      */
     private void startServer(int port){
         try{
-            System.out.printf("Starting the server and listening on port [%d]\n",port);
+            System.out.printf("[%s] Starting the server and listening on port [%d]%n",AppLauncher.class.getSimpleName(), port);
             Registry registry = LocateRegistry.createRegistry(port);
             CheckCardImpl checkCard = new CheckCardImpl();
             registry.bind("CheckCard",checkCard);
-            System.out.println("Server has started and ready for business .... ");
+            System.out.printf("[%s] Server has started and ready for business .... %n", AppLauncher.class.getSimpleName());
         }catch (Exception ex){
-            System.err.println("Error while starting app the server. Reason [" + ex.getMessage() +"]");
+            System.err.printf("[%s] Error while starting app the server. Reason [%s]%n", AppLauncher.class.getSimpleName(), ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-
-    /**
-     * Call the DB Maker to check the database
-     */
-    private void checkDatabase(){
-        new DBMaker().checkDatabase();
-    }
 }

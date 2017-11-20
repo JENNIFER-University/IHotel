@@ -1,7 +1,9 @@
 package edu.jennifer.ihotel.action;
 
 import edu.jennifer.ihotel.model.Room;
+import edu.jennifer.ihotel.problem.ProblemPool;
 import edu.jennifer.ihotel.util.Common;
+import edu.jennifer.ihotel.util.RoomAvailablityCheck;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class RoomsAction extends BaseAction {
     private int id;
     private Room room;
     private ArrayList<Room> rooms;
+
 
     /**
      * Get All rooms
@@ -29,6 +32,24 @@ public class RoomsAction extends BaseAction {
      * View a Single room
      */
     public String view(){
+
+        if (ProblemPool.getInstance().makeProblem(ProblemPool.DEAD_LOCK)) {
+            Object obj1 = new Object();
+            Object obj2 = new Object();
+            Object obj3 = new Object();
+
+            Thread thread1 = new Thread(new RoomAvailablityCheck(obj1, obj2), "RoomAvailablityCheck-1");
+            Thread thread2 = new Thread(new RoomAvailablityCheck(obj2, obj3), "RoomAvailablityCheck-2");
+            Thread thread3 = new Thread(new RoomAvailablityCheck(obj3, obj1), "RoomAvailablityCheck-3");
+
+            thread1.start();
+            try { Thread.sleep(3000); } catch (InterruptedException ex){}
+            thread2.start();
+            try { Thread.sleep(3000); } catch (InterruptedException ex){}
+            thread3.start();
+
+
+        }
         Room room = getRoomService().findById(getId(), Common.getRandom(2000,4000));
         setRoom(room);
         return SUCCESS;

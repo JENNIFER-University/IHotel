@@ -14,13 +14,7 @@ public class ToggleProblemAction extends BaseAction {
     private int id;
 
     public void updateConfig() {
-        List<Problem> problemList = ProblemPool.getInstance().getProblemList();
-        for(Problem problem: problemList) {
-            if (problem.getId() == id) {
-                problem.setEnabled(!problem.isEnabled());
-            }
-        }
-
+        ProblemPool.getInstance().toggleProblem(id);
     }
 
     public void setId(int id) {

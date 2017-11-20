@@ -1,6 +1,7 @@
 package edu.jennifer.ihotel.util;
 
 import edu.jennifer.ihotel.model.Payment;
+import edu.jennifer.ihotel.problem.ProblemPool;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -45,7 +46,6 @@ public class PaymentGateway {
             String baseUrl = getIpaymentBaseUrl();
             httpClient = HttpClientBuilder.create().build();
             String callUrl = baseUrl + PAYMENT_DETAILS_ACTIONS +"?resverationId=" + URLEncoder.encode(reservationId, UTF8);
-
             HttpGet getRequest = new HttpGet(callUrl);
             response = httpClient.execute(getRequest);
             int responseCode = response.getStatusLine().getStatusCode();
@@ -63,7 +63,6 @@ public class PaymentGateway {
 
             return null;
         }catch(Exception ex){
-            ex.printStackTrace();
             PaymentGateway.lastDetailException = ex;
             return null;
         }
@@ -74,6 +73,9 @@ public class PaymentGateway {
         CloseableHttpClient httpClient  = null;
         CloseableHttpResponse response  = null;
         try{
+            if (ProblemPool.getInstance().makeProblem(ProblemPool.SERVICE_QUEUE)) {
+                cardNumber += "-07012014";
+            }
             String baseUrl = getIpaymentBaseUrl();
             httpClient = HttpClientBuilder.create().build();
             String callUrl = baseUrl + AUTHORIZE_ACTION +"?cardNumber=" + URLEncoder.encode(cardNumber, UTF8);
@@ -109,6 +111,7 @@ public class PaymentGateway {
             CloseableHttpClient httpClient  = null;
             CloseableHttpResponse response  = null;
             try{
+
                 String query = "reservation_id="+ URLEncoder.encode(p.getReservationId() , "UTF-8");
                 query += "&ammount="+URLEncoder.encode(p.getAmmountAsString(), "UTF-8");
                 query += "&cardnumber="+URLEncoder.encode(p.getCardNumber() , "UTF-8");

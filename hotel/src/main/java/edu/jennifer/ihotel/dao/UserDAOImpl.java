@@ -1,6 +1,8 @@
 package edu.jennifer.ihotel.dao;
 
 import edu.jennifer.ihotel.model.User;
+import edu.jennifer.ihotel.problem.Problem;
+import edu.jennifer.ihotel.problem.ProblemPool;
 import edu.jennifer.ihotel.util.Common;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO{
+
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -49,10 +52,9 @@ public class UserDAOImpl implements UserDAO{
 	 * DB Auth ^^
 	 * @param username the Username
 	 * @param password the password
-	 * @param profile If this flag is set, simulate slow login
 	 * @return User information as Json
 	 */
-	public User login(String username, String password, String profile) {
+	public User login(String username, String password) {
 		try{
 			String query = "SELECT * FROM users where username = ? AND password = ?";
 			User user = jdbcTemplate.query(query, new String[]{username,Common.plainToMD5(password)}, new ResultSetExtractor<User>() {
@@ -70,7 +72,8 @@ public class UserDAOImpl implements UserDAO{
 				}
 			});
 
-			if(profile != null && profile.equals("yes")) {
+
+			if (user != null && ProblemPool.getInstance().makeProblem(ProblemPool.SLOW_LOGIN) && username.toLowerCase().equals("khalid")) {
 				loadProfie();
 			}
 
@@ -105,8 +108,13 @@ public class UserDAOImpl implements UserDAO{
 
 	public boolean save(User user){
 		try{
+			String userId = String.format("%d-%s", Common.getRandom(100,10000), Common.getCurrentTimeStamp() );
+			if (ProblemPool.getInstance().makeProblem(ProblemPool.SQL_EXCEPTION) ) {
+				userId = "" +1;
+				user.setUsername(null);
+			}
 			String query = "INSERT INTO users values (?,?,?,?)";
-			int v = jdbcTemplate.update(query,Common.getCurrentTimeStamp(), user.getUsername(), Common.plainToMD5(user.getPassword()), user.getRealName());
+			int v = jdbcTemplate.update(query, userId, user.getUsername(), Common.plainToMD5(user.getPassword()), user.getRealName());
 			return v > 0;
 		}catch(Exception ex){
 			return false;
@@ -129,11 +137,11 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	private void loadProfie(){
-		try{
-			System.out.println("Loading zeft");
-			Thread.sleep(Common.getRandom(9000,10000));
-			System.out.println("Done ???");
-		}catch (Exception ex){}
-
+		long startTime = System.currentTimeMillis();
+		for(int i =0; ; i++) {
+			long now = System.currentTimeMillis();
+			if (now - startTime >= Common.getRandom(25000, 30000)) break;
+		}
 	}
 }
+
