@@ -15,7 +15,7 @@ LISTEN_PORT=18080
 #AGENT_HOME=/Users/khalid/jennifer/agent.java
 
 #Agent Configuration File Name
-CONF_FILE=ipayment.conf
+#CONF_FILE=ipayment.conf
 
 #JAVA_OPTS="-javaagent:$AGENT_HOME/jennifer.jar -Djennifer.config=$AGENT_HOME/conf/$CONF_FILE"
 
