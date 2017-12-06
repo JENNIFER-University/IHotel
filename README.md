@@ -10,5 +10,6 @@ The application consists of 3 apps:
 * iCheck(Optional): Credit Card Validation (Java Daemon)
 
 ##Developer
+
 Khalid Saeed (khalid@jennifersoft.com)
 
