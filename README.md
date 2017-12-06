@@ -1,4 +1,5 @@
 #iHotel
+
 iHotel Sample application. This application is designed for JENNIFER training and education only.
  
 ## Components
