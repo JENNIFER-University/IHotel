@@ -6,7 +6,7 @@
 
     <groupId>edu.jennifer</groupId>
     <artifactId>ihotel</artifactId>
-    <version>1.1</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -17,14 +17,23 @@
         <jsp.version>2.1</jsp.version>
         <gson.version>2.3.1</gson.version>
 
+        <hotel.version>2.0.0</hotel.version>
+        <payment.version>2.0.0</payment.version>
+        <check.version>2.0.0</check.version>
+        <icheck.version>2.0.0</icheck.version>
+        <stress.version>2.0.0</stress.version>
+
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+
     </properties>
 
     <modules>
-        <module>ipayment</module>
-        <module>check</module>
         <module>stress</module>
-        <module>hotel</module>
         <module>icheck</module>
+        <module>check</module>
+        <module>payment</module>
+        <module>hotel</module>
+
     </modules>
     <build>
         <plugins>
@@ -41,17 +50,17 @@
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>copy-dependencies</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<outputDirectory>${project.build.directory}/lib</outputDirectory>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
             </plugin>
         </plugins>
     </build>

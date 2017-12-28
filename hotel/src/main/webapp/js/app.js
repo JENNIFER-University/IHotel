@@ -1,6 +1,9 @@
 var app = {
 
     init: function(){
+        //ToolTips
+        $('[data-toggle="tooltip"]').tooltip();
+
         //Shorten wa keda
         var D = 200; //Default length is 200 char
         $('.more').each(function(){

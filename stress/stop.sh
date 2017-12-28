@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# ACME Stress. Applying Stress to ACME Demo System
+
+
 echo "Stopping the stress"
-cd /home/centos/acme.stress
+APP_HOME="$PWD"
+cd $APP_HOME
 while read line
 do kill -9 $line
 done < PID

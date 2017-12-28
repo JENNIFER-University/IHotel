@@ -13,11 +13,11 @@
             <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"></result-type>
         </result-types>
 
-        <action name="welcome" class="edu.jennifer.ihotel.action.WelcomeAction">
+        <action name="welcome" class="edu.jennifer.hotel.action.WelcomeAction">
             <result type="tiles">/welcome.tiles</result>
         </action>
 
-        <action name="about" class="edu.jennifer.ihotel.action.WelcomeAction" method="about">
+        <action name="about" class="edu.jennifer.hotel.action.WelcomeAction" method="about">
             <result type="tiles">/about.tiles</result>
         </action>
 
@@ -29,21 +29,31 @@
             <result type="tiles">/signup.tiles</result>
         </action>
 
-        <action name="signup">
-            <result type="tiles">/signup.tiles</result>
+        <action name="setup" class="edu.jennifer.hotel.action.SetupAction">
+            <result type="tiles">/setup.tiles</result>
         </action>
 
-        <action name="logout" class="edu.jennifer.ihotel.action.LoginAction" method="logout">
+        <action name="doSetup" class="edu.jennifer.hotel.action.SetupSubmitAction">
+            <result type="tiles" name="success">/welcome.tiles</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">welcome</param>
+            </result>
+
+            <result type="tiles" name="error">/setup.tiles</result>
+        </action>
+
+
+        <action name="logout" class="edu.jennifer.hotel.action.LoginAction" method="logout">
             <result type="tiles" name="success">/welcome.tiles</result>
         </action>
 
-        <action name="doLogin" class="edu.jennifer.ihotel.action.LoginAction">
+        <action name="doLogin" class="edu.jennifer.hotel.action.LoginAction">
             <result type="tiles" name="success">/welcome.tiles</result>
             <result type="tiles" name="error">/login.tiles</result>
         </action>
 
 
-        <action name="doSignUp" class="edu.jennifer.ihotel.action.SignupAction">
+        <action name="doSignUp" class="edu.jennifer.hotel.action.SignupAction">
             <result type="tiles" name="success">/signup_success.tiles</result>
             <result type="tiles" name="error">/signup_failed.tiles</result>
         </action>
@@ -52,20 +62,20 @@
     </package>
 
     <package name="rooms" extends="default" namespace="/rooms">
-        <action name="list" class="edu.jennifer.ihotel.action.RoomsAction" method="list">
+        <action name="list" class="edu.jennifer.hotel.action.RoomsAction" method="list">
             <result type="tiles">/rooms.tiles</result>
         </action>
 
-        <action name="view" class="edu.jennifer.ihotel.action.RoomsAction" method="view">
+        <action name="view" class="edu.jennifer.hotel.action.RoomsAction" method="view">
             <result type="tiles">/room_view.tiles</result>
         </action>
     </package>
 
     <package name="booking" extends="default" namespace="/booking">
-        <action name="book" class="edu.jennifer.ihotel.action.BookingAction">
+        <action name="book" class="edu.jennifer.hotel.action.BookingAction">
             <result type="tiles">/booking.tiles</result>
         </action>
-        <action name="doBook" class="edu.jennifer.ihotel.action.BookingSubmitAction">
+        <action name="doBook" class="edu.jennifer.hotel.action.BookingSubmitAction">
 
             <result name="success" type="redirectAction">
                 <param name="actionName">book_complete</param>
@@ -95,7 +105,7 @@
         </action>
 
 
-        <action name="doFind" class="edu.jennifer.ihotel.action.FindBookingAction">
+        <action name="doFind" class="edu.jennifer.hotel.action.FindBookingAction">
             <result type="tiles" name="success">/find_result.tiles</result>
             <result type="tiles" name="error">/no_result.tiles</result>
         </action>
@@ -103,20 +113,20 @@
     </package>
 
     <package name="test" extends="json-default" namespace="/test">
-        <action name="all" class="edu.jennifer.ihotel.action.TestAction">
+        <action name="all" class="edu.jennifer.hotel.action.TestAction">
             <result type="json"></result>
         </action>
     </package>
 
     <package name="config" extends="default">
-        <action name="config" class="edu.jennifer.ihotel.problem.ProblemsAction">
+        <action name="config" class="edu.jennifer.hotel.problem.ProblemsAction">
             <result type="tiles">/config.tiles</result>
         </action>
-        <action name="updateConfig" class="edu.jennifer.ihotel.problem.ToggleProblemAction" method="updateConfig" />
+        <action name="updateConfig" class="edu.jennifer.hotel.problem.ToggleProblemAction" method="updateConfig" />
     </package>
 
     <package name="api" extends="json-default" namespace="/api">
-        <action name="status" class="edu.jennifer.ihotel.action.api.StatusAction">
+        <action name="status" class="edu.jennifer.hotel.action.api.StatusAction">
             <result type="json" />
         </action>
     </package>

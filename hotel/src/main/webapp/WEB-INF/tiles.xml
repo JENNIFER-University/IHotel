@@ -101,6 +101,11 @@
         <put-attribute name="body" value="/jsp/Config/List.jsp" />
     </definition>
 
+    <definition name="/setup.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Setup" />
+        <put-attribute name="body" value="/jsp/Config/Setup.jsp" />
+    </definition>
+
 
 
 

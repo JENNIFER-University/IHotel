@@ -2,36 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>ihotel</artifactId>
         <groupId>edu.jennifer</groupId>
-        <version>1.1</version>
+        <version>2.0.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
 
     <groupId>edu.jennifer.check</groupId>
     <artifactId>check</artifactId>
+    <version>${check.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
 
         <dependency>
-            <groupId>edu.jennifer.check</groupId>
+            <groupId>edu.jennifer</groupId>
             <artifactId>icheck</artifactId>
-            <version>1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.13.1.1</version>
+            <version>${icheck.version}</version>
         </dependency>
 
 
     </dependencies>
 
     <build>
-        <finalName>card_checker</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -44,6 +41,27 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <id>build.check</id>
+                        <configuration>
+                            <tasks>
+                                <property name="check.version" value="${check.version}"/>
+
+                                <ant antfile="./build.xml" inheritRefs="true" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
