@@ -6,6 +6,7 @@ import edu.jennifer.hotel.util.PaymentGateway;
 import java.sql.SQLException;
 
 /**
+ * Testing communications
  * @author Khalid Elshafie
  * @Created 9/7/17 12:22 PM.
  */

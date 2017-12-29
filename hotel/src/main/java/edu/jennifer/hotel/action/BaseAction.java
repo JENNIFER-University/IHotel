@@ -19,30 +19,17 @@ public class BaseAction extends ActionSupport{
     private ReservationDAO reservationDAO;
     private UserDAO userDAO;
 
-    private String appVersion;
-
     public BaseAction(){
         connectionUtil = ConnectionUtil.getInstance();
-        setAppVersion(Common.APP_VERSION);
-
-//        try {
-//            HttpServletRequest request = ServletActionContext.getRequest();
-//            if (!request.getServletPath().toLowerCase().contains("config")){
-//               Common.getToken(Common.getRandom(1000, 8000));
-//            }
-//        }catch (Exception ex){}
-
-
     }
 
     @Deprecated
     public long initalize(){
-//		long randomDelay = Common.getRandom(1000, 8500);
-//		boolean  test = Common.processLong(100, 500, 20);
-//		if(!test)
-//			Common.getToken(randomDelay/2);
-//        return randomDelay;
-        return 0;
+		long randomDelay = Common.getRandom(1000, 8500);
+		boolean  test = Common.processLong(100, 500, 20);
+		if(!test)
+			Common.getToken(randomDelay/2);
+        return randomDelay;
     }
 
     public RoomDAO getRoomService() {
@@ -65,13 +52,21 @@ public class BaseAction extends ActionSupport{
         return userDAO;
     }
 
-    public void setAppVersion(String appVersion) {
-        this.appVersion = appVersion;
+    public boolean isLogged() {
+        try {
+            String currentUser = ServletActionContext.getRequest().getSession().getAttribute("currentUser").toString();
+            return currentUser != null;
+        }catch (NullPointerException ne) {
+            return false;
+        }
     }
 
+    public String getCurrentUser() {
+        if (isLogged()) {
+            return ServletActionContext.getRequest().getSession().getAttribute("currentUser").toString();
+        }
 
-
-    public String getAppVersion() {
-        return appVersion;
+        return null;
     }
+
 }

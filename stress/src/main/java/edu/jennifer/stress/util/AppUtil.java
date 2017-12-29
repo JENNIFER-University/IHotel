@@ -1,8 +1,10 @@
-package edu.jennifer.stress;
+package edu.jennifer.stress.util;
+
+import edu.jennifer.stress.model.BookingParams;
 
 import java.util.Random;
 
-public class Util {
+public class AppUtil {
 
 	private static Random rand = new Random();
 	
@@ -43,11 +45,11 @@ public class Util {
 		if(fake)
 			cardNumber = "500";
 		else{
-			cardNumber = Util.getRandom(1, 9) + "" + Util.getRandom(1, 9) + "" + Util.getRandom(1, 9); 
+			cardNumber = AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9);
 		}
 			
 		for(int i =0; i < 13; i++){
-			cardNumber += Util.getRandom(1, 9) + "";
+			cardNumber += AppUtil.getRandom(1, 9) + "";
 		}
 		
 		return cardNumber;

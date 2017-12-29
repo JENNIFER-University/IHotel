@@ -1,4 +1,4 @@
-package edu.jennifer.stress;
+package edu.jennifer.stress.model;
 
 import edu.jennifer.stress.model.GuestInfo;
 import edu.jennifer.stress.model.PaymentInfo;

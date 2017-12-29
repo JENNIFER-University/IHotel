@@ -10,11 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class App {
+public class IpaymentApp {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(IpaymentApp.class, args);
 
 
     }

@@ -84,18 +84,10 @@ public class UserDAOImpl implements UserDAO{
 
 	public User getProfile(String userName,String userId ) {
 		if (ProblemPool.getInstance().makeProblem(ProblemPool.SLOW_LOGIN)) {
-
 			if (userName.toLowerCase().equals("khalid")) {
-				System.out.println(">>>>>> Loading Profile");
 				return loadProfile(userName);
-			}else {
-				System.out.println("Different User");
 			}
-
-		}else {
-			System.out.println("Remove me later Slow Login Not Enabled");
 		}
-
 		return null;
 	}
 

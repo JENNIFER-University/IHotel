@@ -1,6 +1,6 @@
 package edu.jennifer.stress.model;
 
-import edu.jennifer.stress.Util;
+import edu.jennifer.stress.util.AppUtil;
 
 import java.util.Random;
 
@@ -19,12 +19,12 @@ public class PaymentInfo {
 		rand = new Random();
 		cardNumber = VISA_PREFIX_LIST[rand.nextInt(VISA_PREFIX_LIST.length)];
 		for(int i =0; i < 13; i++){
-			cardNumber += Util.getRandom(1, 9) + "";
+			cardNumber += AppUtil.getRandom(1, 9) + "";
 		}
 		
-		CCV = Util.getRandom(1, 9) + "" + Util.getRandom(1, 9) + "" + Util.getRandom(1, 9);
+		CCV = AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9);
 		
-		expire = Util.getRandom(1, 9) + "/2025";
+		expire = AppUtil.getRandom(1, 9) + "/2025";
 	}
 	
 	

@@ -152,7 +152,7 @@ public class PaymentGateway {
             port = "18080";
         }
 
-        String baseUrl = String.format("http://%s:%s", ip, port);
+        String baseUrl = String.format("http://%s:%s/", ip, port);
 
         return baseUrl;
     }

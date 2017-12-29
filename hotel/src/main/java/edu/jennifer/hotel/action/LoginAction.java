@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class LoginAction extends BaseAction implements SessionAware{
 
+
     private String username;
     private String password;
     private String profile;

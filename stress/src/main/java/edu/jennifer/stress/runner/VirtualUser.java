@@ -1,19 +1,18 @@
-package edu.jennifer.stress;
+package edu.jennifer.stress.runner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import edu.jennifer.stress.model.BookingParams;
 import edu.jennifer.stress.model.GuestInfo;
 import edu.jennifer.stress.model.PaymentInfo;
+import edu.jennifer.stress.util.AppUtil;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,7 +23,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 
-
+/**
+ * @author Khalid Elshafie <abolkog@gmail.com>
+ * @Created 10/24/17 4:15 PM.
+ */
 public class VirtualUser extends Thread{
 	
 	private final int CALLS_PER_USER 	= 6;
@@ -127,7 +129,7 @@ public class VirtualUser extends Thread{
 
 	
 	private void openHomePage(CloseableHttpClient httpClient) throws IOException{
-		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/ihotel/welcome");
+		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/welcome");
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
 		response.close();
@@ -135,7 +137,7 @@ public class VirtualUser extends Thread{
 	}
 	
 	private void checkHotelIntroduction(CloseableHttpClient httpClient) throws IOException{
-		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/ihotel/about");
+		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/about");
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
 		response.close();
@@ -143,7 +145,7 @@ public class VirtualUser extends Thread{
 	}
 	
 	private void listRooms(CloseableHttpClient httpClient) throws IOException{
-		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/ihotel/rooms/list");
+		HttpGet getRequest = new HttpGet(IHOTEL_URL + "/rooms/list");
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
 		response.close();
@@ -151,7 +153,7 @@ public class VirtualUser extends Thread{
 	}
 		
 	private void selectRoom(CloseableHttpClient httpClient, BookingParams params) throws IOException{
-		String url = IHOTEL_URL + "/ihotel/rooms/view?id="+params.getRoomId();
+		String url = IHOTEL_URL + "/rooms/view?id="+params.getRoomId();
 		HttpGet getRequest = new HttpGet(url);
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
@@ -169,7 +171,7 @@ public class VirtualUser extends Thread{
 	}
 	
 	private void clickBookNow(CloseableHttpClient httpClient, BookingParams params) throws IOException{
-		String url = IHOTEL_URL + "/ihotel/booking/book?roomNo="+params.getRoomId();
+		String url = IHOTEL_URL + "/booking/book?roomNo="+params.getRoomId();
 		HttpGet getRequest = new HttpGet(url);
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
@@ -179,11 +181,11 @@ public class VirtualUser extends Thread{
 	
 	private void submitBooking(CloseableHttpClient httpClient, BookingParams params) throws IOException{
 		debug("User [" +this.name+"] At the booking page for Room # [" + params.getRoomId()+"] for [" + params.getDays()+"] days and making decision about the booking .... ");
-		int decisionMaker = (int)Util.getRandom(0, 10);
+		int decisionMaker = (int) AppUtil.getRandom(0, 10);
 
 		debug("Making Decision based on Value = " + decisionMaker);
 		
-		String url = IHOTEL_URL + "/ihotel/booking/";
+		String url = IHOTEL_URL + "/booking/";
 		if(decisionMaker >= 0 && decisionMaker < 3){
 			debug("Decided to submit wrong credit card");
 			url = url +"doBook";
@@ -194,7 +196,7 @@ public class VirtualUser extends Thread{
 			postRequest.releaseConnection();
 
 			//Added for business group example
-//			url = IHOTEL_URL + "/ihotel/booking/book_failed?reason="+ URLEncoder.encode("Failed to contact iPayment", "UTF-8");
+//			url = IHOTEL_URL + "/booking/book_failed?reason="+ URLEncoder.encode("Failed to contact iPayment", "UTF-8");
 //			HttpGet getRequest = new HttpGet(url);
 //			httpClient.execute(getRequest);
 //
@@ -231,7 +233,7 @@ public class VirtualUser extends Thread{
 
 			if (bookingNumber != null) {
 				//Invoke booking complete
-				url = IHOTEL_URL + "/ihotel/booking/book_complete?reservationId="+bookingNumber;
+				url = IHOTEL_URL + "/booking/book_complete?reservationId="+bookingNumber;
 				HttpGet getRequest = new HttpGet(url);
 				httpClient.execute(getRequest);
 				getRequest.releaseConnection();
@@ -246,7 +248,7 @@ public class VirtualUser extends Thread{
 	
 	private void checkBookingStatus(CloseableHttpClient httpClient,String bookingNumber)throws IOException{
 		debug("Checking Booking");
-		String url = IHOTEL_URL + "/ihotel/booking/find";
+		String url = IHOTEL_URL + "/booking/find";
 		HttpGet getRequest = new HttpGet(url);
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
@@ -254,7 +256,7 @@ public class VirtualUser extends Thread{
 		getRequest.releaseConnection();
 		
 		think(3000, 4000);
-		url = IHOTEL_URL + "/ihotel/booking/doFind";
+		url = IHOTEL_URL + "/booking/doFind";
 		HttpPost postRequest = new HttpPost(url);
 		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("booking",bookingNumber));
@@ -263,12 +265,18 @@ public class VirtualUser extends Thread{
 		response.close();
 		postRequest.releaseConnection();
 	}
-	
+
+	/**
+	 * Contact Page (404Error) has been removed since 2.0.0
+	 * @param httpClient
+	 * @throws IOException
+	 */
+	@Deprecated
 	private void contactHotel(CloseableHttpClient httpClient)throws IOException{
 		//TODO: Override this exeception for now:
 		if (true)
 			return;
-		String url = IHOTEL_URL + "/ihotel/contact";
+		String url = IHOTEL_URL + "/contact";
 		HttpGet getRequest = new HttpGet(url);
 		CloseableHttpResponse response = httpClient.execute(getRequest);
 		response.getStatusLine().getStatusCode();
@@ -276,13 +284,14 @@ public class VirtualUser extends Thread{
 	}
 	
 	private void debug(String msg){
+		String name = this.name == null ? this.id : this.name;
 		if(debug)
-		System.out.println("[DEBUG]["+this.name+"]:\n\t" + msg);
+			System.out.println("[DEBUG]["+name+"]:\n\t" + msg);
 	}
 	
 	private void newLine(){
 		if(debug)
-		System.out.println("============================================");
+			System.out.println("============================================");
 	}
 	
 	private void think(int minTime, int maxTime){
@@ -295,10 +304,10 @@ public class VirtualUser extends Thread{
 	}
 	
 	private BookingParams generateBookingParams(){
-		BookingParams params = Util.getCheckInOut();
-		String guestsNumber = "" + Util.getRandom(1, 5);
+		BookingParams params = AppUtil.getCheckInOut();
+		String guestsNumber = "" + AppUtil.getRandom(1, 5);
 		params.setGuestsNumber(guestsNumber);
-		String roomId = "" + Util.getRandom(1, 12);
+		String roomId = "" + AppUtil.getRandom(1, 12);
 		params.setRoomId(roomId);
 		params.setGuestInfo(new GuestInfo());
 		params.setPaymentInfo(new PaymentInfo());

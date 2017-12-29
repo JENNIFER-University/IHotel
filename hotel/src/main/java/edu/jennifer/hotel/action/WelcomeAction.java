@@ -14,7 +14,14 @@ public class WelcomeAction extends BaseAction {
     @Override
     public String execute() throws Exception {
         setRooms(getRoomService().findFeatured());
-        getUserDAO().getProfile("khalid", null);
+
+        if (isLogged()) {
+            String currentUser = getCurrentUser();
+            if (currentUser != null) {
+                getUserDAO().getProfile(currentUser, null);
+            }
+        }
+
         return SUCCESS;
     }
 

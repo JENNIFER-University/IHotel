@@ -48,7 +48,10 @@
         </action>
 
         <action name="doLogin" class="edu.jennifer.hotel.action.LoginAction">
-            <result type="tiles" name="success">/welcome.tiles</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">welcome</param>
+            </result>
+            <!--<result type="tiles" name="success">/welcome.tiles</result>-->
             <result type="tiles" name="error">/login.tiles</result>
         </action>
 

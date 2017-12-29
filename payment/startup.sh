@@ -27,5 +27,6 @@ LISTEN_PORT=18080
 APP_HOME="$PWD"
 APP_JAR=$APP_HOME/ipayment.jar
 APP_LIB=$APP_HOME/lib/*
+MAIN_CLASS=edu.jennifer.payment.IpaymentApp
 
-java $JAVA_OPTS -cp $APP_JAR:$APP_LIB edu.jennifer.ipayment.APP
+java $JAVA_OPTS -cp $APP_JAR:$APP_LIB $MAIN_CLASS

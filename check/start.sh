@@ -8,6 +8,13 @@
 
 #JAVA_HOME=
 
+#ICheck Listen Port. Default is 28080 If you change this value make sure to configure payment connection settings as well.
+LISTEN_PORT=28080
+
+# ----------------------------------------------------------------------
+# -----------  JENNIFER AGent Configurations  -----------------------------------------
+# ----------------------------------------------------------------------
+
 #JENNIFER AGENT HOME
 #AGENT_HOME=/Users/khalid/jennifer/agent.java
 
@@ -17,12 +24,7 @@
 # JAVA_OPTS for Agent installation
 #JAVA_OPTS="-javaagent:$AGENT_HOME/jennifer.jar -Djennifer.config=$AGENT_HOME/conf/$CONF_FILE"
 
-#ICheck Listen Port. Default is 1099 If you change this value make sure to configure payment connection settings as well.
-LISTEN_PORT=1099
 
-
-
-#java $JAVA_OPTS -cp $ICHECK_JAR:$LIB_JAR edu.jennifer.check.launcher.AppLauncher $LISTEN_PORT
 
 # ----------------------------------------------------------------------
 # -----------  Do not Edit below this line -----------------------------
@@ -34,7 +36,7 @@ LIB_JAR=$CHECK_HOME/lib
 
 
 #Application Main Class. Do not Change
-MAIN_CLASS=edu.jennifer.check.launcher.AppLauncher
+MAIN_CLASS=edu.jennifer.check.launcher.RunCheck
 
 
 grapProcess(){

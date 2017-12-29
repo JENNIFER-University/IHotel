@@ -1,3 +1,4 @@
+<%@ page import="edu.jennifer.hotel.util.Common" %>
 <!DOCTYPE html>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
@@ -118,7 +119,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">About iHotel v <s:property value="appVersion" /> </h4>
+                <h4 class="modal-title">About iHotel v <%= Common.APP_VERSION%> </h4>
             </div>
             <div class="modal-body">
                 <p><strong>iHotel System</strong> with all of its compoents (iHotel,iPayment, iCheck) are developed for the purpose of illustrating and showing JenniferSoft's product -JENNIFER V5- functions, and to be used in training and educational sessions conducted by JenniferSoft only.</p>
