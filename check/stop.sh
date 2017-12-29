@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# ACME Stress. Applying Stress to ACME Demo System
+# Stop iCheck Instance
 
 
 echo "Stopping credit check system"
 APP_HOME="$PWD"
-cd APP_HOME
+cd $APP_HOME
 while read line
 do kill -9 $line
 done < PID

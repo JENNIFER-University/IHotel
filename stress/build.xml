@@ -14,9 +14,7 @@
         <echo message="Starting compressing build version ${stress.version}" />
 
         <antcall target="remove_build" />
-        <!--<delete verbose="true">-->
-            <!--<fileset dir="${build.dir}" includes="**/*.*"/>-->
-        <!--</delete>-->
+
 
         <mkdir dir="${build.dir}" />
         <mkdir dir="${tmp.dir}" />
@@ -54,7 +52,7 @@
     </target>
 
     <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
-        <delete verbose="true">
+        <delete verbose="true" includeEmptyDirs="true">
             <fileset dir="${build.dir}" includes="**/*.*"/>
         </delete>
     </target>
