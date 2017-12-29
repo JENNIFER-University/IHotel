@@ -48,6 +48,30 @@
                     <debug>false</debug>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                <!--<version>1.7</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>install</phase>-->
+                        <!--<id>build.ihotel</id>-->
+                        <!--<configuration>-->
+
+                            <!--<tasks>-->
+                                <!--<property name="app.version" value="${hotel.version}"/>-->
+                                <!--<property name="stress.version" value="${stress.version}"/>-->
+                                <!--<property name="payment.version" value="${payment.version}"/>-->
+                                <!--<property name="check.version" value="${check.version}"/>-->
+                                <!--<ant antfile="./build.xml" inheritRefs="true" />-->
+                            <!--</tasks>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

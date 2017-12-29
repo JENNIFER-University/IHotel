@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="iHotel Build" default="build">
+
+    <property name="app.version" value="2.0.0" />
+    <property name="hotel.app" value="./hotel/target/ihotel.war" />
+    <property name="payment.app" value="./payment/build/payment-${app.version}.zip" />
+    <property name="check.app" value="./check/build/check-${app.version}.zip" />
+    <property name="stress.app" value="./stress/build/stress-${app.version}.zip" />
+
+    <property name="build.dir" value="./build" />
+    <property name="tmp.dir" value="./tmp" />
+
+    <target name="build">
+
+        <echo message="Starting compressing build version ${app.version}" />
+
+        <!-- Remove old old dir if exists -->
+        <antcall target="remove_build" />
+
+        <!-- Create build folder -->
+        <mkdir dir="${build.dir}" />
+
+        <!-- Create temp folder -->
+        <mkdir dir="${tmp.dir}" />
+
+        <copy todir="${tmp.dir}" verbose="true">
+            <file file="${hotel.app}" />
+            <file file="${hotel.app}" />
+            <file file="${payment.app}" />
+            <file file="${check.app}" />
+            <file file="${stress.app}" />
+        </copy>
+
+        <antcall target="compress" />
+
+        <antcall target="clean" />
+
+    </target>
+
+    <target name="compress">
+        <zip destfile="${build.dir}/ihotel-${app.version}.zip">
+            <zipfileset dir="${tmp.dir}" />
+        </zip>
+    </target>
+
+
+
+    <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
+        <delete verbose="true" includeEmptyDirs="true">
+            <fileset dir="${build.dir}"  />
+        </delete>
+    </target>
+
+    <target name="check_build_dir">
+        <condition property="build_dir_exists" >
+            <available file="${build.dir}" type="dir"/>
+        </condition>
+    </target>
+
+    <target name="clean">
+        <delete verbose="true" includeEmptyDirs="true">
+            <fileset dir="${tmp.dir}"/>
+        </delete>
+    </target>
+
+</project>
+
