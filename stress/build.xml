@@ -12,9 +12,11 @@
 
     <target name="build">
         <echo message="Starting compressing build version ${stress.version}" />
-        <delete verbose="true">
-            <fileset dir="${build.dir}" includes="**/*.*"/>
-        </delete>
+
+        <antcall target="remove_build" />
+        <!--<delete verbose="true">-->
+            <!--<fileset dir="${build.dir}" includes="**/*.*"/>-->
+        <!--</delete>-->
 
         <mkdir dir="${build.dir}" />
         <mkdir dir="${tmp.dir}" />
@@ -50,6 +52,19 @@
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>
+
+    <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
+        <delete verbose="true">
+            <fileset dir="${build.dir}" includes="**/*.*"/>
+        </delete>
+    </target>
+
+    <target name="check_build_dir">
+        <condition property="build_dir_exists" >
+            <available file="${build.dir}" type="dir"/>
+        </condition>
+    </target>
+
 
     <target name="clean">
         <delete verbose="true" includeEmptyDirs="true">

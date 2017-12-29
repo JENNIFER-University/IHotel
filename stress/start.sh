@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# ACME Stress. Applying Stress to ACME Demo System
+# iHotel Stress. Applying Stress to iHotel Demo System
 
 # ----------------------------------------------------------------------
 # -----------  Configurations  -----------------------------------------
@@ -23,20 +23,17 @@ MAIN_CLASS=edu.jennifer.stress.RunStress
 
 
 grapProcess(){
-  sleep 3
+  sleep 2
   pgrep -f "stress.RunStress" > PID
   echo "Stress Tool Process ID" | cat PID
 }
 
 
 applyStress(){
- nohup $JAVA_HOME/bin/java -cp .:lib/* $MAIN_CLASS &
+ nohup $JAVA_HOME/bin/java -cp .:lib/* $MAIN_CLASS -i $ihotel_ip -p $ihotel_port &
  grapProcess
 }
 
-forground(){
- $JAVA_HOME/bin/java -cp .:lib/* $MAIN_CLASS 
-}
 
 echo "Applying Stress"
 applyStress
