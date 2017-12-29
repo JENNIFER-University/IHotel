@@ -2,16 +2,12 @@
 <project name="compress stress" default="build">
 
     <property name="target.dir" value="./target" />
+    <property name="resource.dir" value="./src/main/resources" />
     <property name="build.dir" value="./build" />
     <property name="tmp.dir" value="./tmp" />
 
-    <tstamp>
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd_HH:mm:ss"/>-->
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd"/>-->
-    </tstamp>
-
     <target name="build">
-        <echo message="Starting compressing build version ${stress.version}" />
+        <echo message="Starting compressing build version ${payment.version}" />
 
         <antcall target="remove_build" />
 
@@ -21,7 +17,7 @@
 
         <copy todir="${tmp.dir}/lib" verbose="true">
             <fileset dir="${target.dir}">
-                <include name="stress-${stress.version}.jar" />
+                <include name="payment-${payment.version}.jar" />
             </fileset>
             <fileset dir="${target.dir}/lib">
                 <include name="*.jar" />
@@ -31,8 +27,11 @@
 
         <copy todir="${tmp.dir}" verbose="true">
             <fileset dir="${target.dir}/../">
-                <include name="start.sh" />
-                <include name="stop.sh" />
+                <include name="startup.sh" />
+            </fileset>
+
+            <fileset dir="${resource.dir}/">
+                <include name="application.yml" />
             </fileset>
 
         </copy>
@@ -43,10 +42,7 @@
     </target>
 
     <target name="compress">
-        <!--<zip destfile="${build.dir}/stress-${stress.version}-${time.stamp}.zip">-->
-            <!--<zipfileset dir="${tmp.dir}" />-->
-        <!--</zip>-->
-        <zip destfile="${build.dir}/stress-${stress.version}.zip">
+        <zip destfile="${build.dir}/payment-${payment.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>
