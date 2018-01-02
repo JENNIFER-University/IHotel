@@ -3,6 +3,7 @@
 
     <property name="app.version" value="2.0.0" />
     <property name="hotel.app" value="./hotel/target/ihotel.war" />
+    <property name="hotel.sql" value="./hotel/ihotel_schema.sql" />
     <property name="payment.app" value="./payment/build/payment-${app.version}.zip" />
     <property name="check.app" value="./check/build/check-${app.version}.zip" />
     <property name="stress.app" value="./stress/build/stress-${app.version}.zip" />
@@ -25,7 +26,7 @@
 
         <copy todir="${tmp.dir}" verbose="true">
             <file file="${hotel.app}" />
-            <file file="${hotel.app}" />
+            <file file="${hotel.sql}" />
             <file file="${payment.app}" />
             <file file="${check.app}" />
             <file file="${stress.app}" />
