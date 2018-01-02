@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class GuestDAOImpl implements GuestDAO {
 
@@ -61,52 +60,6 @@ public class GuestDAOImpl implements GuestDAO {
 		}
 	}
 
-	public ArrayList<Guest> findAll() {
-		try{
-			String query = "SELECT id,title,forenames,surename,dob,address,phone,email from guests";
-			ArrayList<Guest> result = jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Guest>>(){
-				public ArrayList<Guest> extractData(ResultSet rs)
-						throws SQLException, DataAccessException {
-					ArrayList<Guest> guest = new ArrayList<Guest>();
-					while(rs.next()){
-						Guest g = new Guest();
-						g.setId(rs.getInt("id"));
-						g.setTitle(rs.getString("title"));
-						g.setForName(rs.getString("forenames"));
-						g.setSureName(rs.getString("surename"));
-						g.setDateOfBirth(rs.getString("dob"));
-						g.setAddress(rs.getString("address"));
-						g.setPhone(rs.getString("phone"));
-						g.setEmail(rs.getString("email"));
-						guest.add(g);
-					}
-					return guest;
-				}
-			});
-			return result;
-		}catch(Exception ex){
-			return null;
-		}
-	}
-
-	public int getBookingNumber(Guest g) {
-		try{
-			String query = "SELECT COUNT(id) as bookings FROM reservations WHERE guest_id = ?";
-			int guestBookingCount = jdbcTemplate.query(query, new Object[]{g.getId()},new ResultSetExtractor<Integer>(){
-				public Integer extractData(ResultSet rs) throws SQLException,
-						DataAccessException {
-					if(rs.next())
-						return rs.getInt("bookings");
-					else
-						return 0;
-				}
-
-			});
-			return guestBookingCount;
-		}catch(Exception ex){
-			return -1;
-		}
-	}
 
 	public long toMySqlSeconds(long value) {
 		long result = (value / 1000) / 4;
