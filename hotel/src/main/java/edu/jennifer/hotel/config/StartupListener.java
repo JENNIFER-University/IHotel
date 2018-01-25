@@ -5,6 +5,7 @@ import edu.jennifer.hotel.util.Common;
 import edu.jennifer.hotel.util.Conf;
 import edu.jennifer.hotel.util.ConnectionUtil;
 import edu.jennifer.hotel.startup.DBCleaner;
+import edu.jennifer.hotel.util.Version;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +27,7 @@ public class StartupListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.printf("%s%n",loadSignature());
-        System.out.printf("Version: %s%n", Common.APP_VERSION);
+        System.out.printf("Version: %s%n", Version.getVersion());
         logger.info("Checking Database Connection");
         boolean dataSourceExists = ConnectionUtil.getInstance().getDataSource() == null ? false : true;
 
