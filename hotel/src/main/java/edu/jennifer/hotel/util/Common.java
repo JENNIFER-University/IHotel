@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Common {
 
-	public static final String APP_VERSION = "2.0.0";
+	public static final String APP_VERSION = Common.class.getPackage().getImplementationVersion();
 
 	public static String getCurrentTimeStamp(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
