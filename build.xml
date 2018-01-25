@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="iHotel Build" default="build">
 
+    <property name="app.version" value="2.0.1" />
     <property name="hotel.app" value="./hotel/target/ihotel.war" />
     <property name="hotel.sql" value="./hotel/ihotel_schema.sql" />
     <property name="mysql.connector" value="./hotel/mysql-connector-java-5.1.6-bin.jar" />
