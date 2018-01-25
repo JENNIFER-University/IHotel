@@ -2,6 +2,7 @@ package edu.jennifer.hotel.config;
 
 import edu.jennifer.hotel.startup.UserMaker;
 import edu.jennifer.hotel.util.Common;
+import edu.jennifer.hotel.util.Conf;
 import edu.jennifer.hotel.util.ConnectionUtil;
 import edu.jennifer.hotel.startup.DBCleaner;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,15 @@ public class StartupListener implements ServletContextListener {
 
             logger.info("Creating Users .... ");
             new UserMaker().createUsers();
+        }
+
+        //Configuration file
+        logger.info("Checking configuration file");
+        Conf appConf = Conf.getInstance();
+        if (!appConf.isConfFileExists()) {
+            logger.info("Configuration file [app.conf] does not exists. Creating new configuration file....");
+            appConf.saveProperty(Conf.KEY_IPAYMENT_IP, "127.0.0.1");
+            appConf.saveProperty(Conf.KEY_IPAYMENT_PORT, "18080");
         }
 
         logger.info("iHotel Startup initialization completed");

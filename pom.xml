@@ -17,11 +17,13 @@
         <jsp.version>2.1</jsp.version>
         <gson.version>2.3.1</gson.version>
 
-        <hotel.version>2.0.0</hotel.version>
-        <payment.version>2.0.0</payment.version>
-        <check.version>2.0.0</check.version>
-        <icheck.version>2.0.0</icheck.version>
-        <stress.version>2.0.0</stress.version>
+        <ihotel.version>2.0.0</ihotel.version>
+
+        <hotel.version>${ihotel.version}</hotel.version>
+        <payment.version>${ihotel.version}</payment.version>
+        <check.version>${ihotel.version}</check.version>
+        <icheck.version>${ihotel.version}</icheck.version>
+        <stress.version>${ihotel.version}</stress.version>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
