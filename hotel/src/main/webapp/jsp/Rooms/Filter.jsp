@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <div class="container">
 
-<h2>Our Rooms Rooms</h2>
+	<h2>Our Rooms Rooms - Type [<s:property value='%{type.replace("-", " ")}' />] </h2>
 	<div class="row">
 		<div class="col col-md-9">
 			<div class="row">

@@ -65,11 +65,15 @@
     </package>
 
     <package name="rooms" extends="default" namespace="/rooms">
-        <action name="list" class="edu.jennifer.hotel.action.RoomsAction" method="list">
+        <action name="list" class="edu.jennifer.hotel.action.RoomsAction">
             <result type="tiles">/rooms.tiles</result>
         </action>
 
-        <action name="view" class="edu.jennifer.hotel.action.RoomsAction" method="view">
+        <action name="filter" class="edu.jennifer.hotel.action.RoomsFilterAction">
+            <result type="tiles">/rooms_filter.tiles</result>
+        </action>
+
+        <action name="view" class="edu.jennifer.hotel.action.RoomViewAction">
             <result type="tiles">/room_view.tiles</result>
         </action>
     </package>

@@ -2,30 +2,42 @@ package edu.jennifer.hotel.action;
 
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
-import edu.jennifer.hotel.problem.ProblemPool;
-import edu.jennifer.hotel.util.Common;
-import edu.jennifer.hotel.util.RoomAvailablityCheck;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by khalid on 31/03/2017.
+ * @author Khalid
+ * @Created 3/20/18 5:04 PM.
  */
-public class RoomsAction extends BaseAction {
+public class RoomsFilterAction extends BaseAction {
 
+    private String type;
 
     private ArrayList<Room> rooms;
     private List<RoomType> roomTypes;
 
-    @Override
-    public String execute() throws Exception {
-        ArrayList<Room> roomsList = getRoomService().findAll(Common.getRandom(2000, 4000));
-        setRooms(roomsList);
+    public String execute() {
+        RoomType roomTypeResult = getRoomService().getTypeByType(parseType());
+
+        setRooms(getRoomService().findByType(roomTypeResult.getId()));
+
         setRoomTypes(getRoomService().findAllRoomTypes());
+
         return SUCCESS;
     }
 
+
+    public String parseType() {
+        return type.replace("-", " ");
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;

@@ -39,6 +39,11 @@
         <put-attribute name="body" value="/jsp/Rooms/View.jsp" />
     </definition>
 
+    <definition name="/rooms_filter.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Rooms List" />
+        <put-attribute name="body" value="/jsp/Rooms/Filter.jsp" />
+    </definition>
+
     <definition name="/booking.tiles" extends="baseLayout">
         <put-attribute name="title" value="Book Room" />
         <put-attribute name="body" value="/jsp/Booking/Start.jsp" />

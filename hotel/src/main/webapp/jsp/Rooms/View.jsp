@@ -6,16 +6,16 @@
 
 
  <!-- RoomDetails -->
-            <div id="RoomDetails" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                <div class="item active"><img src="${pageContext.request.contextPath}/imgs/photos/8.jpg" class="img-responsive" alt="slide"></div>
-                <div class="item  height-full"><img src="${pageContext.request.contextPath}/imgs/photos/9.jpg"  class="img-responsive" alt="slide"></div>
-                <div class="item  height-full"><img src="${pageContext.request.contextPath}/imgs/photos/10.jpg"  class="img-responsive" alt="slide"></div>
-                </div>
-                <!-- Controls -->
-                <a class="left carousel-control" href="#RoomDetails" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                <a class="right carousel-control" href="#RoomDetails" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
-            </div>
+	<div id="RoomDetails" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+		<div class="item active"><img src="${pageContext.request.contextPath}/imgs/photos/8.jpg" class="img-responsive" alt="slide"></div>
+		<div class="item  height-full"><img src="${pageContext.request.contextPath}/imgs/photos/9.jpg"  class="img-responsive" alt="slide"></div>
+		<div class="item  height-full"><img src="${pageContext.request.contextPath}/imgs/photos/10.jpg"  class="img-responsive" alt="slide"></div>
+		</div>
+		<!-- Controls -->
+		<a class="left carousel-control" href="#RoomDetails" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+		<a class="right carousel-control" href="#RoomDetails" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
+	</div>
   <!-- RoomCarousel-->
 
 
