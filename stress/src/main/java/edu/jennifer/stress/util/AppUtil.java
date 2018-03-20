@@ -20,7 +20,7 @@ public class AppUtil {
 		int day 	= getRandom(1, 15);
 		int m 		= getRandom(1, 12); 
 		String month = "";
-		if(m< 9)
+		if(m < 9)
 			month = "0" + m;
 		else
 			month = "" + m;
@@ -37,21 +37,5 @@ public class AppUtil {
 		params.setDays(days + "");
 		
 		return params;
-	}
-	
-
-	public static String getCreditCardNumber(boolean fake){
-		String cardNumber = "";
-		if(fake)
-			cardNumber = "500";
-		else{
-			cardNumber = AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9) + "" + AppUtil.getRandom(1, 9);
-		}
-			
-		for(int i =0; i < 13; i++){
-			cardNumber += AppUtil.getRandom(1, 9) + "";
-		}
-		
-		return cardNumber;
 	}
 }

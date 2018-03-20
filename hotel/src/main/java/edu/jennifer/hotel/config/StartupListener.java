@@ -1,13 +1,13 @@
 package edu.jennifer.hotel.config;
 
-import edu.jennifer.hotel.startup.UserMaker;
-import edu.jennifer.hotel.util.Common;
+import edu.jennifer.hotel.tasks.DBCleaner;
 import edu.jennifer.hotel.util.Conf;
 import edu.jennifer.hotel.util.ConnectionUtil;
-import edu.jennifer.hotel.startup.DBCleaner;
+
 import edu.jennifer.hotel.util.Version;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.flywaydb.core.Flyway;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -35,14 +35,22 @@ public class StartupListener implements ServletContextListener {
             logger.error("DataSource not found. Please create datasource in your tomcat configuration");
             logger.info(String.format("DataSource Name [%s]", ConnectionUtil.DATASOURCE_NAME));
         }else {
+
+            logger.info("Checking tables and migrations");
+            try {
+                Flyway flyway = new Flyway();
+                flyway.setDataSource(ConnectionUtil.getInstance().getDataSource());
+                flyway.migrate();
+            }catch (Exception ex) {
+                logger.error("Error while running database migrations", ex);
+            }
+
+
             logger.info("Cleaning up Reservation Table .... ");
             new DBCleaner().cleanReservationTable();
-
-            logger.info("Creating Users .... ");
-            new UserMaker().createUsers();
         }
 
-        //Configuration file
+//        Configuration file
         logger.info("Checking configuration file");
         Conf appConf = Conf.getInstance();
         if (!appConf.isConfFileExists()) {
@@ -50,9 +58,6 @@ public class StartupListener implements ServletContextListener {
             appConf.saveProperty(Conf.KEY_IPAYMENT_IP, "127.0.0.1");
             appConf.saveProperty(Conf.KEY_IPAYMENT_PORT, "18080");
         }
-
-        logger.info("iHotel Startup initialization completed");
-
     }
 
     @Override

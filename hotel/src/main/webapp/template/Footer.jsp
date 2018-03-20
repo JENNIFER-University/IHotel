@@ -33,14 +33,6 @@
 				</div>
 
 				<div class="col-sm-4 subscribe">
-					<h4>Subscription</h4>
-					<div class="input-group">
-						<input type="text" class="form-control"
-							placeholder="Enter email id here"> <span
-							class="input-group-btn">
-							<button class="btn btn-default" type="button">Get Notify</button>
-						</span>
-					</div>
 					<div class="social">
 						<a href="#"><i class="fa fa-facebook-square"
 							data-toggle="tooltip" data-placement="top"

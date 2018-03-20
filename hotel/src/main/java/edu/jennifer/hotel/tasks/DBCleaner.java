@@ -1,4 +1,4 @@
-package edu.jennifer.hotel.startup;
+package edu.jennifer.hotel.tasks;
 
 import edu.jennifer.hotel.util.ConnectionUtil;
 

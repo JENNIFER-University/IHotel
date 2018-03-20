@@ -3,7 +3,7 @@ package edu.jennifer.hotel.model;
 public class Facility {
 
 	private int id;
-	private String facilityName;
+	private String name;
 	
 	public int getId() {
 		return id;
@@ -11,11 +11,11 @@ public class Facility {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFacilityName() {
-		return facilityName;
+	public String getName() {
+		return name;
 	}
-	public void setFacilityName(String facilityName) {
-		this.facilityName = facilityName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

@@ -1,35 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Jan 02, 2018 at 03:12 AM
--- Server version: 5.6.35
--- PHP Version: 7.0.15
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
--- Database: `ihotel`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `facilities`
---
-
-CREATE TABLE `facilities` (
-  `id` int(11) NOT NULL,
-  `facilityName` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `facilities`
---
-
-INSERT INTO `facilities` (`id`, `facilityName`) VALUES
+INSERT INTO `facilities` (`id`, `name`) VALUES
 (1, 'TV'),
 (2, 'Safe'),
 (3, 'Mini Fridge '),
@@ -44,81 +13,6 @@ INSERT INTO `facilities` (`id`, `facilityName`) VALUES
 (12, 'Slippers '),
 (13, 'Direct dial phone');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `guests`
---
-
-CREATE TABLE `guests` (
-  `id` int(11) NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `forenames` varchar(45) NOT NULL,
-  `surename` varchar(45) NOT NULL,
-  `dob` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hotel_info`
---
-
-CREATE TABLE `hotel_info` (
-  `name` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `intro` text,
-  `payment_url` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `hotel_info`
---
-
-INSERT INTO `hotel_info` (`name`, `address`, `phone`, `email`, `intro`, `payment_url`) VALUES
-('iHote', 'Seoul, South Korea', '0082123456789', 'customer@ihotel.fake', 'Most Luxurious hotel with the royal treatments and excellent customer service', '127.0.0.1:8080');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reservations`
---
-
-CREATE TABLE `reservations` (
-  `id` varchar(45) NOT NULL,
-  `guest_id` int(11) NOT NULL,
-  `roomId` int(11) NOT NULL,
-  `checkInDate` varchar(45) DEFAULT NULL,
-  `checkOutDate` varchar(45) DEFAULT NULL,
-  `totalNights` varchar(45) DEFAULT NULL,
-  `comments` varchar(45) DEFAULT NULL,
-  `guestsNumber` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rooms`
---
-
-CREATE TABLE `rooms` (
-  `id` int(11) NOT NULL,
-  `number` int(11) NOT NULL,
-  `floor` varchar(45) DEFAULT NULL,
-  `price` double NOT NULL,
-  `description` text,
-  `room_type` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `rooms`
---
 
 INSERT INTO `rooms` (`id`, `number`, `floor`, `price`, `description`, `room_type`) VALUES
 (1, 101, 'First Floor', 100, 'Space in your house How to sell faster than your neighbors How to make a strategic use. To discourage you by telling. To discourage you by telling. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. To discourage you by telling. To discourage you by telling. Space in your house How to sell faster than your neighbors How to make a strategic use. The real goal of any talk or speech.\n\nBy Learning Ways To Become Peaceful. One of the greatest barriers to making the sale is your prospect\'s natural. Don\'t stubbornly. Don\'t stubbornly. Don\'t stubbornly. -And Gain Power By Learning Ways To Become Peaceful.', 1),
@@ -134,20 +28,6 @@ INSERT INTO `rooms` (`id`, `number`, `floor`, `price`, `description`, `room_type
 (11, 801, 'Eight Floor', 1000, 'Space in your house How to sell faster than your neighbors How to make a strategic use. To discourage you by telling. To discourage you by telling. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. To discourage you by telling. To discourage you by telling. Space in your house How to sell faster than your neighbors How to make a strategic use. The real goal of any talk or speech.\r\n\r\nBy Learning Ways To Become Peaceful. One of the greatest barriers to making the sale is your prospect\'s natural. Don\'t stubbornly. Don\'t stubbornly. Don\'t stubbornly. -And Gain Power By Learning Ways To Become Peaceful.', 5),
 (12, 105, 'First Floor', 234, 'Space in your house How to sell faster than your neighbors How to make a strategic use. To discourage you by telling. To discourage you by telling. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. I m going to outline 14 different ways that I ve found you. The real goal of any talk or speech. To discourage you by telling. To discourage you by telling. Space in your house How to sell faster than your neighbors How to make a strategic use. The real goal of any talk or speech.\r\n\r\nBy Learning Ways To Become Peaceful. One of the greatest barriers to making the sale is your prospect\'s natural. Don\'t stubbornly. Don\'t stubbornly. Don\'t stubbornly. -And Gain Power By Learning Ways To Become Peaceful.', 3);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `rooms_facilities`
---
-
-CREATE TABLE `rooms_facilities` (
-  `roomId` int(11) NOT NULL,
-  `facilityId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `rooms_facilities`
---
 
 INSERT INTO `rooms_facilities` (`roomId`, `facilityId`) VALUES
 (1, 1),
@@ -189,23 +69,6 @@ INSERT INTO `rooms_facilities` (`roomId`, `facilityId`) VALUES
 (5, 9),
 (10, 12);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `rooms_type`
---
-
-CREATE TABLE `rooms_type` (
-  `id` int(11) NOT NULL,
-  `roomType` varchar(45) NOT NULL,
-  `maxCapacity` int(11) NOT NULL,
-  `roomSize` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `rooms_type`
---
-
 INSERT INTO `rooms_type` (`id`, `roomType`, `maxCapacity`, `roomSize`) VALUES
 (1, 'Single Room', 2, '20 sq'),
 (2, 'Double Room', 2, '25 sq'),
@@ -214,119 +77,18 @@ INSERT INTO `rooms_type` (`id`, `roomType`, `maxCapacity`, `roomSize`) VALUES
 (5, '3 Room Apartment', 6, '50 sq'),
 (6, 'Luxurious Suite', 4, '60 sq');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` varchar(20) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `realname` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `facilities`
---
-ALTER TABLE `facilities`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `guests`
---
-ALTER TABLE `guests`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `hotel_info`
---
-ALTER TABLE `hotel_info`
-  ADD PRIMARY KEY (`name`);
-
---
--- Indexes for table `reservations`
---
-ALTER TABLE `reservations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_reservations_1_idx` (`guest_id`),
-  ADD KEY `fk_reservations_2_idx` (`roomId`);
-
---
--- Indexes for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_rooms_roomsType_idx` (`room_type`);
-
---
--- Indexes for table `rooms_facilities`
---
-ALTER TABLE `rooms_facilities`
-  ADD KEY `fk_roomsFacilities_1_idx` (`roomId`),
-  ADD KEY `fk_roomsFacilities_2_idx` (`facilityId`);
-
---
--- Indexes for table `rooms_type`
---
-ALTER TABLE `rooms_type`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `facilities`
---
-ALTER TABLE `facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `guests`
---
-ALTER TABLE `guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
---
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `rooms_type`
---
-ALTER TABLE `rooms_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `reservations`
---
-ALTER TABLE `reservations`
-  ADD CONSTRAINT `fk_reservations_1` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reservations_2` FOREIGN KEY (`roomId`) REFERENCES `rooms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `rooms`
---
-ALTER TABLE `rooms`
-  ADD CONSTRAINT `fk_rooms_roomsType` FOREIGN KEY (`room_type`) REFERENCES `rooms_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `rooms_facilities`
---
-ALTER TABLE `rooms_facilities`
-  ADD CONSTRAINT `fk_roomsFacilities_1` FOREIGN KEY (`roomId`) REFERENCES `rooms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_roomsFacilities_2` FOREIGN KEY (`facilityId`) REFERENCES `facilities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+INSERT INTO `users` (`id`, `username`, `password`, `realname`) VALUES
+('1', 'khalid', '21232f297a57a5a743894a0e4a801fc3', 'Khalid Saeed'),
+('2', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin User'),
+('3', 'sami', '21232f297a57a5a743894a0e4a801fc3', 'Sami Saeed'),
+('4', 'elma', '21232f297a57a5a743894a0e4a801fc3', 'Elma Elma'),
+('5', 'david', '21232f297a57a5a743894a0e4a801fc3', 'David Kim'),
+('6', 'sally', '21232f297a57a5a743894a0e4a801fc3', 'Sally Adams'),
+('7', 'julia', '21232f297a57a5a743894a0e4a801fc3', 'Julia Roberts'),
+('8', 'tom12', '21232f297a57a5a743894a0e4a801fc3', 'Tom Hanks'),
+('9', 'user9', '21232f297a57a5a743894a0e4a801fc3', 'User 9'),
+('10', 'user10', '21232f297a57a5a743894a0e4a801fc3', 'User 10'),
+('11', 'user11', '21232f297a57a5a743894a0e4a801fc3', 'User 11'),
+('12', 'user12', '21232f297a57a5a743894a0e4a801fc3', 'User 12'),
+('13', 'user13', '21232f297a57a5a743894a0e4a801fc3', 'User 13');

@@ -15,7 +15,6 @@ public class BookingSubmitAction extends BaseAction {
 
     private String surename;
     private String firstname;
-    private String dob;
     private String address;
     private String phone;
     private String email;
@@ -71,7 +70,7 @@ public class BookingSubmitAction extends BaseAction {
         Payment payment = new Payment();
         payment.setCardNumber(getCardno() == null ? cardNumber : getCardno());
         payment.setAmmount(getTotalAmmount());
-        payment.setCardHolder(guest.getForName() + " " + guest.getSureName());
+        payment.setCardHolder(guest.getFirstname() + " " + guest.getLastname());
         payment.setCcv(getSeccode());
         payment.setExpire(getExpire());
         return  payment;
@@ -94,9 +93,8 @@ public class BookingSubmitAction extends BaseAction {
         if(guest == null) {
             guest = new Guest();
             guest.setTitle("Mr");
-            guest.setSureName(getSurename());
-            guest.setForName(getFirstname());
-            guest.setDateOfBirth(getDob());
+            guest.setLastname(getSurename());
+            guest.setFirstname(getFirstname());
             guest.setEmail(getEmail());
             guest.setAddress(getAddress());
             guest.setPhone(getPhone());
@@ -133,14 +131,6 @@ public class BookingSubmitAction extends BaseAction {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
     }
 
     public String getAddress() {

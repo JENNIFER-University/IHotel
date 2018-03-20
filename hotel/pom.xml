@@ -93,7 +93,17 @@
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.5</version>
         </dependency>
+
+        <!-- Flyway -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>5.0.7</version>
+        </dependency>
+        <!-- Flyway -->
+
     </dependencies>
+
 
     <build>
         <finalName>ihotel</finalName>
@@ -110,6 +120,7 @@
                     </archive>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

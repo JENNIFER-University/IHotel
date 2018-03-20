@@ -158,7 +158,7 @@ public class RoomDAOImpl implements RoomDAO{
 						ArrayList<Facility> roomFacilities = new ArrayList<Facility>();
 						while(rs.next()){
 							Facility f = new Facility();
-							f.setFacilityName(rs.getString("facilityName"));
+							f.setName(rs.getString("facilityName"));
 							roomFacilities.add(f);
 						}
 						return roomFacilities;

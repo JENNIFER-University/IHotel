@@ -29,7 +29,7 @@
       		<h3>Facilities</h3>
       		<ul>
       		    <s:iterator value="room.roomFacilities">
-      		        <li><s:property value="facilityName"/></li>
+      		        <li><s:property value="name"/></li>
       		    </s:iterator>
 
 			</ul>

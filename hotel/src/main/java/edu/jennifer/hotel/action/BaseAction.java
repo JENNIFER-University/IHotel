@@ -23,7 +23,7 @@ public class BaseAction extends ActionSupport{
         connectionUtil = ConnectionUtil.getInstance();
     }
 
-    @Deprecated
+    //TODO: Remove ?
     public long initalize(){
 		long randomDelay = Common.getRandom(1000, 8500);
 		boolean  test = Common.processLong(100, 500, 20);

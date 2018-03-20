@@ -87,8 +87,7 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck, Observ
             if (iterations > 10 || iterations == 0) {
                 iterations = 10;
             }
-            CheckTask.isBlackListed(iterations, card);
-            return "valid";
+            return CheckTask.isBlackListed(iterations, card) ? "valid" : "invalid";
         }else {
             System.out.printf("[%s] Card Digits Check Failed%n", getClass().getSimpleName());
             return "invalid";

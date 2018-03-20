@@ -4,9 +4,8 @@ public class Guest {
 
 	private int id;
 	private String title;
-	private String forName;
-	private String sureName;
-	private String dateOfBirth;
+	private String firstname;
+	private String lastname;
 	private String address;
 	private String phone;
 	private String email;
@@ -24,23 +23,17 @@ public class Guest {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getForName() {
-		return forName;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setForName(String forName) {
-		this.forName = forName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String getSureName() {
-		return sureName;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setSureName(String sureName) {
-		this.sureName = sureName;
-	}
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	public String getAddress() {
 		return address;

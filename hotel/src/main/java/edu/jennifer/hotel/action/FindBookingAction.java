@@ -13,8 +13,7 @@ public class FindBookingAction extends BaseAction {
 
     private String reservationId;
     private Reservation reservation;
-    private Payment payment;
-    private String test = "hehehe";
+    private Payment payment; //TODO: Clean up
 
     @Override
     public String execute() throws Exception {
@@ -63,13 +62,5 @@ public class FindBookingAction extends BaseAction {
 
     public Payment getPayment() {
         return payment;
-    }
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
     }
 }

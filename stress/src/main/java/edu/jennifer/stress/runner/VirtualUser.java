@@ -30,8 +30,8 @@ import org.apache.http.message.BasicNameValuePair;
 public class VirtualUser extends Thread{
 	
 	private final int CALLS_PER_USER 	= 6;
-	private boolean debug 		   		= false;
-	private String IHOTEL_URL	   		= null;
+	private boolean debug;
+	private String IHOTEL_URL;
 		
 	 
 	private String id;

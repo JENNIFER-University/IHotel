@@ -19,8 +19,8 @@ public class GuestDAOImpl implements GuestDAO {
 
 	public int saveGuestInformationh(Guest guest) {
 		try{
-			String query = "INSERT INTO guests (title,forenames,surename,dob,address,phone,email) VALUES (?,?,?,?,?,?,?)";
-			int saved = jdbcTemplate.update(query,guest.getTitle(),guest.getForName(),guest.getSureName(),guest.getDateOfBirth(),guest.getAddress(),guest.getPhone(),guest.getEmail());
+			String query = "INSERT INTO guests (title,firstname,lastname,address,phone,email) VALUES (?,?,?,?,?,?)";
+			int saved = jdbcTemplate.update(query,guest.getTitle(),guest.getFirstname(),guest.getLastname(),guest.getAddress(),guest.getPhone(),guest.getEmail());
 			if(saved > 0 ){
 			    return jdbcTemplate.queryForObject("select max(id) from guests", Integer.class);
 			}
@@ -33,7 +33,7 @@ public class GuestDAOImpl implements GuestDAO {
 	public Guest findByEmail(String email, long rd) {
 		try{
 			long randomDelay = toMySqlSeconds(rd);
-			String query = "SELECT id,title,forenames,surename,dob,address,phone,email,SLEEP(?) from guests where email = ?";
+			String query = "SELECT id,title,firstname,lastname,address,phone,email,SLEEP(?) from guests where email = ?";
 			Guest g = jdbcTemplate.query(query, new Object[]{randomDelay,email},new ResultSetExtractor<Guest>(){
 				public Guest extractData(ResultSet rs) throws SQLException,
                         DataAccessException {
@@ -41,9 +41,8 @@ public class GuestDAOImpl implements GuestDAO {
 						Guest g = new Guest();
 						g.setId(rs.getInt("id"));
 						g.setTitle(rs.getString("title"));
-						g.setForName(rs.getString("forenames"));
-						g.setSureName(rs.getString("surename"));
-						g.setDateOfBirth(rs.getString("dob"));
+						g.setFirstname(rs.getString("firstname"));
+						g.setLastname(rs.getString("lastname"));
 						g.setAddress(rs.getString("address"));
 						g.setPhone(rs.getString("phone"));
 						g.setEmail(rs.getString("email"));
