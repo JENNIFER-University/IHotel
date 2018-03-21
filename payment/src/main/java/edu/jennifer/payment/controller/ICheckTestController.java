@@ -45,7 +45,7 @@ public class ICheckTestController{
             }else {
                 String cardNumber = "123456789";
                 boolean validateResult = v.checkCard(cardNumber);
-                logger.info("Card Number " + cardNumber + " was sent to icheck and result is : " + result);
+                logger.info("Card Number " + cardNumber + " was sent to icheck and result is : " + validateResult);
                 result.put("test_result", "passed");
             }
         }else{

@@ -57,7 +57,6 @@ public class VirtualUser extends Thread{
 		synchronized (activeUsers) {
 			activeUsers.add(id);
 		}
-		System.out.println(id);
 
 		openHomePage();
 		think(3000, 4000);
@@ -77,8 +76,6 @@ public class VirtualUser extends Thread{
 		synchronized (activeUsers) {
 			activeUsers.remove(id);
 		}
-
-		System.out.println(id + " done");
 	}
 
 
@@ -86,7 +83,7 @@ public class VirtualUser extends Thread{
 	 * Call IHotel Main Page
 	 */
 	private void openHomePage(){
-		String url = appBaseUrl + "/welcome";
+		String url = appBaseUrl + "/welcome?simula=1";
 		this.browser.doGet(url);
 	}
 
@@ -95,7 +92,7 @@ public class VirtualUser extends Thread{
 	 */
 	private void login(){
 		Account account = this.requestParams.getAccountInformation();
-		String url = String.format("%s/doLogin?username=%s&password=%s", this.appBaseUrl, account.getUsername(), account.getPassword());
+		String url = String.format("%s/doLogin?simula=1&username=%s&password=%s", this.appBaseUrl, account.getUsername(), account.getPassword());
 		this.browser.doGet(url);
 	}
 

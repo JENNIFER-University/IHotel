@@ -14,6 +14,9 @@ public class WelcomeAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
+        if (getSimula() == 1) {
+            initalize();
+        }
         setRooms(getRoomService().findFeatured());
 
         if (isLogged()) {

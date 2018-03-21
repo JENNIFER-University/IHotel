@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseAction extends ActionSupport{
 
+    private int simula;
+
     private ConnectionUtil connectionUtil;
     private RoomDAO roomService;
     private GuestDAO guestDAO;
@@ -70,4 +72,12 @@ public class BaseAction extends ActionSupport{
         return null;
     }
 
+
+    public void setSimula(int simula) {
+        this.simula = simula;
+    }
+
+    public int getSimula() {
+        return simula;
+    }
 }

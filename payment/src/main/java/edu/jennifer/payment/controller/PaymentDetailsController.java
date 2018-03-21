@@ -17,8 +17,6 @@ public class PaymentDetailsController {
 
 	@RequestMapping("/payment_detail")
 	public @ResponseBody  Transaction getPaymentDetails(@RequestParam(value = "resverationId") String resverationId){
-
-		System.out.println(resverationId);
 		if (resverationId == null || resverationId.startsWith("ex")) {
 			throw new invalidReservationException("Invalid Reservation Card Number");
 		}
