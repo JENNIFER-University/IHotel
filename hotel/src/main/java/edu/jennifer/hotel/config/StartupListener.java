@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * @author Khalid Elshafie
+ * @author Khalid
  * @Created 9/7/17 12:00 PM.
  */
 @WebListener
@@ -50,7 +50,7 @@ public class StartupListener implements ServletContextListener {
             new DBCleaner().cleanReservationTable();
         }
 
-//        Configuration file
+        //Configuration file
         logger.info("Checking configuration file");
         Conf appConf = Conf.getInstance();
         if (!appConf.isConfFileExists()) {

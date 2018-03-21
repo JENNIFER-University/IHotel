@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author Khalid Elshafie
+ * @author Khalid
  * @Created 12/28/17 11:16 AM.
  */
 public class SettingsHelper implements Filter {

@@ -4,7 +4,8 @@ import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.util.Common;
 
 /**
- * Created by khalid on 03/04/2017.
+ * @author khalid
+ * @created 03/04/2017.
  */
 public class BookingAction extends BaseAction {
 

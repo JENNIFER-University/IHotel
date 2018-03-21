@@ -9,7 +9,8 @@ import org.apache.struts2.ServletActionContext;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by khalid on 31/03/2017.
+ * @author Khalid
+ * @created 31/03/2017.
  */
 public class BaseAction extends ActionSupport{
 

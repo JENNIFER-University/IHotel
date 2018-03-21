@@ -5,7 +5,7 @@ import edu.jennifer.hotel.util.Conf;
 
 /**
  * Save the Configurations
- * @author Khalid Elshafie <abolkog@gmail.com>
+ * @author Khalid
  * @Created 12/28/17 12:37 PM.
  */
 public class SetupSubmitAction extends BaseAction{

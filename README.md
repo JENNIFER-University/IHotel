@@ -11,4 +11,4 @@ The application consists of 3 apps:
 
 ##Developer
 
-Khalid Saeed (khalid@jennifersoft.com)
+Khalid (khalid@jennifersoft.com)

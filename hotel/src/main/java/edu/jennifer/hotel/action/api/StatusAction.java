@@ -1,6 +1,7 @@
 package edu.jennifer.hotel.action.api;
 
 import edu.jennifer.hotel.action.BaseAction;
+import edu.jennifer.hotel.util.ConnectionUtil;
 import edu.jennifer.hotel.util.PaymentGateway;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -10,70 +11,69 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 /**
- * Created by khalid on 07/04/2017.
+ * Testing communications
+ * @author Khalid
  */
 public class StatusAction extends BaseAction {
 
-    private String hotel;
-    private String payment;
-    private String check;
+    private final String PASSED = "passed";
+    private final String FAILED = "failed";
+
+    private String databaseConnection;
+    private String databaseTable;
+    private String iPaymentConnection;
+    private String icheckConnection;
+
+
 
     @Override
     public String execute() throws Exception {
-        setHotel("alive");
-        checkIPaymentAndICheck();
-        return  SUCCESS;
-
+        checkDatabaseConnection();
+        checkDatabaseTables();
+        checkIPaymentConnection();
+        return SUCCESS;
     }
 
 
-    private void checkIPaymentAndICheck(){
-        CloseableHttpClient httpClient;
-        CloseableHttpResponse response;
-        try{
-            String baseUrl = PaymentGateway.getIpaymentBaseUrl();
-            httpClient = HttpClientBuilder.create().build();
-            String callUrl = baseUrl + "status";
+    private void checkIPaymentConnection() {
+        String[] status = PaymentGateway.getConnectionStatus();
+        iPaymentConnection = status == null ? FAILED : status[0];
+        icheckConnection    = status == null ? FAILED : status[1];
+    }
 
-            HttpGet getRequest = new HttpGet(callUrl);
-            response = httpClient.execute(getRequest);
-            int responseCode = response.getStatusLine().getStatusCode();
-            if(responseCode == 200){
-                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-                String output = br.readLine();
-                br.close();
-                JSONObject object = new JSONObject(output);
-                setPayment(object.getString("ipayment"));
-                setCheck(object.getString("icheck"));
+    private void checkDatabaseTables() {
+        databaseTable = ConnectionUtil.getInstance().tablesAreOk() ? PASSED : FAILED;
+    }
+
+    private void checkDatabaseConnection() {
+        try{
+            if (ConnectionUtil.getInstance().getDataSource().getConnection() != null) {
+                databaseConnection = PASSED;
+            }else{
+                databaseConnection = FAILED;
             }
-        }catch(Exception ex){
-            System.out.println("ERROR " + ex.getMessage());
+
+        }catch (SQLException sql) {
+            databaseConnection = FAILED;
         }
     }
 
-    public void setHotel(String hotel) {
-        this.hotel = hotel;
+    public String getDatabaseConnection() {
+        return databaseConnection;
     }
 
-    public String getHotel() {
-        return hotel;
+    public String getDatabaseTable() {
+        return databaseTable;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public String getiPaymentConnection() {
+        return iPaymentConnection;
     }
 
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setCheck(String check) {
-        this.check = check;
-    }
-
-    public String getCheck() {
-        return check;
+    public String getIcheckConnection() {
+        return icheckConnection;
     }
 }

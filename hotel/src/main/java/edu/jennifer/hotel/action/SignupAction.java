@@ -3,7 +3,7 @@ package edu.jennifer.hotel.action;
 import edu.jennifer.hotel.model.User;
 
 /**
- * @author Khalid Elshafie
+ * @author Khalid
  * @Created 9/15/17 12:16 PM.
  */
 public class SignupAction extends BaseAction{

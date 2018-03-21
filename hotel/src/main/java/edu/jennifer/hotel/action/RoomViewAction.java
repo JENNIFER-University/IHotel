@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by khalid on 31/03/2017.
+ * @author khalid
+ * @created 31/03/2017.
  */
 public class RoomViewAction extends BaseAction {
 

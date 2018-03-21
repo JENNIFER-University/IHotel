@@ -6,7 +6,8 @@ import edu.jennifer.hotel.problem.ProblemPool;
 import edu.jennifer.hotel.util.PaymentGateway;
 
 /**
- * Created by khalid on 03/04/2017.
+ * @author khalid
+ * @created 03/04/2017.
  */
 public class FindBookingAction extends BaseAction {
 

@@ -3,7 +3,7 @@ package edu.jennifer.hotel.action;
 import edu.jennifer.hotel.util.Conf;
 
 /**
- * @author Khalid Elshafie <abolkog@gmail.com>
+ * @author Khalid
  * @Created 12/28/17 1:20 PM.
  */
 public class SetupAction extends BaseAction {

@@ -9,7 +9,8 @@ import edu.jennifer.hotel.util.PaymentGateway;
 import edu.jennifer.hotel.util.RandomString;
 
 /**
- * Created by khalid on 03/04/2017.
+ * @author khalid
+ * @created 03/04/2017.
  */
 public class BookingSubmitAction extends BaseAction {
 

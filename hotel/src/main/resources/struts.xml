@@ -61,7 +61,6 @@
             <result type="tiles" name="error">/signup_failed.tiles</result>
         </action>
 
-
     </package>
 
     <package name="rooms" extends="default" namespace="/rooms">
@@ -117,12 +116,6 @@
             <result type="tiles" name="error">/no_result.tiles</result>
         </action>
 
-    </package>
-
-    <package name="test" extends="json-default" namespace="/test">
-        <action name="all" class="edu.jennifer.hotel.action.TestAction">
-            <result type="json"></result>
-        </action>
     </package>
 
     <package name="config" extends="default">
