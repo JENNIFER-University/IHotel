@@ -2,10 +2,14 @@ package edu.jennifer.stress.util;
 
 import edu.jennifer.stress.model.BookingParams;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 public class AppUtil {
 
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	private static Random rand = new Random();
 	
 	public static int getRandom(int min, int max){
@@ -14,28 +18,15 @@ public class AppUtil {
 		int value = Math.abs(rand.nextInt()) % diff;
 		return (value+min);
 	}
-	
-	public static BookingParams getCheckInOut(){
-		BookingParams params = new BookingParams();
-		int day 	= getRandom(1, 15);
-		int m 		= getRandom(1, 12); 
-		String month = "";
-		if(m < 9)
-			month = "0" + m;
-		else
-			month = "" + m;
-			
-		int year 	= 2015;
-		
-		int days = getRandom(1, 7);
-		
-		String checkIn = month + "/"+day+"/"+year;
-		String checkOut = month  + "/" + (day + days) + "/" +  year;
-		
-		params.setCheckIn(checkIn);
-		params.setCheckOut(checkOut);
-		params.setDays(days + "");
-		
-		return params;
+
+	/**
+	 * Get Date as String (MM/dd/yyyy)
+	 * @param addedDays additional days to TODAY
+	 * @return
+	 */
+	public static String getDateFormatted(int addedDays) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, addedDays);
+		return sdf.format(calendar.getTime());
 	}
 }

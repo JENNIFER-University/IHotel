@@ -3,32 +3,30 @@ package edu.jennifer.stress;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import edu.jennifer.stress.model.CliParams;
-import edu.jennifer.stress.runner.StressRunner;
-import edu.jennifer.stress.runner.VirtualUser;
+import edu.jennifer.stress.simula.ThreadsController;
 
 import java.util.Calendar;
-import java.util.HashSet;
 
 /**
- * @author Khalid Elshafie <abolkog@gmail.com>
+ * @author Khalid
  * @Created 10/24/17 2:48 PM.
  */
 
-public class RunStress {
+public class Main {
 
 	final CliParams cliParams = new CliParams();
 	private final String appName = "istress";
 
 	
 	public static void main(String[] args) {
-		RunStress app = new RunStress();
+		Main app = new Main();
 		app.showInfo();
 		app.handleInput(args);
 		app.run();
 	}
 
 	private void run() {
-		StressRunner runner = new StressRunner(this.cliParams);
+		ThreadsController runner = new ThreadsController(this.cliParams);
 		runner.start();
 	}
 

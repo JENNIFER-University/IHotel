@@ -19,12 +19,12 @@ ihotel_ip=127.0.0.1
 # -----------  Do not Edit below this line -----------------------------
 # ----------------------------------------------------------------------
 #Application Main Class. Do not Change
-MAIN_CLASS=edu.jennifer.stress.RunStress
+MAIN_CLASS=edu.jennifer.stress.Main
 
 
 grapProcess(){
   sleep 2
-  pgrep -f "stress.RunStress" > PID
+  pgrep -f "stress.Main" > PID
   echo "Stress Tool Process ID" | cat PID
 }
 

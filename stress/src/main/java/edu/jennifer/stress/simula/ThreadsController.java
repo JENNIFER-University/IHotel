@@ -1,24 +1,24 @@
-package edu.jennifer.stress.runner;
+package edu.jennifer.stress.simula;
 
 import edu.jennifer.stress.model.CliParams;
 
 import java.util.HashSet;
 
 /**
- * @author Khalid Elshafie <abolkog@gmail.com>
+ * @author Khalid
  * @Created 12/29/17 11:47 AM.
  */
-public class StressRunner extends Thread {
+public class ThreadsController extends Thread {
 
     private CliParams cliParams;
 
-    public StressRunner(CliParams cliParams) {
+    public ThreadsController(CliParams cliParams) {
         this.cliParams = cliParams;
     }
 
     @Override
     public void run() {
-        System.out.printf("Starting Stress with the following paramters: %n%s%n", cliParams.toString());
+        System.out.printf("Starting Simulation with the following paramters: %n%s%n", cliParams.toString());
 
         String ihotelUrl = getBaseUrl();
 
@@ -31,11 +31,11 @@ public class StressRunner extends Thread {
             }
 
             if (neededUsers > 0) {
-                String userId = String.format("User[%d]", activeUsersNumber);
+                String userId = String.format("Account[%d]", activeUsersNumber);
                 synchronized (activeUsers) {
                     if(!activeUsers.contains(userId)) {
                         activeUsersNumber++;
-                        new VirtualUser(activeUsers, userId, ihotelUrl, cliParams.isDebug()).start();
+                        new VirtualUser(activeUsers, userId, ihotelUrl).start();
                     }
                 }
 

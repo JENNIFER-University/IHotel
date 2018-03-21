@@ -4,7 +4,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 /**
- * @author Khalid Elshafie <abolkog@gmail.com>
+ * @author Khalid
  * @Created 12/29/17 11:33 AM.
  */
 @Parameters(separators = "=")
@@ -21,9 +21,6 @@ public class CliParams {
 
     @Parameter(names = { "-u", "--users"}, description = "Maximum number of users")
     private int maxUsers = 50;
-
-    @Parameter(names = { "-d", "--debug"}, description = "Enable Debug Mode")
-    private boolean debug;
 
     public boolean isHelp() {
         return help;
@@ -49,14 +46,6 @@ public class CliParams {
         this.ihotelPort = ihotelPort;
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-
-    public void setDebug(boolean debug) {
-        this.debug = debug;
-    }
-
     public int getMaxUsers() {
         return maxUsers;
     }
@@ -72,7 +61,6 @@ public class CliParams {
                 ", ihotelIp='" + ihotelIp + '\'' +
                 ", ihotelPort=" + ihotelPort +
                 ", maxUsers=" + maxUsers +
-                ", debug=" + debug +
                 '}';
     }
 }
