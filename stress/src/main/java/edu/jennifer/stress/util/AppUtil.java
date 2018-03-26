@@ -1,10 +1,7 @@
 package edu.jennifer.stress.util;
 
-import edu.jennifer.stress.model.BookingParams;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 public class AppUtil {
