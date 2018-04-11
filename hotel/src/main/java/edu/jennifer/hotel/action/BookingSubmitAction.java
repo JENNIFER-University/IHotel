@@ -14,7 +14,7 @@ import edu.jennifer.hotel.util.RandomString;
  */
 public class BookingSubmitAction extends BaseAction {
 
-    private String surename;
+    private String lastname;
     private String firstname;
     private String address;
     private String phone;
@@ -94,7 +94,7 @@ public class BookingSubmitAction extends BaseAction {
         if(guest == null) {
             guest = new Guest();
             guest.setTitle("Mr");
-            guest.setLastname(getSurename());
+            guest.setLastname(getLastname());
             guest.setFirstname(getFirstname());
             guest.setEmail(getEmail());
             guest.setAddress(getAddress());
@@ -118,12 +118,12 @@ public class BookingSubmitAction extends BaseAction {
         return  reservation;
     }
 
-    public String getSurename() {
-        return surename;
+    public String getLastname() {
+        return lastname == null ? "" : lastname;
     }
 
-    public void setSurename(String surename) {
-        this.surename = surename;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getFirstname() {

@@ -20,7 +20,7 @@ var app = {
             prefix = '500';
         }
 
-        $("#surename").val("Messi");
+        $("#lastname").val("Messi");
     	$("#firstname").val("Lionel");
     	$("#email").val("messi@barca.com");
     	$("#cardno").val(prefix + this.cc_gen());

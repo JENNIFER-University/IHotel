@@ -34,8 +34,8 @@
 	        	</div>
 
 	        	<div class="form-group">
-	        		<label>Surname:</label>
-	        		<input type="text" class="form-control" id="surename" name="surname">
+	        		<label>Lastname:</label>
+	        		<input type="text" class="form-control" id="lastname" name="lastname">
 	        	</div>
 
 	        	<div class="form-group">
