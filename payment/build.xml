@@ -27,7 +27,7 @@
 
         <copy todir="${tmp.dir}" verbose="true">
             <fileset dir="${target.dir}/../">
-                <include name="startup.sh" />
+                <include name="payment.sh" />
             </fileset>
 
             <fileset dir="${resource.dir}/">

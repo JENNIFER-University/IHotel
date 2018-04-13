@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="compress stress" default="build">
+
+<project name="compress hotel" default="build">
 
     <property name="target.dir" value="./target" />
     <property name="build.dir" value="./build" />
     <property name="tmp.dir" value="./tmp" />
-
-    <tstamp>
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd_HH:mm:ss"/>-->
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd"/>-->
-    </tstamp>
+    <property name="mysql.driver" value="mysql-connector-java-5.1.6-bin.jar" />
 
     <target name="build">
-        <echo message="Starting compressing build version ${stress.version}" />
+        <echo message="Starting compressing build version ${hotel.version}" />
 
         <antcall target="remove_build" />
 
@@ -19,21 +16,13 @@
         <mkdir dir="${build.dir}" />
         <mkdir dir="${tmp.dir}" />
 
-        <copy todir="${tmp.dir}/lib" verbose="true">
+        <copy todir="${tmp.dir}/" verbose="true">
             <fileset dir="${target.dir}">
-                <include name="stress-${stress.version}.jar" />
+                <include name="ihotel.war" />
             </fileset>
-            <fileset dir="${target.dir}/lib">
-                <include name="*.jar" />
+            <fileset dir="./">
+                <include name="${mysql.driver}" />
             </fileset>
-
-        </copy>
-
-        <copy todir="${tmp.dir}" verbose="true">
-            <fileset dir="${target.dir}/../">
-                <include name="stress.sh" />
-            </fileset>
-
         </copy>
 
         <antcall target="compress" />
@@ -42,10 +31,7 @@
     </target>
 
     <target name="compress">
-        <!--<zip destfile="${build.dir}/stress-${stress.version}-${time.stamp}.zip">-->
-            <!--<zipfileset dir="${tmp.dir}" />-->
-        <!--</zip>-->
-        <zip destfile="${build.dir}/stress-${stress.version}.zip">
+        <zip destfile="${build.dir}/ihotel-${hotel.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>
