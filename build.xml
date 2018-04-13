@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="iHotel Build" default="build">
 
-    <property name="app.version" value="2.0.3" />
-    <property name="hotel.app" value="./hotel/target/ihotel.war" />
-    <property name="mysql.connector" value="./hotel/mysql-connector-java-5.1.6-bin.jar" />
+    <xmlproperty file="./pom.xml" keepRoot="false" />
+
+    <property name="app.version" value="${properties.ihotel.version}" />
+    <property name="hotel.app" value="./hotel/build/ihotel-${app.version}.zip" />
     <property name="payment.app" value="./payment/build/payment-${app.version}.zip" />
     <property name="check.app" value="./check/build/check-${app.version}.zip" />
     <property name="stress.app" value="./stress/build/stress-${app.version}.zip" />
@@ -26,7 +27,6 @@
 
         <copy todir="${tmp.dir}" verbose="true">
             <file file="${hotel.app}" />
-            <file file="${mysql.connector}" />
             <file file="${payment.app}" />
             <file file="${check.app}" />
             <file file="${stress.app}" />

@@ -4,15 +4,11 @@
 # -----------  Configurations  -----------------------------------------
 # ----------------------------------------------------------------------
 
-# JAVA_HOME Settings. Uncomment the next line and set the path to JAVA_HOME
-
-#JAVA_HOME=
-
 #ICheck Listen Port. Default is 28080 If you change this value make sure to configure payment connection settings as well.
 LISTEN_PORT=28080
 
 # ----------------------------------------------------------------------
-# -----------  JENNIFER AGent Configurations  -----------------------------------------
+# -----------  JENNIFER AGent Configurations  --------------------------
 # ----------------------------------------------------------------------
 
 #JENNIFER AGENT HOME
@@ -21,7 +17,7 @@ LISTEN_PORT=28080
 #Agent Configuration File Name
 #CONF_FILE=check.conf
 
-# JAVA_OPTS for Agent installation
+#JAVA_OPTS for Agent installation
 #JAVA_OPTS="-javaagent:$AGENT_HOME/jennifer.jar -Djennifer.config=$AGENT_HOME/conf/$CONF_FILE"
 
 
@@ -29,26 +25,54 @@ LISTEN_PORT=28080
 # ----------------------------------------------------------------------
 # -----------  Do not Edit below this line -----------------------------
 # ----------------------------------------------------------------------
-
-# ICheck Home, use only if the card_check.jar and lib directory are in different location from this script
-CHECK_HOME="$PWD"
-LIB_JAR=$CHECK_HOME/lib
-
-
-#Application Main Class. Do not Change
+APP_HOME="$PWD"
+APP_LIB=$APP_HOME/lib/*
 MAIN_CLASS=edu.jennifer.check.launcher.RunCheck
+APP_NAME="iCheck"
+LOG="$APP_HOME/$APP_NAME.log"
 
-
-grapProcess(){
-  sleep 3
-  pgrep -f $MAIN_CLASS > PID
-  echo "Process ID" | cat PID
+app_pid() {
+    pgrep -f $MAIN_CLASS
 }
 
-startup() {
-  nohup $JAVA_HOME/bin/java -cp .:lib/* $JAVA_OPTS $MAIN_CLASS  $LISTEN_PORT &
-  grapProcess
+start() {
+    echo "Starting $APP_NAME. Please check the log file $LOG for more information"
+    nohup java $JAVA_OPTS -cp .:$APP_LIB  $MAIN_CLASS $LISTEN_PORT >> $LOG 2>&1 &
+    while app_pid > /dev/null ;  do
+        sleep 1
+    done
 
+    app_pid > /dev/null
 }
 
-startup
+stop () {
+    echo "Stopping $APP_NAME"
+    pid=`app_pid`
+    [ -n "$pid" ] && kill $pid
+}
+
+status() {
+    pid=`app_pid`
+    if [ -n "$pid" ]; then
+        echo "$APP_NAME (Process Id $pid) is running"
+        return 0
+    fi
+
+    echo "$APP_NAME is stopped"
+    return 0;
+}
+
+case "$1" in
+        start)
+            start
+            ;;
+        stop)
+            stop
+            ;;
+        status)
+            status
+            ;;
+        *)
+            echo "Usage $0 (start|stop|status)"
+            exit 1
+esac

@@ -30,8 +30,7 @@
 
         <copy todir="${tmp.dir}" verbose="true">
             <fileset dir="${target.dir}/../">
-                <include name="start.sh" />
-                <include name="stop.sh" />
+                <include name="check.sh" />
             </fileset>
 
         </copy>

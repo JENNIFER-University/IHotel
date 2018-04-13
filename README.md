@@ -1,8 +1,9 @@
 #iHotel
 
-iHotel Sample application. This application is designed for JENNIFER training and education only.
+iHotel Sample application. This sample application is designed for [JENNIFER](https://jennifersoft.com/en/product/product-summary/) training and education only.
+For more information about JENNIFER Training please visit us at [JENNIFER University](https://edu.jennifersoft.com/courses/view/jennifer-5-training-course)
  
-## Components
+## System Components
 The application consists of 3 apps: 
 
 * iHotel: The hotel main application (Struts2 and MySQL)
