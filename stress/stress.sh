@@ -27,7 +27,7 @@ app_pid() {
 
 start() {
     echo "Starting $APP_NAME. Please check the log file $LOG for more information"
-    nohup java $JAVA_OPTS -cp .:$APP_LIB/*  $MAIN_CLASS -i $IHOTEL_IP -P IHOTEL_PORT >> $LOG 2>&1 &
+    nohup java $JAVA_OPTS -cp .:$APP_LIB  $MAIN_CLASS -i $IHOTEL_IP -p $IHOTEL_PORT >> $LOG 2>&1 &
     while app_pid > /dev/null ;  do
         sleep 1
     done

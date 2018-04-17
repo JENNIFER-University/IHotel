@@ -5,7 +5,7 @@
     <property name="target.dir" value="./target" />
     <property name="build.dir" value="./build" />
     <property name="tmp.dir" value="./tmp" />
-    <property name="mysql.driver" value="mysql-connector-java-5.1.6-bin.jar" />
+    <property name="mysql.driver" value="mysql-connector-java-5.1.44-bin.jar" />
 
     <target name="build">
         <echo message="Starting compressing build version ${hotel.version}" />
