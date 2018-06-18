@@ -35,6 +35,11 @@ app_pid() {
     pgrep -f $MAIN_CLASS
 }
 
+run() {
+    echo "Starting $APP_NAME in foreground"
+    java $JAVA_OPTS -cp .:$APP_LIB  $MAIN_CLASS $LISTEN_PORT
+}
+
 start() {
     echo "Starting $APP_NAME. Please check the log file $LOG for more information"
     nohup java $JAVA_OPTS -cp .:$APP_LIB  $MAIN_CLASS $LISTEN_PORT >> $LOG 2>&1 &
@@ -68,6 +73,6 @@ case "$1" in
             status
             ;;
         *)
-            echo "Usage $0 (start|stop|status)"
+            echo "Usage $0 (start|run|stop|status)"
             exit 1
 esac
