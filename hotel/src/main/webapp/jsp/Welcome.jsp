@@ -7,7 +7,7 @@
         <div class="wrap-info">
             <div class="information">
                 <h1  class="animated fadeInDown">iHotel , feel like home</h1>
-                <p class="animated fadeInUp"></p>
+                <p class="animated fadeInUp">JENNIFER Training Sample Application</p>
             </div>
             <a href="#information" class="arrow-nav scroll wowload fadeInDownBig"><i class="fa fa-angle-down"></i></a>
         </div>
@@ -22,7 +22,7 @@
 
 
 <div class="col-sm-7 col-md-8">
-    <div class="embed-responsive embed-responsive-16by9 wowload fadeInLeft"><iframe  class="embed-responsive-item" src="http://player.vimeo.com/video/55057393?title=0" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+    <div class="embed-responsive embed-responsive-16by9 wowload fadeInLeft"><iframe  class="embed-responsive-item" src="http://player.vimeo.com/video/160565616?title=0" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
 </div>
 
 
@@ -94,13 +94,3 @@
 </div>
 </div>
 <!-- services -->
-
-
-
-<script>
-$(function(){
-	$("#checkin").datepicker();
-	$("#checkout").datepicker();
-});
-
-</script>
