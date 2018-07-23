@@ -1,8 +1,10 @@
 package edu.jennifer.stress.simula;
 
+import edu.jennifer.stress.factory.UserFactory;
 import edu.jennifer.stress.model.*;
-import edu.jennifer.stress.simula.Browser;
 import edu.jennifer.stress.util.AppUtil;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.util.*;
 
@@ -11,11 +13,6 @@ import java.util.*;
  * @Created 10/24/17 4:15 PM.
  */
 public class VirtualUser extends Thread{
-
-	/**
-	 * Total calls for this user
-	 */
-	private final int CALLS_PER_USER 	= 6;
 
 	/**
 	 * Base URL for the application (iHotel)
@@ -35,12 +32,23 @@ public class VirtualUser extends Thread{
 	/**
 	 * Http Client Instance
 	 */
-	private Browser browser;
+	private HttpClient httpClient;
 
 	/**
-	 * Helper for the user request
+	 * User Information
 	 */
-	private RequestParams requestParams;
+	private User user;
+
+	/**
+	 * Room that will be booked
+	 */
+	private Room room;
+
+	/**
+	 * User's Payment Information
+	 */
+	private PaymentInfo paymentInfo;
+
 
 
 
@@ -48,8 +56,11 @@ public class VirtualUser extends Thread{
 		this.id = id;
 		this.activeUsers = activeUsers;
 		this.appBaseUrl = appBaseUrl;
-		this.browser = new Browser();
-		this.requestParams = new RequestParams();
+		this.user = UserFactory.createUser();
+		this.httpClient = new HttpClient(this.user.getLocation());
+		this.room = Room.createRoom();
+		this.paymentInfo = PaymentInfo.createPaymentInfo();
+
 	}
 	
 	@Override
@@ -84,39 +95,38 @@ public class VirtualUser extends Thread{
 	 */
 	private void openHomePage(){
 		String url = appBaseUrl + "/welcome?simula=1";
-		this.browser.doGet(url);
+		this.httpClient.doGet(url);
 	}
 
 	/**
 	 * Login Request
 	 */
 	private void login(){
-		Account account = this.requestParams.getAccountInformation();
-		String url = String.format("%s/doLogin?simula=1&username=%s&password=%s", this.appBaseUrl, account.getUsername(), account.getPassword());
-		this.browser.doGet(url);
+		String url = String.format("%s/doLogin?simula=1&username=%s&password=%s", this.appBaseUrl, this.user.getUsername(), this.user.getPassword());
+		this.httpClient.doGet(url);
 	}
 
 	/**
 	 * List all rooms
 	 */
 	private void listRooms(){
-		this.browser.doGet(String.format("%s/rooms/list",this.appBaseUrl));
+		this.httpClient.doGet(String.format("%s/rooms/list",this.appBaseUrl));
 	}
 
 	/**
 	 * Filter rooms by type
 	 */
 	private void filterRooms(){
-		String url = String.format("%s/rooms/filter?type=%s", this.appBaseUrl, this.requestParams.getRoom().getRoomType());
-		this.browser.doGet(url);
+		String url = String.format("%s/rooms/filter?type=%s", this.appBaseUrl, this.room.getRoomType());
+		this.httpClient.doGet(url);
 	}
 
 	/**
 	 * View a specific room
 	 */
 	private void selectRoom() {
-		String url = String.format("%s/rooms/view?id=%d", this.appBaseUrl, this.requestParams.getRoom().getRoomId());
-		this.browser.doGet(url);
+		String url = String.format("%s/rooms/view?id=%d", this.appBaseUrl, this.room.getRoomId());
+		this.httpClient.doGet(url);
 	}
 
 	/**
@@ -132,26 +142,33 @@ public class VirtualUser extends Thread{
 
 	}
 
+	/**
+	 * Simulate click book now button
+	 */
 	private void _clickBookNow(){
-		String url = String.format("%s/booking/book?roomNo=%d", this.appBaseUrl, this.requestParams.getRoom().getRoomId());
-		this.browser.doGet(url);
+		String url = String.format("%s/booking/book?roomNo=%d", this.appBaseUrl, this.room.getRoomId());
+		this.httpClient.doGet(url);
 	}
 
+	/**
+	 * Booking Page
+	 * Based on the random value, either continue boooking, cancle booking or submit invalid card (fail)
+	 */
 	private void _submitBooking(){
 		int decisionMaker = (int) AppUtil.getRandom(0, 10);
 		String bookingBaseUrl = this.appBaseUrl + "/booking/";
 
 		if(decisionMaker >= 0 && decisionMaker < 3){ //Submit Invalid Card (Booking Fail)
 			bookingBaseUrl += "doBook";
-			this.browser.doPost(bookingBaseUrl, this.requestParams.makePostRequestParams(true));
+			this.httpClient.doPost(bookingBaseUrl, this.createBookingParams(true));
 		}else if(decisionMaker >= 3 && decisionMaker < 6){ //Cancel the booking
 			bookingBaseUrl += "cancel";
-			this.browser.doGet(bookingBaseUrl);
+			this.httpClient.doGet(bookingBaseUrl);
 		}else{
 			bookingBaseUrl += "doBook";
-			String result = this.browser.doPost(bookingBaseUrl, this.requestParams.makePostRequestParams(false));
+			String result = this.httpClient.doPost(bookingBaseUrl, this.createBookingParams(false));
 			think(3000, 4000);
-			this.browser.doGet(result);
+			this.httpClient.doGet(result);
 		}
 	}
 
@@ -159,7 +176,7 @@ public class VirtualUser extends Thread{
 	 * Logout
 	 */
 	public void logout() {
-		this.browser.doGet(String.format("%s/logout", this.appBaseUrl));
+		this.httpClient.doGet(String.format("%s/logout", this.appBaseUrl));
 	}
 
 	/**
@@ -174,6 +191,45 @@ public class VirtualUser extends Thread{
 		try{
 			sleep(thinkTime);
 		}catch(InterruptedException ex){}
+	}
+
+
+	/**
+	 * Generate Booking Request Params
+	 * @param invalidCard
+	 * @return
+	 */
+	private List<NameValuePair> createBookingParams(boolean invalidCard){
+		List<NameValuePair> postParams = new ArrayList<>();
+
+		//Room
+		postParams.add(new BasicNameValuePair("roomNo", Integer.toString(room.getRoomId())));
+
+		//Guest
+        postParams.add(new BasicNameValuePair("title","Mr"));
+        postParams.add(new BasicNameValuePair("surename",this.user.getLastName()));
+        postParams.add(new BasicNameValuePair("firstname",this.user.getFirstName()));
+        postParams.add(new BasicNameValuePair("email",this.user.getEmail()));
+		postParams.add(new BasicNameValuePair("dob","January 31st 1986"));
+		postParams.add(new BasicNameValuePair("address","123 Street"));
+		postParams.add(new BasicNameValuePair("phone","012345679"));
+
+		//Check in
+		postParams.add(new BasicNameValuePair("checkin", AppUtil.getDateFormatted(0) ));
+		postParams.add(new BasicNameValuePair("checkout",AppUtil.getDateFormatted(AppUtil.getRandom(3, 8))));
+		postParams.add(new BasicNameValuePair("guestsno", Integer.toString(AppUtil.getRandom(1,6)))); //TODO: Remove this
+
+		//Payment
+		postParams.add(new BasicNameValuePair("cardtype","VISA"));
+		if(invalidCard)
+			postParams.add(new BasicNameValuePair("cardno","500" + this.paymentInfo.getCardNumber()));
+		else
+			postParams.add(new BasicNameValuePair("cardno",this.paymentInfo.getCardNumber()));
+
+		postParams.add(new BasicNameValuePair("seccode",this.paymentInfo.getCCV()));
+		postParams.add(new BasicNameValuePair("expire",this.paymentInfo.getExpire()));
+
+		return postParams;
 	}
 
 }

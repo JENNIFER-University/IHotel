@@ -31,7 +31,7 @@ public class ThreadsController extends Thread {
             }
 
             if (neededUsers > 0) {
-                String userId = String.format("Account[%d]", activeUsersNumber);
+                String userId = String.format("Login[%d]", activeUsersNumber);
                 synchronized (activeUsers) {
                     if(!activeUsers.contains(userId)) {
                         activeUsersNumber++;

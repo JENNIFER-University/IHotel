@@ -2,8 +2,16 @@ package edu.jennifer.stress;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import edu.jennifer.stress.factory.BrowserTypeFactory;
+import edu.jennifer.stress.factory.UserFactory;
 import edu.jennifer.stress.model.CliParams;
+import edu.jennifer.stress.model.User;
 import edu.jennifer.stress.simula.ThreadsController;
+
+import edu.jennifer.stress.util.AppUtil;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.util.Calendar;
 
@@ -12,6 +20,7 @@ import java.util.Calendar;
  * @Created 10/24/17 2:48 PM.
  */
 
+
 public class Main {
 
 	final CliParams cliParams = new CliParams();
@@ -19,6 +28,7 @@ public class Main {
 
 	
 	public static void main(String[] args) {
+
 		Main app = new Main();
 		app.showInfo();
 		app.handleInput(args);
