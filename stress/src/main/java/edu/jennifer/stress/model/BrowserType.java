@@ -20,6 +20,9 @@ public class BrowserType {
     public static final int CHROME_FIREFOX_MIN = 36;
     public static final int CHROME_FIREFOX_MAX = 62;
 
+    public static final String[] WINDOWS_PHONE_VERSIONS = {"7.0","7.5","7.8","8.0","8.1"};
+    public static final String[] ANDROID_VERSIONS = {"4.0","4.1","5.0","6.0","7.0","8.0"};
+    public static final String[] IOS_VRTSION = {"4_0","6_0","7_0_2","8_0_2","9_0_2","10_0_2"};
 
     static {
         OS.add("Windows NT 5.1");
@@ -82,6 +85,52 @@ public class BrowserType {
      */
     public static BrowserType createSafari(String os, String version) {
         String userAgent = String.format("Mozilla/5.0 (Macintosh; Intel %s) AppleWebKit/537.71 (KHTML, like Gecko) Version/%s Safari/537.71", os, version);
+        return new BrowserType(userAgent);
+    }
+
+
+    /**
+     * IE on Windows Phone
+     * @param version
+     * @param phoneVersion
+     * @return
+     */
+    public static BrowserType createMobileIE(String version, String phoneVersion){
+        String userAgent = String.format("Mozilla/5.0 (compatible; MSIE %s; Windows Phone %s; Trident/7.0; ARM; Touch; IEMobile/%s)", version, phoneVersion, version);
+        return new BrowserType(userAgent);
+    }
+
+    /**
+     * Android Device
+     * @param version
+     * @param androidVersion
+     * @return
+     */
+    public static BrowserType createMobileAndroid(String version, String androidVersion){
+        String userAgent = String.format("Mozilla/5.0 (Linux; U; Android %s; en-us) AppleWebKit/533.1 (KHTML, like Gecko) Version/%s Mobile Safari/533.1", androidVersion, version);
+        return new BrowserType(userAgent);
+    }
+
+
+    /**
+     * Iphone Safari
+     * @param version
+     * @param iosVersion
+     * @return
+     */
+    public static BrowserType createIPhoneSafari(String version, String iosVersion){
+        String userAgent = String.format("Mozilla/5.0 (iPhone; CPU iPhone OS %s like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/%s Safari/600.1.4", iosVersion, version);
+        return new BrowserType(userAgent);
+    }
+
+    /**
+     * Ipad Safari
+     * @param version
+     * @param iosVersion
+     * @return
+     */
+    public static BrowserType createIpadSafari(String version, String iosVersion){
+        String userAgent = String.format("Mozilla/5.0 (iPad; U; CPU OS %s like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/%s.0.2 Mobile/8C148 Safari/6533.18.5", iosVersion, version);
         return new BrowserType(userAgent);
     }
 
