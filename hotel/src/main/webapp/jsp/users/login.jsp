@@ -5,11 +5,18 @@
     <h1 class="title">Login</h1>
 
 
+    <s:if test="hasActionErrors()">
+        <div class="alert alert-danger">
+            <p><s:actionerror/></p>
+        </div>
+    </s:if>
+
+
     <div class="room-features">
 
         <div class="row">
 
-            <form action="doLogin" method="get">
+            <form action="doLogin" method="post">
 
             <div class="panel panel-info">
 
@@ -21,12 +28,12 @@
 
                     <div class="form-group">
                         <label>Username:</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username" name="username" required>
                     </div>
 
                     <div class="form-group">
                         <label>Password:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                 </div>
 

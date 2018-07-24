@@ -102,8 +102,8 @@ public class VirtualUser extends Thread{
 	 * Login Request
 	 */
 	private void login(){
-		String url = String.format("%s/doLogin?simula=1&username=%s&password=%s", this.appBaseUrl, this.user.getUsername(), this.user.getPassword());
-		this.httpClient.doGet(url);
+		String url = String.format("%s/doLogin", this.appBaseUrl);
+		this.httpClient.doPost(url, this.createLoginParams());
 	}
 
 	/**
@@ -168,7 +168,8 @@ public class VirtualUser extends Thread{
 			bookingBaseUrl += "doBook";
 			String result = this.httpClient.doPost(bookingBaseUrl, this.createBookingParams(false));
 			think(3000, 4000);
-			this.httpClient.doGet(result);
+			if (result != null)
+				this.httpClient.doGet(result);
 		}
 	}
 
@@ -228,6 +229,14 @@ public class VirtualUser extends Thread{
 
 		postParams.add(new BasicNameValuePair("seccode",this.paymentInfo.getCCV()));
 		postParams.add(new BasicNameValuePair("expire",this.paymentInfo.getExpire()));
+
+		return postParams;
+	}
+
+	private List<NameValuePair> createLoginParams(){
+		List<NameValuePair> postParams = new ArrayList<>();
+		postParams.add(new BasicNameValuePair("username", user.getUsername()));
+		postParams.add(new BasicNameValuePair("password", user.getPassword()));
 
 		return postParams;
 	}

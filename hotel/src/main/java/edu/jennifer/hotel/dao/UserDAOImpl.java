@@ -56,7 +56,26 @@ public class UserDAOImpl implements UserDAO{
 		}
 	}
 
-	public User getProfile(String userName,String userId ) {
+	@Override
+	public boolean isUsernameUnique(String username) {
+		try{
+			String query = "SELECT * FROM users where username = ?";
+			User user = jdbcTemplate.query(query, new String[]{username}, new ResultSetExtractor<User>() {
+				public User extractData(ResultSet rs) throws SQLException,
+						DataAccessException {
+					if(rs.next()){
+						return new User();
+					}
+					return null;
+				}
+			});
+			return user == null;
+		}catch(Exception ex){
+			return false;
+		}
+	}
+
+	public User getProfile(String userName, String userId ) {
 		if (ProblemPool.getInstance().makeProblem(ProblemPool.SLOW_LOGIN)) {
 			if (userName.toLowerCase().equals("khalid")) {
 				return loadProfile(userName);

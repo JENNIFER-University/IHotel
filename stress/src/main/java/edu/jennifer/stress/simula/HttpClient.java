@@ -9,6 +9,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class HttpClient {
 
     private CloseableHttpClient httpClient = null;
+    private HttpClientContext httpContext;
     private BrowserType browserType;
     private String location;
 
@@ -40,6 +42,8 @@ public class HttpClient {
         this.browserType = BrowserTypeFactory.createBrowserType();
         this.location = location;
         this.httpClient = configure().build();
+        this.httpContext = HttpClientContext.create();
+        this.httpContext.setAttribute(HttpClientContext.COOKIE_STORE, new BasicCookieStore());
     }
 
 
@@ -48,7 +52,7 @@ public class HttpClient {
         CloseableHttpResponse response = null;
         try{
             request = new HttpGet(url);
-            response = httpClient.execute(request);
+            response = httpClient.execute(request, this.httpContext);
             response.getStatusLine().getStatusCode();
             readResponse(response);
         }catch (IOException io){
@@ -61,16 +65,14 @@ public class HttpClient {
 
     public String doPost(String url, List<NameValuePair> params) {
         HttpPost request = null;
-        HttpClientContext context = null;
         CloseableHttpResponse response = null;
         try {
-            context = HttpClientContext.create();
             request = new HttpPost(url);
             request.setEntity(new UrlEncodedFormEntity(params));
-            response = httpClient.execute(request, context);
+            response = httpClient.execute(request, this.httpContext);
             response.getStatusLine().getStatusCode();
             readResponse(response);
-            List<URI> redirectURIs = context.getRedirectLocations();
+            List<URI> redirectURIs = this.httpContext.getRedirectLocations();
             if (redirectURIs != null && !redirectURIs.isEmpty()) {
                 return redirectURIs.get(redirectURIs.size() - 1).toString();
             }

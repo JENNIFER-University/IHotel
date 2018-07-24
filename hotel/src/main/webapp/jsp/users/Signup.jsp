@@ -9,7 +9,7 @@
 
         <div class="row">
 
-            <form action="doSignUp" method="get">
+            <form action="doSignUp" method="post">
 
                 <div class="panel panel-info">
 
@@ -21,18 +21,18 @@
 
                         <div class="form-group">
                             <label>Full Name:</label>
-                            <input type="text" class="form-control" id="realName" name="realName">
+                            <input type="text" class="form-control" id="realName" name="realName" required>
                         </div>
 
 
                         <div class="form-group">
                             <label>Username:</label>
-                            <input type="text" class="form-control" id="username" name="userName">
+                            <input type="text" class="form-control" id="username" name="userName" required>
                         </div>
 
                         <div class="form-group">
                             <label>Password:</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                     </div>
 

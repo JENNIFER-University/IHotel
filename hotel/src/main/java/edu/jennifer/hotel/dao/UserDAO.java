@@ -10,4 +10,6 @@ public interface UserDAO {
 
 	boolean save(User user);
 
+	boolean isUsernameUnique(String username);
+
 }

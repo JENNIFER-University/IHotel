@@ -21,7 +21,7 @@ public class LoginAction extends BaseAction implements SessionAware{
 
 
     @Override
-    public String execute() throws Exception {
+    public String execute(){
         if (getSimula() == 1) {
             initalize();
         }
@@ -32,6 +32,8 @@ public class LoginAction extends BaseAction implements SessionAware{
             sessionMap.put("currentUser",userData.getUsername());
             return SUCCESS;
         }
+
+        addActionError("Invalid Username/Password");
         return ERROR;
     }
 

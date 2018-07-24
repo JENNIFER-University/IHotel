@@ -14,14 +14,22 @@ public class SignupAction extends BaseAction{
 
     @Override
     public String execute() throws Exception {
+        if (!getUserDAO().isUsernameUnique(getUserName())) {
+            addActionError("Username already exists.");
+            return ERROR;
+        }
+
         User user = new User();
         user.setUsername(getPassword());
         user.setPassword(getPassword());
         user.setRealName(getRealName());
-        if (getUserDAO().save(user))
+
+        if (getUserDAO().save(user)) {
             return SUCCESS;
-        else
+        }else {
+            addActionError("Failed to create account. Please try again");
             return ERROR;
+        }
     }
 
     public String getRealName() {
