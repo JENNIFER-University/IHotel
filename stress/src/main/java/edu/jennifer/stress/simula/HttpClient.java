@@ -1,6 +1,6 @@
 package edu.jennifer.stress.simula;
 
-import edu.jennifer.common.ILogger;
+import edu.jennifer.logger.ILogger;
 import edu.jennifer.stress.factory.BrowserTypeFactory;
 import edu.jennifer.stress.model.BrowserType;
 import org.apache.http.Header;

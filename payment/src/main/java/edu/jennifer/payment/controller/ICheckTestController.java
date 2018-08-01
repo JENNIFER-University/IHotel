@@ -1,8 +1,9 @@
 package edu.jennifer.payment.controller;
 
-import edu.jennifer.common.ILogger;
 import edu.jennifer.payment.util.Conf;
 import edu.jennifer.payment.util.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,9 @@ public class ICheckTestController{
 
     @Autowired
     private Conf config;
+
+    Logger ILogger = LoggerFactory.getLogger(ICheckTestController.class);
+
 
     @RequestMapping("/icheck_test")
     public Map<String, String> doTest() {

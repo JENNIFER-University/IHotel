@@ -2,7 +2,8 @@ package edu.jennifer.stress;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-import edu.jennifer.common.ILogger;
+
+import edu.jennifer.logger.ILogger;
 import edu.jennifer.stress.model.CliParams;
 import edu.jennifer.stress.simula.ThreadsController;
 

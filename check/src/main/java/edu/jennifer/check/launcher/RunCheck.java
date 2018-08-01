@@ -1,7 +1,7 @@
 package edu.jennifer.check.launcher;
 
 import edu.jennifer.check.service.CheckCardImpl;
-import edu.jennifer.common.ILogger;
+import edu.jennifer.logger.ILogger;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

@@ -1,4 +1,4 @@
-package edu.jennifer.common;
+package edu.jennifer.logger;
 
 
 import org.slf4j.Logger;

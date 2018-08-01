@@ -25,6 +25,7 @@
         <icheck.version>${ihotel.version}</icheck.version>
         <stress.version>${ihotel.version}</stress.version>
         <common.version>${ihotel.version}</common.version>
+        <logger.version>${ihotel.version}</logger.version>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
@@ -37,6 +38,7 @@
         <module>payment</module>
         <module>hotel</module>
         <module>common</module>
+        <module>logger</module>
     </modules>
 
     <dependencies>
