@@ -1,9 +1,9 @@
 package edu.jennifer.hotel.dao;
 
+import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Reservation;
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
-import edu.jennifer.hotel.util.Common;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -13,21 +13,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class ReservationDAOImpl implements ReservationDAO {
+public class ReservationDAOImpl extends BaseDao implements ReservationDAO {
 
-	private JdbcTemplate jdbTempalte;
 
 	public ReservationDAOImpl(DataSource ds){
-		jdbTempalte = new JdbcTemplate(ds);
+		super(ds);
 	}
 
 
-	public String reservRoom(Reservation r) {
+	/**
+	 * Reserve a room
+	 * @param r
+	 * @return
+	 */
+	public String reserveRoom(Reservation r) {
 		try{
 
 			String query = "INSERT INTO reservations (id,guest_id,roomId,checkInDate,checkOutDate,guestsNumber,status) values(?,?,?,?,?,?,?)";
-			String rId = r.getId() == null ? Common.getCurrentTimeStamp() : r.getId();
-			int saved = jdbTempalte.update(query,rId,r.getGuest().getId(),r.getRoom().getId(),r.getCheckIn(),r.getCheckOut(),r.getGuestNumbers(),BOOKED);
+			String rId = r.getId() == null ? AppUtil.getCurrentTimeStamp() : r.getId();
+			int saved = jdbcTemplate.update(query,rId,r.getGuest().getId(),r.getRoom().getId(),r.getCheckIn(),r.getCheckOut(),r.getGuestNumbers(),BOOKED);
 
 			if(saved > 0)
 				return rId;
@@ -39,20 +43,29 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 
+	/**
+	 * Confirm the reservation fo the room after payment
+	 * @param id
+	 * @return
+	 */
 	public boolean confirmReservation(String id) {
 		try{
 			String query = "UPDATE reservations SET status = ? WHERE id = ?";
-			int updated = jdbTempalte.update(query,PAYED,id);
+			int updated = jdbcTemplate.update(query,PAYED,id);
 			return updated > 0 ? true: false;
 		}catch(Exception ex){
 			return false;
 		}
 	}
 
-
-	public Reservation findByReservationId(String reservationId, long rd){
+	/**
+	 * Get a reservation by id
+	 * @param reservationId
+	 * @return
+	 */
+	public Reservation findByReservationId(String reservationId){
 		try{
-			long randomDelay = toMySqlSeconds(rd);
+			float randomDelay = mySqlDelay();
 			String query = "SELECT r.id,r.checkInDate,r.checkOutDate,r.guestsNumber,r.status,"
 						+ "rm.number as roomno, rm.floor as roomfloor, rm.price as roomprice, rm.description as description,"
 						+ "rt.roomType,rt.roomSize,rt.maxCapacity,SLEEP(?)"
@@ -62,7 +75,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 						+ " LEFT JOIN rooms_type rt"
 						+ " on rm.room_type = rt.id"
 						+ " WHERE r.id = ?" ;
-			return jdbTempalte.query(query, new Object[]{randomDelay,reservationId}, new ResultSetExtractor<Reservation>(){
+			return jdbcTemplate.query(query, new Object[]{randomDelay,reservationId}, new ResultSetExtractor<Reservation>(){
 				Reservation result = new  Reservation();
 
 				public Reservation extractData(ResultSet rs)
@@ -95,12 +108,6 @@ public class ReservationDAOImpl implements ReservationDAO {
 		}catch(Exception ex){
 			return null;
 		}
-	}
-
-
-	public long toMySqlSeconds(long value) {
-		long result = (value / 1000) / 4;
-		return result;
 	}
 
 }

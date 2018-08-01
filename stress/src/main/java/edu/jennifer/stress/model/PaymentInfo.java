@@ -1,6 +1,6 @@
 package edu.jennifer.stress.model;
 
-import edu.jennifer.stress.util.AppUtil;
+import edu.jennifer.common.AppUtil;
 
 public class PaymentInfo {
 
@@ -12,7 +12,7 @@ public class PaymentInfo {
 
 	public static PaymentInfo createPaymentInfo() {
 		PaymentInfo paymentInfo = new PaymentInfo();
-		String cardNumber = VISA_PREFIX_LIST[AppUtil.getRandom(0, VISA_PREFIX_LIST.length - 1)];
+		String cardNumber = VISA_PREFIX_LIST[AppUtil.getRandomBounded(VISA_PREFIX_LIST.length)];
 		for(int i =0; i < 13; i++){
 			cardNumber += AppUtil.getRandom(1, 9) + "";
 		}

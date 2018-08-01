@@ -56,6 +56,9 @@ status() {
 }
 
 case "$1" in
+        run)
+            run
+            ;;
         start)
             start
             ;;

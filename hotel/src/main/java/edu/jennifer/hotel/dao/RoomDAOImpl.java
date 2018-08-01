@@ -11,25 +11,27 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class RoomDAOImpl implements RoomDAO{
+public class RoomDAOImpl extends BaseDao implements RoomDAO{
 
-	private JdbcTemplate jdbcTempalte;
 
 	public RoomDAOImpl(DataSource ds){
-		jdbcTempalte = new JdbcTemplate(ds);
+		super(ds);
 	}
 
-	public ArrayList<Room> findAll(long rd) {
+	/**
+	 * Find all rooms
+	 * @return
+	 */
+	public ArrayList<Room> findAll() {
 		try{
-			long randomDelay = toMySqlSeconds(rd);
+			float randomDelay = mySqlDelay();
 			String query = "select rooms.id,rooms.number,rooms.floor,rooms.price,rooms.description,rooms_type.roomType,rooms_type.maxCapacity,rooms_type.roomSize,SLEEP(?)"
 					+ " from rooms"
 					+ " left join rooms_type"
 					+ " on rooms.room_type = rooms_type.id";
 
-			ArrayList<Room> rooms = jdbcTempalte.query(query, new Object[]{randomDelay},new ResultSetExtractor<ArrayList<Room>>(){
+			ArrayList<Room> rooms = jdbcTemplate.query(query, new Object[]{randomDelay},new ResultSetExtractor<ArrayList<Room>>(){
 
 
 				public ArrayList<Room> extractData(ResultSet rs)
@@ -46,11 +48,41 @@ public class RoomDAOImpl implements RoomDAO{
 		}
 	}
 
-	@Override
+	/**
+	 * Find featured rooms (only find with limit of 4)
+	 * @return
+	 */
+	public ArrayList<Room> findFeatured() {
+		try{
+			String query = "select rooms.id,rooms.number,rooms.floor,rooms.price,rooms.description,rooms_type.roomType,rooms_type.maxCapacity,rooms_type.roomSize"
+					+ " from rooms"
+					+ " left join rooms_type"
+					+ " on rooms.room_type = rooms_type.id"
+					+ " limit 4";
+
+			ArrayList<Room> rooms = jdbcTemplate.query(query,new ResultSetExtractor<ArrayList<Room>>(){
+				public ArrayList<Room> extractData(ResultSet rs)
+						throws SQLException, DataAccessException {
+					ArrayList<Room> result = extractDataFromReultSet(rs);
+					return result;
+				}
+
+			});
+
+			return rooms;
+		}catch(Exception ex){
+			return null;
+		}
+	}
+
+	/**
+	 * Get All RoomTypes
+	 * @return
+	 */
 	public ArrayList<RoomType> findAllRoomTypes() {
 		try {
 			String query = "select id,roomType,roomSize,maxCapacity from rooms_type";
-			ArrayList<RoomType> types = jdbcTempalte.query(query, new ResultSetExtractor<ArrayList<RoomType>>() {
+			ArrayList<RoomType> types = jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<RoomType>>() {
 				@Override
 				public ArrayList<RoomType> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 					ArrayList<RoomType> result = new ArrayList<>();
@@ -73,30 +105,12 @@ public class RoomDAOImpl implements RoomDAO{
 		}
 	}
 
-		public ArrayList<Room> findFeatured() {
-		try{
-			String query = "select rooms.id,rooms.number,rooms.floor,rooms.price,rooms.description,rooms_type.roomType,rooms_type.maxCapacity,rooms_type.roomSize"
-					+ " from rooms"
-					+ " left join rooms_type"
-					+ " on rooms.room_type = rooms_type.id"
-					+ " limit 4";
 
-			ArrayList<Room> rooms = jdbcTempalte.query(query,new ResultSetExtractor<ArrayList<Room>>(){
-				public ArrayList<Room> extractData(ResultSet rs)
-						throws SQLException, DataAccessException {
-					ArrayList<Room> result = extractDataFromReultSet(rs);
-					return result;
-				}
-
-			});
-
-			return rooms;
-		}catch(Exception ex){
-			return null;
-		}
-	}
-
-	@Override
+	/**
+	 * Find a room by type
+	 * @param type
+	 * @return
+	 */
 	public ArrayList<Room> findByType(int type) {
 		try {
 			String query = "select rooms.id,rooms.number,rooms.floor,rooms.price,rooms.description,rooms_type.roomType,rooms_type.maxCapacity,rooms_type.roomSize"
@@ -104,7 +118,7 @@ public class RoomDAOImpl implements RoomDAO{
 					+ " left join rooms_type"
 					+ " on rooms.room_type = rooms_type.id where rooms.room_type = ?";
 
-			ArrayList<Room> rooms = jdbcTempalte.query(query, new Object[]{type},new ResultSetExtractor<ArrayList<Room>>(){
+			ArrayList<Room> rooms = jdbcTemplate.query(query, new Object[]{type},new ResultSetExtractor<ArrayList<Room>>(){
 
 
 				public ArrayList<Room> extractData(ResultSet rs)
@@ -121,11 +135,15 @@ public class RoomDAOImpl implements RoomDAO{
 		}
 	}
 
-	@Override
-	public RoomType getTypeByType(String type) {
+	/**
+	 * find a Type by name
+	 * @param name
+	 * @return
+	 */
+	public RoomType findTypeByName(String name) {
 		try {
 			String query = "select id,roomType,roomSize,maxCapacity from rooms_type where roomType = ?";
-			RoomType result = jdbcTempalte.query(query, new Object[]{type} ,new ResultSetExtractor<RoomType>() {
+			RoomType result = jdbcTemplate.query(query, new Object[]{name} ,new ResultSetExtractor<RoomType>() {
 				@Override
 				public RoomType extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 
@@ -149,17 +167,22 @@ public class RoomDAOImpl implements RoomDAO{
 		}
 	}
 
-	public Room findById(int roomId, long rd) {
+	/**
+	 * Find room by ID
+	 * @param roomId
+	 * @return
+	 */
+	public Room findById(int roomId) {
 		try{
 
-			long randomDelay = toMySqlSeconds(rd);
+			float randomDelay = mySqlDelay();
 			String query = "select rooms.id,rooms.number,rooms.floor,rooms.price,rooms.description,rooms_type.roomType,rooms_type.maxCapacity,rooms_type.roomSize,SLEEP(?)"
 					+ " from rooms"
 					+ " left join rooms_type"
 					+ " on rooms.room_type = rooms_type.id"
 					+ " where rooms.id = ?";
 
-			Room room = jdbcTempalte.query(query, new Object[]{randomDelay,roomId},new ResultSetExtractor<Room>(){
+			Room room = jdbcTemplate.query(query, new Object[]{randomDelay,roomId},new ResultSetExtractor<Room>(){
 
 
 				public Room extractData(ResultSet rs) throws SQLException,
@@ -195,7 +218,7 @@ public class RoomDAOImpl implements RoomDAO{
 						+ " left join facilities"
 						+ " on facilities.id = rooms_facilities.facilityId"
 						+ " where rooms.id = " + roomId;
-				ArrayList<Facility> f = jdbcTempalte.query(query, new ResultSetExtractor<ArrayList<Facility>>(){
+				ArrayList<Facility> f = jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Facility>>(){
 
 
 					public ArrayList<Facility> extractData(ResultSet rs)
@@ -220,11 +243,6 @@ public class RoomDAOImpl implements RoomDAO{
 		}catch(Exception ex){
 			return null;
 		}
-	}
-
-	public long toMySqlSeconds(long value) {
-		long result = (value / 1000) / 4;
-		return result;
 	}
 
 

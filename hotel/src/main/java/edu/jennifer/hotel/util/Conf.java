@@ -2,14 +2,12 @@ package edu.jennifer.hotel.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.*;
 import java.util.Properties;
 
 public class Conf {
 
 	Logger logger = LogManager.getRootLogger();
-
 
 	public static final String KEY_IPAYMENT_IP		= "ipayment_ip";
 	public static final String KEY_IPAYMENT_PORT	= "ipayment_port";
@@ -27,7 +25,7 @@ public class Conf {
 		try {
 			prop = load();
 		}catch (IOException ex) {
-			logger.error("Failed to load the configuration file. Reason: " + ex.getMessage());
+			logger.error("Failed to load the configuration file. Reason", ex);
 		}
 	}
 
@@ -35,7 +33,7 @@ public class Conf {
 		try {
 			prop = load();
 		}catch (Exception ex){
-			logger.error("Failed to reload the configuration file. Reason: " + ex.getMessage());
+			logger.error("Failed to reload the configuration file. Reason: ", ex);
 		}
 	}
 	private Properties load() throws IOException{
@@ -68,7 +66,7 @@ public class Conf {
 
 			return true;
 		}catch (Exception ex) {
-			logger.error("Failed to save the property. Reason: " + ex.getMessage());
+			logger.error("Failed to save the property. Reason: ", ex);
 			return false;
 		}
 

@@ -4,10 +4,8 @@ import edu.jennifer.hotel.model.Guest;
 
 public interface GuestDAO {
 
-	int saveGuestInformationh(Guest guest);
+	int saveGuestInformation(Guest guest);
 	
-	Guest findByEmail(String email, long randomDelay);
-
-	long toMySqlSeconds(long value);
+	Guest findByEmail(String email);
 	
 }

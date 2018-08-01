@@ -1,13 +1,9 @@
 package edu.jennifer.hotel.action;
 
+import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Room;
-import edu.jennifer.hotel.model.RoomType;
 import edu.jennifer.hotel.problem.ProblemPool;
-import edu.jennifer.hotel.util.Common;
 import edu.jennifer.hotel.util.RoomAvailablityCheck;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author khalid
@@ -37,7 +33,7 @@ public class RoomViewAction extends BaseAction {
 
 
         }
-        Room room = getRoomService().findById(getId(), Common.getRandom(2000,4000));
+        Room room = getRoomService().findById(getId(), AppUtil.getRandom(2000,4000));
         setRoom(room);
         return SUCCESS;
     }

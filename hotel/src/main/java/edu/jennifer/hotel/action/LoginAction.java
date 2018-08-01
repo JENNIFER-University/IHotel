@@ -22,10 +22,6 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     @Override
     public String execute(){
-        if (getSimula() == 1) {
-            initalize();
-        }
-
         User userData = getUserDAO().login(getUsername(), getPassword());
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");

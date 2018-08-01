@@ -1,9 +1,8 @@
 package edu.jennifer.payment.controller;
 
+import edu.jennifer.common.ILogger;
 import edu.jennifer.payment.util.Conf;
 import edu.jennifer.payment.util.Validator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +16,6 @@ import java.util.Map;
 @RestController
 public class ICheckTestController{
 
-    private Logger logger = LoggerFactory.getLogger(ICheckTestController.class);
-
     @Autowired
     private Conf config;
 
@@ -27,7 +24,7 @@ public class ICheckTestController{
 
         Map<String, String> result = new HashMap<>();
 
-        logger.info("iCheck Enabled = " + config.isIcheckEnabled());
+        ILogger.info(String.format("iCheck Enabled = " , config.isIcheckEnabled()));
         if(config.isIcheckEnabled()){
             String icheckIP   = config.getIcheckIp();
             String icheckPort = config.getIcheckPort();
@@ -36,21 +33,21 @@ public class ICheckTestController{
             result.put("icheck_ip", icheckIP);
             result.put("icheck_port", icheckPort);
 
-            logger.info(String.format("Making a sample call to icheck. iCheck IP = [%s], Port = [%s]",icheckIP, icheckPort));
+            ILogger.info(String.format("Making a sample call to iCheck. iCheck IP = [%s], Port = [%s]",icheckIP, icheckPort));
             Validator v  = new Validator();
             boolean initialized = v.initialize(icheckIP,icheckPort);
             if(!initialized){
-                logger.info("Failed to initialize the validator");
+                ILogger.warn("Failed to initialize the validator");
                 result.put("error", "Failed to initalize validator");
             }else {
                 String cardNumber = "123456789";
                 boolean validateResult = v.checkCard(cardNumber);
-                logger.info("Card Number " + cardNumber + " was sent to icheck and result is : " + validateResult);
+                ILogger.info(String.format("Card Number [%s] was sent to iCheck and the result is [%b]", cardNumber, validateResult));
                 result.put("test_result", "passed");
             }
         }else{
             result.put("icheck_enabled", "false");
-            logger.info("iCheck is not enabled, please check app.conf to enable it");
+            ILogger.info("iCheck is not enabled, please check app.conf to enable it");
         }
 
         return result;

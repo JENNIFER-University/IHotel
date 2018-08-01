@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>edu.jennifer</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${apache.version}</version>

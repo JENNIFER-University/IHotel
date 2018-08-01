@@ -24,7 +24,11 @@
             <artifactId>icheck</artifactId>
             <version>${icheck.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>edu.jennifer</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
 
     </dependencies>
 

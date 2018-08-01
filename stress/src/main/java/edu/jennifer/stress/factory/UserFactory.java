@@ -1,7 +1,7 @@
 package edu.jennifer.stress.factory;
 
 import edu.jennifer.stress.model.User;
-import edu.jennifer.stress.util.AppUtil;
+import edu.jennifer.common.AppUtil;
 
 import java.util.Random;
 

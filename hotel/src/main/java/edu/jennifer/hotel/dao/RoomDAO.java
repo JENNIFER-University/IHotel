@@ -8,18 +8,16 @@ import java.util.List;
 
 public interface RoomDAO {
 
-	ArrayList<Room> findAll(long randomDelay);
+	ArrayList<Room> findAll();
 
 	ArrayList<Room> findFeatured();
 
-	Room findById(int roomId, long randomDelay);
-
-	long toMySqlSeconds(long value);
+	Room findById(int roomId);
 
 	ArrayList<RoomType> findAllRoomTypes();
 
     ArrayList<Room> findByType(int type);
 
-    RoomType getTypeByType(String type);
+    RoomType findTypeByName(String name);
 
 }

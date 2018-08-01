@@ -2,16 +2,11 @@ package edu.jennifer.stress;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-import edu.jennifer.stress.factory.BrowserTypeFactory;
-import edu.jennifer.stress.factory.UserFactory;
+import edu.jennifer.common.ILogger;
 import edu.jennifer.stress.model.CliParams;
-import edu.jennifer.stress.model.User;
 import edu.jennifer.stress.simula.ThreadsController;
 
-import edu.jennifer.stress.util.AppUtil;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
+
 
 import java.util.Calendar;
 
@@ -46,7 +41,7 @@ public class Main {
 		try {
 			jCommander.parse(args);
 		}catch (ParameterException e) {
-			System.out.printf("Error: %s%n", e.getMessage());
+			ILogger.error("Error paring program arguments", e);
 			showUsage(jCommander);
 		}
 

@@ -1,5 +1,6 @@
 package edu.jennifer.stress.simula;
 
+import edu.jennifer.common.ILogger;
 import edu.jennifer.stress.model.CliParams;
 
 import java.util.HashSet;
@@ -18,7 +19,7 @@ public class ThreadsController extends Thread {
 
     @Override
     public void run() {
-        System.out.printf("Starting Simulation with the following paramters: %n%s%n", cliParams.toString());
+        ILogger.info(String.format("Starting Simula with the following parameters: %n%s", cliParams.toString()));;
 
         String ihotelUrl = getBaseUrl();
 
@@ -50,6 +51,6 @@ public class ThreadsController extends Thread {
     }
 
     private String getBaseUrl() {
-        return String.format("http://%s:%d/ihotel", cliParams.getIhotelIp(), cliParams.getIhotelPort());
+        return String.format("http://%s:%d", cliParams.getIhotelIp(), cliParams.getIhotelPort());
     }
 }

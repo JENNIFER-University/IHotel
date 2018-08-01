@@ -2,19 +2,15 @@ package edu.jennifer.hotel.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import edu.jennifer.hotel.dao.*;
-import edu.jennifer.hotel.util.Common;
 import edu.jennifer.hotel.util.ConnectionUtil;
 import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Khalid
  * @created 31/03/2017.
  */
 public class BaseAction extends ActionSupport{
-
-    private int simula;
 
     private ConnectionUtil connectionUtil;
     private RoomDAO roomService;
@@ -24,15 +20,6 @@ public class BaseAction extends ActionSupport{
 
     public BaseAction(){
         connectionUtil = ConnectionUtil.getInstance();
-    }
-
-    //TODO: Remove ?
-    public long initalize(){
-		long randomDelay = Common.getRandom(1000, 8500);
-		boolean  test = Common.processLong(100, 500, 20);
-		if(!test)
-			Common.getToken(randomDelay/2);
-        return randomDelay;
     }
 
     public RoomDAO getRoomService() {
@@ -68,16 +55,6 @@ public class BaseAction extends ActionSupport{
         if (isLogged()) {
             return ServletActionContext.getRequest().getSession().getAttribute("currentUser").toString();
         }
-
         return null;
-    }
-
-
-    public void setSimula(int simula) {
-        this.simula = simula;
-    }
-
-    public int getSimula() {
-        return simula;
     }
 }

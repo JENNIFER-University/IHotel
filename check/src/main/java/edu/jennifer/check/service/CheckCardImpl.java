@@ -1,29 +1,25 @@
 package edu.jennifer.check.service;
 
-import edu.jennifer.check.queue.Observable;
-import edu.jennifer.check.queue.QueueManager;
+import edu.jennifer.common.AppUtil;
 import edu.jennifer.icheck.ICheck;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Sample implementation of Credit Card Check
+ * Simple fake implementation of Credit Card Check
  * Created by khalid on 8/19/16.
  */
-public class CheckCardImpl extends UnicastRemoteObject implements ICheck, Observable {
+public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
 
-    private QueueManager queueManager = QueueManager.getInstnace();
-    private String status;
-    private boolean wasUsingQueue = false;
+    private final String VALID = "valid";
+    private final String INVALID = "invalid";
 
     /**
      * Default Constructor
      * @throws RemoteException
      */
-    public CheckCardImpl() throws RemoteException{
-        queueManager.register(this);
-    }
+    public CheckCardImpl() throws RemoteException{ }
 
     /**
      * Simulate checking if a credit card if valid or no.
@@ -32,71 +28,33 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck, Observ
      * @throws RemoteException
      */
     public String checkCreditCard(String cardNumber) throws RemoteException {
-        boolean useQueue = cardNumber.split("-").length == 2;
-        if(useQueue) {
-            wasUsingQueue = true;
-            return checkUsingQueue(cardNumber);
-        }else {
-            if (wasUsingQueue) {
-                wasUsingQueue = false;
-                queueManager.releaseAll();
-            }
-            return checkWithoutQueue(cardNumber);
+        boolean delayProcessing = cardNumber.split("-").length == 2;
+
+        String result = isCardValid(cardNumber);
+
+        if (delayProcessing) {
+            validateCheckResult();
         }
+        return result;
     }
 
-    /**
-     * Change the processing logic to use Queue manager and cause Service Queue
-     * @param cardNumber
-     * @return
-     */
-    private String checkUsingQueue(String cardNumber) {
-        queueManager.add(cardNumber);
-        waitForResultFromQueue();
-        String checkResult= status;
-        status = null;
-        return checkResult;
+    private String isCardValid(String cardNumber) {
+        int iterations = cardNumber.length();
+        if (iterations > 10 || iterations == 0) {
+            iterations = 10;
+        }
+
+        boolean isCardValid = CheckTask.verifyCard(iterations, cardNumber);
+        return isCardValid ? VALID : INVALID;
     }
 
-    /**
-     * Delay waiting the result from the queue.
-     */
-    private void waitForResultFromQueue() {
+    private void validateCheckResult() {
         long starTime = System.currentTimeMillis();
-        while (status == null) {
-            for(int i =0; ; i++) {
-                long now = System.currentTimeMillis();
-                if (now - starTime >= 1000) break;
-            }
-
-            //Attempt to escape the service queue issue
-            if (queueManager.isEmpty()) {
-                status = "valid";
-            }
+        final int PERIOD = AppUtil.getRandom(20000, 25000);
+        for(int i =0; ; i++) {
+            long now = System.currentTimeMillis();
+            if (now - starTime >= PERIOD) break;
         }
     }
 
-    /**
-     * Check card directly without queue maanager
-     * @param card
-     * @return
-     */
-    private String checkWithoutQueue(String card) {
-        if(CheckTask.checkDigits(card)){
-            int iterations = card.length();
-            if (iterations > 10 || iterations == 0) {
-                iterations = 10;
-            }
-            return CheckTask.isBlackListed(iterations, card) ? "valid" : "invalid";
-        }else {
-            System.out.printf("[%s] Card Digits Check Failed%n", getClass().getSimpleName());
-            return "invalid";
-        }
-    }
-
-
-    @Override
-    public void update(String staus) {
-        this.status = staus;
-    }
 }

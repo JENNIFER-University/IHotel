@@ -2,7 +2,7 @@ package edu.jennifer.stress.simula;
 
 import edu.jennifer.stress.factory.UserFactory;
 import edu.jennifer.stress.model.*;
-import edu.jennifer.stress.util.AppUtil;
+import edu.jennifer.common.AppUtil;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -216,8 +216,8 @@ public class VirtualUser extends Thread{
 		postParams.add(new BasicNameValuePair("phone","012345679"));
 
 		//Check in
-		postParams.add(new BasicNameValuePair("checkin", AppUtil.getDateFormatted(0) ));
-		postParams.add(new BasicNameValuePair("checkout",AppUtil.getDateFormatted(AppUtil.getRandom(3, 8))));
+		postParams.add(new BasicNameValuePair("checkin", AppUtil.addDaysAndGetDateFormatted(0) ));
+		postParams.add(new BasicNameValuePair("checkout",AppUtil.addDaysAndGetDateFormatted(AppUtil.getRandom(3, 8))));
 		postParams.add(new BasicNameValuePair("guestsno", Integer.toString(AppUtil.getRandom(1,6)))); //TODO: Remove this
 
 		//Payment

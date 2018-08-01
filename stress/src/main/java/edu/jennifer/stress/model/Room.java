@@ -1,6 +1,6 @@
 package edu.jennifer.stress.model;
 
-import edu.jennifer.stress.util.AppUtil;
+import edu.jennifer.common.AppUtil;
 
 /**
  * @author Khalid
@@ -16,7 +16,7 @@ public class Room {
     public static Room createRoom(){
         Room room = new Room();
         room.setRoomId(AppUtil.getRandom(1, 12));
-        room.setRoomType(TYPES[AppUtil.getRandom(0, TYPES.length -1)]);
+        room.setRoomType(TYPES[AppUtil.getRandomBounded(TYPES.length)]);
         return room;
     }
 

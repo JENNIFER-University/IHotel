@@ -16,10 +16,4 @@ public class CheckTaskTest {
         assertThat(CheckTask.checkDigits("4000")).isEqualTo(false);
     }
 
-    @Test
-    public void testIsBlackListed() {
-        assertThat(CheckTask.isBlackListed(0,"45990000")).isEqualTo(false);
-        assertThat(CheckTask.isBlackListed(0,"459912345")).isEqualTo(true);
-    }
-
 }

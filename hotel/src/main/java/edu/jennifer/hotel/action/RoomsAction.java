@@ -1,10 +1,8 @@
 package edu.jennifer.hotel.action;
 
+import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
-import edu.jennifer.hotel.problem.ProblemPool;
-import edu.jennifer.hotel.util.Common;
-import edu.jennifer.hotel.util.RoomAvailablityCheck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ public class RoomsAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
-        ArrayList<Room> roomsList = getRoomService().findAll(Common.getRandom(2000, 4000));
+        ArrayList<Room> roomsList = getRoomService().findAll(AppUtil.getRandom(2000, 4000));
         setRooms(roomsList);
         setRoomTypes(getRoomService().findAllRoomTypes());
         return SUCCESS;

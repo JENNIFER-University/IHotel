@@ -6,13 +6,10 @@ public interface ReservationDAO {
 
 	int BOOKED 	= 1;
 	int PAYED 	= 2;
-	int UNKIWN  = 0;
 	
-	String reservRoom(Reservation r);
+	String reserveRoom(Reservation r);
 
 	boolean confirmReservation(String id);
 
-	Reservation findByReservationId(String reservationId, long randomDelay);
-
-	long toMySqlSeconds(long value);
+	Reservation findByReservationId(String reservationId);
 }

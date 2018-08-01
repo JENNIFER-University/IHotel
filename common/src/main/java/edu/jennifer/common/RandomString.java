@@ -1,8 +1,12 @@
-package edu.jennifer.hotel.util;
+package edu.jennifer.common;
 
 import java.util.Random;
 
+/**
+ * Helper to Generate Random String
+ */
 public class RandomString {
+
 	private static final char[] symbols;
 	private final Random random = new Random();
 	private final char[] buf;

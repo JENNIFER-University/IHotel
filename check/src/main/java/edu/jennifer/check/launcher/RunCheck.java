@@ -1,6 +1,7 @@
 package edu.jennifer.check.launcher;
 
 import edu.jennifer.check.service.CheckCardImpl;
+import edu.jennifer.common.ILogger;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -22,7 +23,7 @@ public class RunCheck {
             try{
                 portNumber = Integer.parseInt(args[0]);
             }catch (NumberFormatException ex){
-                System.out.printf("[%s] Invalid port number using default [%d]%n",RunCheck.class.getSimpleName(), PORT);
+                ILogger.warn(String.format("Invalid port number. Using default port [%d]", PORT));
                 portNumber = PORT;
             }
         }else{
@@ -40,14 +41,13 @@ public class RunCheck {
      */
     private void startServer(int port){
         try{
-            System.out.printf("[%s] Starting the server and listening on port [%d]%n",RunCheck.class.getSimpleName(), port);
+            ILogger.info(String.format("Starting the server and Listening on Port [%d]", port));
             Registry registry = LocateRegistry.createRegistry(port);
             CheckCardImpl checkCard = new CheckCardImpl();
             registry.bind("CheckCard",checkCard);
-            System.out.printf("[%s] Server has started and ready for business .... %n", RunCheck.class.getSimpleName());
+            ILogger.info("Server has started and ready for business");
         }catch (Exception ex){
-            System.err.printf("[%s] Error while starting app the server. Reason [%s]%n", RunCheck.class.getSimpleName(), ex.getMessage());
-            ex.printStackTrace();
+            ILogger.error("Error while starting up the server", ex);
         }
     }
 

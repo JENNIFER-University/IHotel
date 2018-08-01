@@ -9,32 +9,41 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GuestDAOImpl implements GuestDAO {
-
-    private JdbcTemplate jdbcTemplate;
+public class GuestDAOImpl extends BaseDao implements GuestDAO {
 
 	public GuestDAOImpl(DataSource dataSource){
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		super(dataSource);
 	}
 
-	public int saveGuestInformationh(Guest guest) {
+	/**
+	 * Save the guest information
+	 * @param guest
+	 * @return
+	 */
+	public int saveGuestInformation(Guest guest) {
 		try{
 			String query = "INSERT INTO guests (title,firstname,lastname,address,phone,email) VALUES (?,?,?,?,?,?)";
 			int saved = jdbcTemplate.update(query,guest.getTitle(),guest.getFirstname(),guest.getLastname(),guest.getAddress(),guest.getPhone(),guest.getEmail());
 			if(saved > 0 ){
 			    return jdbcTemplate.queryForObject("select max(id) from guests", Integer.class);
 			}
+
 			return -1;
 		}catch(Exception ex){
 			return -1;
 		}
+
 	}
 
-	public Guest findByEmail(String email, long rd) {
+	/**
+	 * Find Guest By Email
+	 * @param email email address
+	 * @return
+	 */
+	public Guest findByEmail(String email) {
 		try{
-			long randomDelay = toMySqlSeconds(rd);
 			String query = "SELECT id,title,firstname,lastname,address,phone,email,SLEEP(?) from guests where email = ?";
-			Guest g = jdbcTemplate.query(query, new Object[]{randomDelay,email},new ResultSetExtractor<Guest>(){
+			Guest g = jdbcTemplate.query(query, new Object[]{mySqlDelay(),email},new ResultSetExtractor<Guest>(){
 				public Guest extractData(ResultSet rs) throws SQLException,
                         DataAccessException {
 					if(rs.next()){
@@ -57,11 +66,5 @@ public class GuestDAOImpl implements GuestDAO {
 			ex.printStackTrace();
 			return null;
 		}
-	}
-
-
-	public long toMySqlSeconds(long value) {
-		long result = (value / 1000) / 4;
-		return result;
 	}
 }

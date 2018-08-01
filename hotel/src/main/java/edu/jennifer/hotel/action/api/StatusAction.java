@@ -3,14 +3,6 @@ package edu.jennifer.hotel.action.api;
 import edu.jennifer.hotel.action.BaseAction;
 import edu.jennifer.hotel.util.ConnectionUtil;
 import edu.jennifer.hotel.util.PaymentGateway;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 /**

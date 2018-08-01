@@ -1,13 +1,12 @@
 package edu.jennifer.hotel.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,12 +17,12 @@ import java.sql.SQLException;
  */
 public class ConnectionUtil {
 
+    Logger logger = LogManager.getRootLogger();
+
     public static final String DATASOURCE_NAME = "jdbc/iHotelDS";
 
     private static ConnectionUtil instance;
     private DataSource dataSource;
-
-    Logger logger = LogManager.getRootLogger();
     private ConnectionUtil(){
         if(dataSource == null) {
             lookup();
@@ -37,7 +36,7 @@ public class ConnectionUtil {
             dataSource = (DataSource) envCtx.lookup(ConnectionUtil.DATASOURCE_NAME);
             logger.info("DataSource Lookup Success");
         }catch (NamingException ex){
-            logger.error(String.format("DataSource Lookup Failed. Reason: %s",ex.getMessage()));
+            logger.error("DataSource Lookup Failed.",ex);
         }
     }
 

@@ -1,12 +1,13 @@
 package edu.jennifer.hotel.action;
 
+import edu.jennifer.common.AppUtil;
+import edu.jennifer.common.RandomString;
 import edu.jennifer.hotel.model.Guest;
 import edu.jennifer.hotel.model.Payment;
 import edu.jennifer.hotel.model.Reservation;
 import edu.jennifer.hotel.model.Room;
-import edu.jennifer.hotel.util.Common;
 import edu.jennifer.hotel.util.PaymentGateway;
-import edu.jennifer.hotel.util.RandomString;
+
 
 /**
  * @author khalid
@@ -42,7 +43,7 @@ public class BookingSubmitAction extends BaseAction {
 
         Reservation reservation = initReservationObject(guestInformation);
 
-        String reservationId = getReservationDAO().reservRoom(reservation);
+        String reservationId = getReservationDAO().reserveRoom(reservation);
 
 
         reservation.setId(reservationId);
@@ -80,17 +81,17 @@ public class BookingSubmitAction extends BaseAction {
 
     private Payment generatePaymentInfo(String cardNumber){
 	    Payment p = new Payment();
-	    p.setReservationId(Common.getCurrentTimeStamp());
+	    p.setReservationId(AppUtil.getCurrentTimeStamp());
 	    p.setCardNumber(cardNumber);
 	    p.setCcv(new RandomString(3).nextString());
-	    p.setExpire(Common.getCurrentDate());
-	    p.setAmmount(Common.getRandom(500, 2000));
-	    p.setCardHolder(Common.getRandomName());
+	    p.setExpire(AppUtil.getCurrentDateAsString());
+	    p.setAmmount(AppUtil.getRandom(500, 2000));
+	    p.setCardHolder(AppUtil.getRandomName());
 	    return p;
 	  }
 
     private Guest getOrCreateGuest() {
-        Guest guest = getGuestDAO().findByEmail(getEmail(), initalize());
+        Guest guest = getGuestDAO().findByEmail(getEmail(), AppUtil.getRandom(2000,4000));
         if(guest == null) {
             guest = new Guest();
             guest.setTitle("Mr");
@@ -99,7 +100,7 @@ public class BookingSubmitAction extends BaseAction {
             guest.setEmail(getEmail());
             guest.setAddress(getAddress());
             guest.setPhone(getPhone());
-            int guestId = getGuestDAO().saveGuestInformationh(guest);
+            int guestId = getGuestDAO().saveGuestInformation(guest);
             guest.setId(guestId);
         }
 
@@ -218,7 +219,7 @@ public class BookingSubmitAction extends BaseAction {
 
     public double getTotalAmmount() {
         if(totalAmmount == 0){
-            return Common.getRandom(500, 2000);
+            return AppUtil.getRandom(500, 2000);
         }
         return totalAmmount;
     }

@@ -1,6 +1,5 @@
 package edu.jennifer.hotel.action;
 
-import edu.jennifer.hotel.model.User;
 import edu.jennifer.hotel.util.Conf;
 
 /**

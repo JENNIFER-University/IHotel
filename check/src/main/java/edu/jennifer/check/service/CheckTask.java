@@ -32,16 +32,15 @@ public class CheckTask {
 
 
     /**
-     * Check if black listed based on card length. Even length is blacklisted, odd length is not
      * @param level
      * @param card
      * @return
      */
-    public static boolean isBlackListed(int level, String card){
+    public static boolean verifyCard(int level, String card){
         if (level == 0) {
-            return card.length() % 2 != 0;
+            return checkDigits(card);
         }
 
-        return isBlackListed(--level, card);
+        return verifyCard(--level, card);
     }
 }
