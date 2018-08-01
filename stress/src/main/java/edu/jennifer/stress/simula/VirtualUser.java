@@ -94,7 +94,7 @@ public class VirtualUser extends Thread{
 	 * Call IHotel Main Page
 	 */
 	private void openHomePage(){
-		String url = appBaseUrl + "/welcome?simula=1";
+		String url = appBaseUrl + "/welcome?simula=true";
 		this.httpClient.doGet(url);
 	}
 
@@ -110,14 +110,14 @@ public class VirtualUser extends Thread{
 	 * List all rooms
 	 */
 	private void listRooms(){
-		this.httpClient.doGet(String.format("%s/rooms/list",this.appBaseUrl));
+		this.httpClient.doGet(String.format("%s/rooms/list?simula=true",this.appBaseUrl));
 	}
 
 	/**
 	 * Filter rooms by type
 	 */
 	private void filterRooms(){
-		String url = String.format("%s/rooms/filter?type=%s", this.appBaseUrl, this.room.getRoomType());
+		String url = String.format("%s/rooms/filter?type=%s&simula=true", this.appBaseUrl, this.room.getRoomType());
 		this.httpClient.doGet(url);
 	}
 
@@ -125,7 +125,7 @@ public class VirtualUser extends Thread{
 	 * View a specific room
 	 */
 	private void selectRoom() {
-		String url = String.format("%s/rooms/view?id=%d", this.appBaseUrl, this.room.getRoomId());
+		String url = String.format("%s/rooms/view?id=%d&simula=true", this.appBaseUrl, this.room.getRoomId());
 		this.httpClient.doGet(url);
 	}
 
@@ -146,7 +146,7 @@ public class VirtualUser extends Thread{
 	 * Simulate click book now button
 	 */
 	private void _clickBookNow(){
-		String url = String.format("%s/booking/book?roomNo=%d", this.appBaseUrl, this.room.getRoomId());
+		String url = String.format("%s/booking/book?roomNo=%d&simula=true", this.appBaseUrl, this.room.getRoomId());
 		this.httpClient.doGet(url);
 	}
 

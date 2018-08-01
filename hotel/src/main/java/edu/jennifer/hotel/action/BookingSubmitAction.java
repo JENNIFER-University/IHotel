@@ -91,7 +91,7 @@ public class BookingSubmitAction extends BaseAction {
 	  }
 
     private Guest getOrCreateGuest() {
-        Guest guest = getGuestDAO().findByEmail(getEmail(), AppUtil.getRandom(2000,4000));
+        Guest guest = getGuestDAO().findByEmail(getEmail());
         if(guest == null) {
             guest = new Guest();
             guest.setTitle("Mr");

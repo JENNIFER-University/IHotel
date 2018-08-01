@@ -1,5 +1,6 @@
 package edu.jennifer.hotel.dao;
 
+import edu.jennifer.common.AppUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -11,6 +12,10 @@ import java.util.Random;
  */
 public abstract class BaseDao {
 
+    private final int SLOW_SQL_VALUE  = 100; //Every N Query
+    private static long sqlCount = 0;
+
+
     public JdbcTemplate jdbcTemplate;
 
     public BaseDao(DataSource dataSource) {
@@ -18,7 +23,12 @@ public abstract class BaseDao {
     }
 
     public float mySqlDelay() {
-        return getRandom(1, 2);
+        if (sqlCount++ > SLOW_SQL_VALUE) {
+            sqlCount = 0;
+            return (getRandom(30, 50) / 10 );
+
+        }
+        return (getRandom(1, 2) / 1000);
     }
 
     public static float getRandom(float low,float high){

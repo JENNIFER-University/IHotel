@@ -1,6 +1,5 @@
 package edu.jennifer.hotel.action;
 
-import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
 
@@ -19,9 +18,12 @@ public class RoomsAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
-        ArrayList<Room> roomsList = getRoomService().findAll(AppUtil.getRandom(2000, 4000));
+        ArrayList<Room> roomsList = getRoomService().findAll();
         setRooms(roomsList);
         setRoomTypes(getRoomService().findAllRoomTypes());
+        if (isSimula()) {
+            doLongTx();
+        }
         return SUCCESS;
     }
 

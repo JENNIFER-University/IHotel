@@ -1,6 +1,5 @@
 package edu.jennifer.hotel.action;
 
-import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Payment;
 import edu.jennifer.hotel.model.Reservation;
 import edu.jennifer.hotel.problem.ProblemPool;
@@ -23,22 +22,25 @@ public class FindBookingAction extends BaseAction {
         if (ProblemPool.getInstance().makeProblem(ProblemPool.EX_CALL_EXCEPTION)) {
             Payment p = PaymentGateway.getPaymentDetails("ex1234567");
             return ERROR;
-        }else {
-            Reservation result = getReservationDAO().findByReservationId(getReservationId(), AppUtil.getRandom(2000,4000));
-            if(reservationId == null || reservationId.length() == 0 || result == null) {
-                return  ERROR;
-            }
-
-            Payment p = PaymentGateway.getPaymentDetails(result.getId());
-            if (p == null) {
-                return ERROR;
-            }
-            setReservation(result);
-            setPayment(p);
-            return SUCCESS;
-
         }
 
+        Reservation result = getReservationDAO().findByReservationId(getReservationId());
+        if(reservationId == null || reservationId.length() == 0 || result == null) {
+            return  ERROR;
+        }
+
+        Payment p = PaymentGateway.getPaymentDetails(result.getId());
+        if (p == null) {
+            return ERROR;
+        }
+        setReservation(result);
+        setPayment(p);
+
+        if (isSimula()) {
+            doLongTx();
+        }
+
+        return SUCCESS;
     }
 
 

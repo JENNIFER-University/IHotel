@@ -1,7 +1,7 @@
 package edu.jennifer.hotel.action;
 
-import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.Room;
+
 /**
  * @author khalid
  * @created 03/04/2017.
@@ -13,7 +13,7 @@ public class BookingAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
-        Room room = getRoomService().findById(getRoomNo(), AppUtil.getRandom(2000,4000));
+        Room room = getRoomService().findById(getRoomNo());
         setRoom(room);
         return SUCCESS;
     }
