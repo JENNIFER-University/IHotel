@@ -5,7 +5,7 @@ import com.beust.jcommander.ParameterException;
 
 import edu.jennifer.logger.ILogger;
 import edu.jennifer.stress.model.CliParams;
-import edu.jennifer.stress.simula.ThreadsController;
+import edu.jennifer.stress.simula.MainController;
 
 
 
@@ -32,8 +32,8 @@ public class Main {
 	}
 
 	private void run() {
-		ThreadsController runner = new ThreadsController(this.cliParams);
-		runner.start();
+		MainController controller = new MainController(this.cliParams);
+		controller.start();
 	}
 
 	private void handleInput(String[] args) {

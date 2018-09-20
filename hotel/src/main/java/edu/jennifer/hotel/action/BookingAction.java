@@ -13,6 +13,7 @@ public class BookingAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
+        init();
         Room room = getRoomService().findById(getRoomNo());
         setRoom(room);
         return SUCCESS;

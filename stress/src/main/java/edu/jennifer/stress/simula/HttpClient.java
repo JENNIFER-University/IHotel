@@ -75,7 +75,8 @@ public class HttpClient {
             readResponse(response);
             List<URI> redirectURIs = this.httpContext.getRedirectLocations();
             if (redirectURIs != null && !redirectURIs.isEmpty()) {
-                return redirectURIs.get(redirectURIs.size() - 1).toString();
+                String result =  redirectURIs.get(redirectURIs.size() - 1).toString();
+                return result;
             }
 
         }catch (IOException io){

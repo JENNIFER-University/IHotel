@@ -40,24 +40,21 @@ public class BookingSubmitAction extends BaseAction {
     public String execute() throws Exception {
         Guest guestInformation = getOrCreateGuest();
 
-
         Reservation reservation = initReservationObject(guestInformation);
-
         String reservationId = getReservationDAO().reserveRoom(reservation);
-
-
         reservation.setId(reservationId);
+
         Payment paymenInfo = initPaymentInfoI(guestInformation);
         paymenInfo.setReservationId(reservationId);
 
         int status = PaymentGateway.makePayment(paymenInfo);
+
         if(status == PaymentGateway.OK) {
             if(getReservationDAO().confirmReservation(reservationId)){
                 setReservationId(reservationId);
                 return SUCCESS;
             }
         }
-
         setReason(PaymentGateway.getErrorReason(status));
         return ERROR;
 

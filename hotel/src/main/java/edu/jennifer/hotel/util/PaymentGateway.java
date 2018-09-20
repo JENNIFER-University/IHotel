@@ -127,7 +127,6 @@ public class PaymentGateway {
                 int responseCode = response.getStatusLine().getStatusCode();
                 return responseCode;
             }catch(Exception ex){
-                ex.printStackTrace();
                 lastPaymentException = ex;
                 return -1;
             }finally{

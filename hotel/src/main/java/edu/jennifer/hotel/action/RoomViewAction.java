@@ -15,6 +15,7 @@ public class RoomViewAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
+        init();
         if (ProblemPool.getInstance().makeProblem(ProblemPool.DEAD_LOCK)) {
             Object obj1 = new Object();
             Object obj2 = new Object();

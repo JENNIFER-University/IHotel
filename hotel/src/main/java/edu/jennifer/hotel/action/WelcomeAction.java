@@ -14,6 +14,7 @@ public class WelcomeAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
+        init();
         setRooms(getRoomService().findFeatured());
 
         if (isLogged()) {

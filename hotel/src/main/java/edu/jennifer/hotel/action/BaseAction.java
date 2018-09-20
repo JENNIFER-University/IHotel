@@ -21,6 +21,16 @@ public class BaseAction extends ActionSupport{
 
     public BaseAction(){
         connectionUtil = ConnectionUtil.getInstance();
+
+    }
+
+    public void init() {
+        if (isSimula()) {
+            long randomDelay = AppUtil.getRandom(1000, 8500);
+            try {
+                Thread.sleep(randomDelay);
+            }catch (InterruptedException ex) {}
+        }
     }
 
     public RoomDAO getRoomService() {
@@ -79,7 +89,6 @@ public class BaseAction extends ActionSupport{
         if (txCount++ > LONG_TX_VALUE) {
             txCount = 0;
             time = AppUtil.getRandom(20000,30000);
-
         }
         long startTime = System.currentTimeMillis();
         for(int i =0; ; i++) {

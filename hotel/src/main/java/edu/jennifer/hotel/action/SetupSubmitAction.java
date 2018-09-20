@@ -17,8 +17,6 @@ public class SetupSubmitAction extends BaseAction{
         Conf.getInstance().saveProperty(Conf.KEY_IPAYMENT_IP, getIpaymentIp());
         Conf.getInstance().saveProperty(Conf.KEY_IPAYMENT_PORT, getIpaymebtPort());
         Conf.getInstance().reload();
-        //Just assume it will be saved :)
-
         return SUCCESS;
     }
 

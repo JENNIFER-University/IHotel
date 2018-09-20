@@ -4,24 +4,27 @@ import edu.jennifer.logger.ILogger;
 import edu.jennifer.stress.model.CliParams;
 
 import java.util.HashSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Khalid
  * @Created 12/29/17 11:47 AM.
  */
-public class ThreadsController extends Thread {
+public class MainController{
 
     private CliParams cliParams;
 
-    public ThreadsController(CliParams cliParams) {
+    public MainController(CliParams cliParams) {
         this.cliParams = cliParams;
     }
 
-    @Override
-    public void run() {
+    public void start() {
         ILogger.info(String.format("Starting Simula with the following parameters: %n%s", cliParams.toString()));;
+        String iHotelUrl = getBaseUrl();
 
-        String ihotelUrl = getBaseUrl();
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
 
         HashSet<String> activeUsers = new HashSet<>();
         int activeUsersNumber = 0;
@@ -32,11 +35,12 @@ public class ThreadsController extends Thread {
             }
 
             if (neededUsers > 0) {
-                String userId = String.format("Login[%d]", activeUsersNumber);
+                String userId = String.format("User[%d]", activeUsersNumber);
                 synchronized (activeUsers) {
                     if(!activeUsers.contains(userId)) {
                         activeUsersNumber++;
-                        new VirtualUser(activeUsers, userId, ihotelUrl).start();
+                        VirtualUser virtualUser = new VirtualUser(activeUsers, userId, iHotelUrl);
+                        executorService.submit(virtualUser);
                     }
                 }
 
@@ -51,6 +55,6 @@ public class ThreadsController extends Thread {
     }
 
     private String getBaseUrl() {
-        return String.format("http://%s:%d", cliParams.getIhotelIp(), cliParams.getIhotelPort());
+        return String.format("http://%s:%d/ihotel", cliParams.getIhotelIp(), cliParams.getIhotelPort());
     }
 }

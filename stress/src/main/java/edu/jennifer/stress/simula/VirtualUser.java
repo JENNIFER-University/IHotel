@@ -12,7 +12,7 @@ import java.util.*;
  * @author Khalid
  * @Created 10/24/17 4:15 PM.
  */
-public class VirtualUser extends Thread{
+public class VirtualUser implements Runnable{
 
 	/**
 	 * Base URL for the application (iHotel)
@@ -190,7 +190,7 @@ public class VirtualUser extends Thread{
 		int rand    = Math.abs(new Random().nextInt()) % differ;
 		int thinkTime = rand + minTime;
 		try{
-			sleep(thinkTime);
+			Thread.sleep(thinkTime);
 		}catch(InterruptedException ex){}
 	}
 

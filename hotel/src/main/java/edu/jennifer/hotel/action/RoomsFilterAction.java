@@ -18,6 +18,7 @@ public class RoomsFilterAction extends BaseAction {
     private List<RoomType> roomTypes;
 
     public String execute() {
+        init();
         RoomType roomTypeResult = getRoomService().findTypeByName(parseType());
 
         setRooms(getRoomService().findByType(roomTypeResult.getId()));

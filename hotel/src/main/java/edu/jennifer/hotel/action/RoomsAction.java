@@ -18,6 +18,7 @@ public class RoomsAction extends BaseAction {
 
     @Override
     public String execute() throws Exception {
+        init();
         ArrayList<Room> roomsList = getRoomService().findAll();
         setRooms(roomsList);
         setRoomTypes(getRoomService().findAllRoomTypes());
