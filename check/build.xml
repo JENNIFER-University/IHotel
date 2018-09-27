@@ -41,7 +41,7 @@
     </target>
 
     <target name="compress">
-        <zip destfile="${build.dir}/check-${check.version}.zip">
+        <zip destfile="${build.dir}/check-v${check.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>

@@ -45,7 +45,7 @@
         <!--<zip destfile="${build.dir}/stress-${stress.version}-${time.stamp}.zip">-->
             <!--<zipfileset dir="${tmp.dir}" />-->
         <!--</zip>-->
-        <zip destfile="${build.dir}/stress-${stress.version}.zip">
+        <zip destfile="${build.dir}/stress-v${stress.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>

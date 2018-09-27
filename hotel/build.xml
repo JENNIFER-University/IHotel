@@ -31,7 +31,7 @@
     </target>
 
     <target name="compress">
-        <zip destfile="${build.dir}/ihotel-${hotel.version}.zip">
+        <zip destfile="${build.dir}/ihotel-v${hotel.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
     </target>
