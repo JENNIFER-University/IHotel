@@ -1,9 +1,12 @@
 package edu.jennifer.stress.simula;
 
 import edu.jennifer.logger.ILogger;
+import edu.jennifer.stress.lock.LockMain;
 import edu.jennifer.stress.model.CliParams;
 
+import java.sql.Time;
 import java.util.HashSet;
+import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,8 +26,13 @@ public class MainController{
         ILogger.info(String.format("Starting Simula with the following parameters: %n%s", cliParams.toString()));;
         String iHotelUrl = getBaseUrl();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        LockMain lockMainTask = new LockMain(iHotelUrl);
+        Timer timer = new Timer();
+        long period = 1000 * 60 * 5;
+        timer.scheduleAtFixedRate(lockMainTask, period, period);
 
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         HashSet<String> activeUsers = new HashSet<>();
         int activeUsersNumber = 0;

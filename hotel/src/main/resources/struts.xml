@@ -17,6 +17,10 @@
             <result type="tiles">/welcome.tiles</result>
         </action>
 
+        <action name="visitors" class="edu.jennifer.hotel.action.VisitorAction">
+            <result type="tiles">/visitor.tiles</result>
+        </action>
+
         <action name="about" class="edu.jennifer.hotel.action.WelcomeAction" method="about">
             <result type="tiles">/about.tiles</result>
         </action>
