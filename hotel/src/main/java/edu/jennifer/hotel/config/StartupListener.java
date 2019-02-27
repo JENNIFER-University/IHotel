@@ -29,9 +29,9 @@ public class StartupListener implements ServletContextListener {
         System.out.printf("%s%n",loadSignature());
         System.out.printf("Version: %s%n", Version.getVersion());
         logger.info("Checking Database Connection");
-        boolean dataSourceExists = ConnectionUtil.getInstance().getDataSource() == null ? false : true;
+        boolean dataSourceNotExists = ConnectionUtil.getInstance().getDataSource() == null;
 
-        if (!dataSourceExists) {
+        if (dataSourceNotExists) {
             logger.error("DataSource not found. Please create datasource in your tomcat configuration");
             logger.info(String.format("DataSource Name [%s]", ConnectionUtil.DATASOURCE_NAME));
         }else {
@@ -52,12 +52,7 @@ public class StartupListener implements ServletContextListener {
 
         //Configuration file
         logger.info("Checking configuration file");
-        Conf appConf = Conf.getInstance();
-        if (!appConf.isConfFileExists()) {
-            logger.info("Configuration file [app.conf] does not exists. Creating new configuration file....");
-            appConf.saveProperty(Conf.KEY_IPAYMENT_IP, "127.0.0.1");
-            appConf.saveProperty(Conf.KEY_IPAYMENT_PORT, "18080");
-        }
+        Conf.getInstance().checkConfigFile();
     }
 
     @Override
