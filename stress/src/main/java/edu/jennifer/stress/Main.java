@@ -54,7 +54,7 @@ public class Main {
 	}
 
 	private void showInfo() {
-		System.out.println("JENNIFER iHotel Simula v2.0");
+		System.out.println("JENNIFER iHotel Simula");
 		System.out.println("Copyright (c) JenniferSoft 1998,"+Calendar.getInstance().get(Calendar.YEAR)+". All rights reserved.\n");
 	}
 

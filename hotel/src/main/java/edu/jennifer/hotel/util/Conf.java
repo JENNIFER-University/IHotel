@@ -27,6 +27,7 @@ public class Conf {
 	public void checkConfigFile() {
 		try {
 			File configFile = new File(CONFIG_FILE_NAME);
+			if (configFile.exists()) return;
 			boolean fileCreated = configFile.createNewFile();
 			if (fileCreated) {
 				logger.info(String.format("New Configuration file has been created at [%s]", configFile.getAbsolutePath()));
@@ -40,6 +41,7 @@ public class Conf {
 	
 	private Conf(){
 		try {
+			checkConfigFile();
 			prop = load();
 		}catch (IOException ex) {
 			logger.error("Failed to load the configuration file. Reason", ex);
@@ -96,4 +98,11 @@ public class Conf {
 	}
 
 
+	public void reload() {
+		try {
+			prop = load();
+		}catch (Exception ex){
+			logger.error("Failed to reload the configuration file. Reason: ", ex);
+		}
+	}
 }

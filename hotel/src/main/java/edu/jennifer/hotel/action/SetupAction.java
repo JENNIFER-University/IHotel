@@ -14,13 +14,8 @@ public class SetupAction extends BaseAction {
     @Override
     public String execute() throws Exception {
         Conf conf = Conf.getInstance();
-        if (conf.isConfFileExists()) {
-            setIpaymebtPort(conf.getProperty(Conf.KEY_IPAYMENT_PORT));
-            setIpaymentIp(conf.getProperty(Conf.KEY_IPAYMENT_IP));
-        }else {
-            setIpaymentIp("127.0.0.1");
-            setIpaymebtPort("18080");
-        }
+        setIpaymebtPort(conf.getProperty(Conf.KEY_IPAYMENT_PORT));
+        setIpaymentIp(conf.getProperty(Conf.KEY_IPAYMENT_IP));
         return SUCCESS;
     }
 
