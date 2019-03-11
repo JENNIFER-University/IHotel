@@ -1,6 +1,6 @@
 package edu.jennifer.stress.simula;
 
-import edu.jennifer.logger.ILogger;
+import edu.jennifer.common.Logger;
 import edu.jennifer.stress.factory.BrowserTypeFactory;
 import edu.jennifer.stress.model.BrowserType;
 import org.apache.http.Header;
@@ -57,7 +57,7 @@ public class HttpClient {
             response.getStatusLine().getStatusCode();
             readResponse(response);
         }catch (IOException io){
-            ILogger.error(String.format("Failed to execute GET request for the URL: %s", url), io);;
+            Logger.error(String.format("Failed to execute GET request for the URL: %s", url), io);;
         }finally {
             closeResources(request, response);
         }
@@ -80,7 +80,7 @@ public class HttpClient {
             }
 
         }catch (IOException io){
-            ILogger.error(String.format("Failed to execute POST request for the URL: %s", url), io);
+            Logger.error(String.format("Failed to execute POST request for the URL: %s", url), io);
         }finally {
            closeResources(request, response);
         }

@@ -3,7 +3,7 @@ package edu.jennifer.stress;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 
-import edu.jennifer.logger.ILogger;
+import edu.jennifer.common.Logger;
 import edu.jennifer.stress.model.CliParams;
 import edu.jennifer.stress.simula.MainController;
 
@@ -42,7 +42,7 @@ public class Main {
 		try {
 			jCommander.parse(args);
 		}catch (ParameterException e) {
-			ILogger.error("Error paring program arguments", e);
+			Logger.error("Error paring program arguments", e);
 			showUsage(jCommander);
 		}
 

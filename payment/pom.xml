@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>payment</artifactId>
-    <version>${payment.version}</version>
+    <version>${ihotel.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>edu.jennifer</groupId>
             <artifactId>icheck</artifactId>
-            <version>${icheck.version}</version>
+            <version>${ihotel.version}</version>
         </dependency>
 
         <dependency>
@@ -104,7 +104,7 @@
                                 <id>build.payment</id>
                                 <configuration>
                                     <tasks>
-                                        <property name="payment.version" value="${payment.version}"/>
+                                        <property name="payment.version" value="${ihotel.version}"/>
 
                                         <ant antfile="./build.xml" inheritRefs="true" />
                                     </tasks>

@@ -14,7 +14,7 @@
 
     <groupId>edu.jennifer.check</groupId>
     <artifactId>check</artifactId>
-    <version>${check.version}</version>
+    <version>${ihotel.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -22,19 +22,13 @@
         <dependency>
             <groupId>edu.jennifer</groupId>
             <artifactId>icheck</artifactId>
-            <version>${icheck.version}</version>
+            <version>${ihotel.version}</version>
         </dependency>
         <dependency>
             <groupId>edu.jennifer</groupId>
             <artifactId>common</artifactId>
-            <version>${common.version}</version>
+            <version>${ihotel.version}</version>
         </dependency>
-        <dependency>
-            <groupId>edu.jennifer</groupId>
-            <artifactId>logger</artifactId>
-            <version>${logger.version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -76,7 +70,7 @@
                         <id>build.check</id>
                         <configuration>
                             <tasks>
-                                <property name="check.version" value="${check.version}"/>
+                                <property name="check.version" value="${ihotel.version}"/>
 
                                 <ant antfile="./build.xml" inheritRefs="true" />
                             </tasks>

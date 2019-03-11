@@ -19,8 +19,7 @@ public class CliParams {
     @Parameter(names = { "-p", "--port"}, description = "Specify iHotel IP port", required = true)
     private int ihotelPort;
 
-    @Parameter(names = { "-u", "--users"}, description = "Maximum number of users")
-    private int maxUsers = 50;
+    private final int maxUsers = 50;
 
     public boolean isHelp() {
         return help;
@@ -50,9 +49,6 @@ public class CliParams {
         return maxUsers;
     }
 
-    public void setMaxUsers(int maxUsers) {
-        this.maxUsers = maxUsers;
-    }
 
     @Override
     public String toString() {
@@ -60,7 +56,6 @@ public class CliParams {
                 "help=" + help +
                 ", ihotelIp='" + ihotelIp + '\'' +
                 ", ihotelPort=" + ihotelPort +
-                ", maxUsers=" + maxUsers +
                 '}';
     }
 }

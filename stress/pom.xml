@@ -10,7 +10,6 @@
         <version>2.0.0</version>
     </parent>
 
-    <groupId>edu.jennifer</groupId>
     <artifactId>stress</artifactId>
     <version>${stress.version}</version>
     <packaging>jar</packaging>
@@ -21,17 +20,12 @@
         <dependency>
             <groupId>edu.jennifer</groupId>
             <artifactId>common</artifactId>
-            <version>${common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>edu.jennifer</groupId>
-            <artifactId>logger</artifactId>
-            <version>${logger.version}</version>
+            <version>${ihotel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${apache.version}</version>
+            <version>${apache.http.version}</version>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
@@ -79,7 +73,7 @@
                         <id>build.sress</id>
                         <configuration>
                             <tasks>
-                                <property name="stress.version" value="${stress.version}"/>
+                                <property name="stress.version" value="${ihotel.version}"/>
 
                                 <ant antfile="./build.xml" inheritRefs="true" />
                             </tasks>

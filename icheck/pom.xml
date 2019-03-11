@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.jennifer</groupId>
     <artifactId>icheck</artifactId>
-    <version>${icheck.version}</version>
+    <version>${ihotel.version}</version>
     <packaging>jar</packaging>
 
 </project>

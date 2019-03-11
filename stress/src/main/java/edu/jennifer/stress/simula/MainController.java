@@ -1,6 +1,6 @@
 package edu.jennifer.stress.simula;
 
-import edu.jennifer.logger.ILogger;
+import edu.jennifer.common.Logger;
 import edu.jennifer.stress.lock.LockMain;
 import edu.jennifer.stress.model.CliParams;
 
@@ -23,7 +23,7 @@ public class MainController{
     }
 
     public void start() {
-        ILogger.info(String.format("Starting Simula with the following parameters: %n%s", cliParams.toString()));;
+        Logger.info(String.format("Starting Simula with the following parameters: %n%s", cliParams.toString()));;
         String iHotelUrl = getBaseUrl();
 
         LockMain lockMainTask = new LockMain(iHotelUrl);
