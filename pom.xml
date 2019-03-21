@@ -11,7 +11,7 @@
 
     <properties>
         <apache.http.version>4.3.4</apache.http.version>
-        <ihotel.version>3.0.2</ihotel.version>
+        <ihotel.version>3.0.3</ihotel.version>
 
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
