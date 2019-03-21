@@ -21,6 +21,7 @@ public class ProblemPool {
     public static final int SLOW_LOGIN			= 4;
     public static final int SERVICE_QUEUE	 	= 5;
     public static final int DEAD_LOCK 			= 6;
+    public static final int METHOD_EXCEPTION	= 7;
 
 
     private static ProblemPool instance;

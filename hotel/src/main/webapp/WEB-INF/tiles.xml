@@ -12,6 +12,12 @@
         <put-attribute name="footer" value="/template/Footer.jsp" />
     </definition>
 
+    <definition name="/error.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Application Error" />
+        <put-attribute name="body" value="/jsp/error.jsp" />
+    </definition>
+
+
 
     <definition name="configLayout" template="/template/Config.jsp">
         <put-attribute name="title" value="" />

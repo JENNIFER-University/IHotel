@@ -20,11 +20,12 @@ public class FindBookingAction extends BaseAction {
     public String execute() throws Exception {
 
         if (ProblemPool.getInstance().makeProblem(ProblemPool.EX_CALL_EXCEPTION)) {
-            Payment p = PaymentGateway.getPaymentDetails("ex1234567");
+            PaymentGateway.getPaymentDetails("ex1234567");
             return ERROR;
         }
 
         Reservation result = getReservationDAO().findByReservationId(getReservationId());
+
         if(reservationId == null || reservationId.length() == 0 || result == null) {
             return  ERROR;
         }

@@ -33,5 +33,13 @@
     "description": "A Dead Lock Example. You can see the threads status in the Thread dashboard. Please do not overuse this problem because it will result in multi dead-locked threads",
     "icon": "lock",
     "enabled": false
+  },
+  {
+    "id": "7",
+    "name": "Method Exception",
+    "description": "Example showing custom method exception. Enable this pattern and then head to the Rooms list page in the iHotel app. Filter the rooms by selecting the 3 Room Apartment. For this problem to work you will need the enable the enable_method_exception_event advanced option",
+    "icon": "code",
+    "enabled": "false"
+
   }
 ]

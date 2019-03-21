@@ -1,7 +1,9 @@
 package edu.jennifer.hotel.action;
 
+import edu.jennifer.hotel.exceptions.ParseException;
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
+import edu.jennifer.hotel.problem.ProblemPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,10 @@ public class RoomsFilterAction extends BaseAction {
         setRooms(getRoomService().findByType(roomTypeResult.getId()));
 
         setRoomTypes(getRoomService().findAllRoomTypes());
+
+        if(getType().startsWith("3") && ProblemPool.getInstance().makeProblem(ProblemPool.METHOD_EXCEPTION)) {
+            throw new ParseException("Unable to parse room type");
+        }
 
         return SUCCESS;
     }

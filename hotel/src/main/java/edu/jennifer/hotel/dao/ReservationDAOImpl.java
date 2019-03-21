@@ -5,7 +5,6 @@ import edu.jennifer.hotel.model.Reservation;
 import edu.jennifer.hotel.model.Room;
 import edu.jennifer.hotel.model.RoomType;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import javax.sql.DataSource;
@@ -52,7 +51,7 @@ public class ReservationDAOImpl extends BaseDao implements ReservationDAO {
 		try{
 			String query = "UPDATE reservations SET status = ? WHERE id = ?";
 			int updated = jdbcTemplate.update(query,PAYED,id);
-			return updated > 0 ? true: false;
+			return updated > 0;
 		}catch(Exception ex){
 			return false;
 		}
@@ -105,6 +104,7 @@ public class ReservationDAOImpl extends BaseDao implements ReservationDAO {
 					return result;
 				}
 			});
+
 		}catch(Exception ex){
 			return null;
 		}

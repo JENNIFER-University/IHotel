@@ -8,10 +8,15 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="false" />
 
-    <package name="default" extends="struts-default" >
-        <result-types>
-            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"></result-type>
-        </result-types>
+    <package name="default" extends="tiles-default" >
+
+        <global-results>
+            <result name="appError" type="tiles">/error.tiles</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="edu.jennifer.hotel.exceptions.BaseException" result="appError" />
+        </global-exception-mappings>
 
         <action name="welcome" class="edu.jennifer.hotel.action.WelcomeAction">
             <result type="tiles">/welcome.tiles</result>
