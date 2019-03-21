@@ -20,7 +20,7 @@ public class ICheckTestController{
     @Autowired
     private Conf config;
 
-    Logger ILogger = LoggerFactory.getLogger(ICheckTestController.class);
+    private Logger ILogger = LoggerFactory.getLogger(ICheckTestController.class);
 
 
     @RequestMapping("/icheck_test")
@@ -28,7 +28,7 @@ public class ICheckTestController{
 
         Map<String, String> result = new HashMap<>();
 
-        ILogger.info(String.format("iCheck Enabled = " , config.isIcheckEnabled()));
+        ILogger.info(String.format("iCheck Enabled = %s" , config.isIcheckEnabled()));
         if(config.isIcheckEnabled()){
             String icheckIP   = config.getIcheckIp();
             String icheckPort = config.getIcheckPort();

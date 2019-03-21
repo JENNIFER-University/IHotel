@@ -15,7 +15,6 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     private String username;
     private String password;
-    private String profile;
 
     private SessionMap<String, String> sessionMap;
 
@@ -26,6 +25,7 @@ public class LoginAction extends BaseAction implements SessionAware{
         if(userData != null) {
             sessionMap.put("isLoggedIn","true");
             sessionMap.put("currentUser",userData.getUsername());
+            getUserDAO().getProfile(getUsername(), null);
             return SUCCESS;
         }
 
@@ -58,9 +58,5 @@ public class LoginAction extends BaseAction implements SessionAware{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
     }
 }

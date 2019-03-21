@@ -31,18 +31,7 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 					+ " left join rooms_type"
 					+ " on rooms.room_type = rooms_type.id";
 
-			ArrayList<Room> rooms = jdbcTemplate.query(query, new Object[]{randomDelay},new ResultSetExtractor<ArrayList<Room>>(){
-
-
-				public ArrayList<Room> extractData(ResultSet rs)
-						throws SQLException, DataAccessException {
-					ArrayList<Room> result = extractDataFromReultSet(rs);
-					return result;
-				}
-
-			});
-
-			return rooms;
+			return jdbcTemplate.query(query, new Object[]{randomDelay}, this::extractDataFromReultSet);
 		}catch(Exception ex){
 			return null;
 		}
@@ -60,16 +49,7 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 					+ " on rooms.room_type = rooms_type.id"
 					+ " limit 4";
 
-			ArrayList<Room> rooms = jdbcTemplate.query(query,new ResultSetExtractor<ArrayList<Room>>(){
-				public ArrayList<Room> extractData(ResultSet rs)
-						throws SQLException, DataAccessException {
-					ArrayList<Room> result = extractDataFromReultSet(rs);
-					return result;
-				}
-
-			});
-
-			return rooms;
+			return jdbcTemplate.query(query, this::extractDataFromReultSet);
 		}catch(Exception ex){
 			return null;
 		}
@@ -82,24 +62,19 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 	public ArrayList<RoomType> findAllRoomTypes() {
 		try {
 			String query = "select id,roomType,roomSize,maxCapacity from rooms_type";
-			ArrayList<RoomType> types = jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<RoomType>>() {
-				@Override
-				public ArrayList<RoomType> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-					ArrayList<RoomType> result = new ArrayList<>();
+			return jdbcTemplate.query(query, resultSet -> {
+                ArrayList<RoomType> result = new ArrayList<>();
 
-					while(resultSet.next()) {
-						RoomType roomType = new RoomType();
-						roomType.setId(resultSet.getInt("id"));
-						roomType.setMaxCapacity(resultSet.getInt("maxCapacity"));
-						roomType.setRoomSize(resultSet.getString("roomSize"));
-						roomType.setRoomType(resultSet.getString("roomType"));
-						result.add(roomType);
-					}
-					return result;
-				}
-
-			});
-			return types;
+                while(resultSet.next()) {
+                    RoomType roomType = new RoomType();
+                    roomType.setId(resultSet.getInt("id"));
+                    roomType.setMaxCapacity(resultSet.getInt("maxCapacity"));
+                    roomType.setRoomSize(resultSet.getString("roomSize"));
+                    roomType.setRoomType(resultSet.getString("roomType"));
+                    result.add(roomType);
+                }
+                return result;
+            });
 		}catch (Exception sql){
 		    return null;
 		}
@@ -118,18 +93,7 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 					+ " left join rooms_type"
 					+ " on rooms.room_type = rooms_type.id where rooms.room_type = ?";
 
-			ArrayList<Room> rooms = jdbcTemplate.query(query, new Object[]{type},new ResultSetExtractor<ArrayList<Room>>(){
-
-
-				public ArrayList<Room> extractData(ResultSet rs)
-						throws SQLException, DataAccessException {
-					ArrayList<Room> result = extractDataFromReultSet(rs);
-					return result;
-				}
-
-			});
-
-			return rooms;
+			return jdbcTemplate.query(query, new Object[]{type}, this::extractDataFromReultSet);
 		}catch (Exception ex) {
 			return null;
 		}
@@ -143,25 +107,18 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 	public RoomType findTypeByName(String name) {
 		try {
 			String query = "select id,roomType,roomSize,maxCapacity from rooms_type where roomType = ?";
-			RoomType result = jdbcTemplate.query(query, new Object[]{name} ,new ResultSetExtractor<RoomType>() {
-				@Override
-				public RoomType extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			return jdbcTemplate.query(query, new Object[]{name} , resultSet -> {
 
-					if(resultSet.next()) {
-						RoomType roomType = new RoomType();
-						roomType.setId(resultSet.getInt("id"));
-						roomType.setMaxCapacity(resultSet.getInt("maxCapacity"));
-						roomType.setRoomSize(resultSet.getString("roomSize"));
-						roomType.setRoomType(resultSet.getString("roomType"));
-						return roomType;
-					}
-
-					return null;
-
-				}
-
-			});
-			return result;
+                if(resultSet.next()) {
+                    RoomType roomType = new RoomType();
+                    roomType.setId(resultSet.getInt("id"));
+                    roomType.setMaxCapacity(resultSet.getInt("maxCapacity"));
+                    roomType.setRoomSize(resultSet.getString("roomSize"));
+                    roomType.setRoomType(resultSet.getString("roomType"));
+                    return roomType;
+                }
+                return null;
+            });
 		}catch (Exception sql){
 			return null;
 		}
@@ -218,21 +175,15 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 						+ " left join facilities"
 						+ " on facilities.id = rooms_facilities.facilityId"
 						+ " where rooms.id = " + roomId;
-				ArrayList<Facility> f = jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Facility>>(){
-
-
-					public ArrayList<Facility> extractData(ResultSet rs)
-							throws SQLException, DataAccessException {
-						ArrayList<Facility> roomFacilities = new ArrayList<Facility>();
-						while(rs.next()){
-							Facility f = new Facility();
-							f.setName(rs.getString("name"));
-							roomFacilities.add(f);
-						}
-						return roomFacilities;
-					}
-
-				});
+				ArrayList<Facility> f = jdbcTemplate.query(query, rs -> {
+                    ArrayList<Facility> roomFacilities = new ArrayList<>();
+                    while(rs.next()){
+                        Facility f1 = new Facility();
+                        f1.setName(rs.getString("name"));
+                        roomFacilities.add(f1);
+                    }
+                    return roomFacilities;
+                });
 
 				if(f != null && f.size() > 0)
 					room.setRoomFacilities(f);
@@ -266,6 +217,5 @@ public class RoomDAOImpl extends BaseDao implements RoomDAO{
 			result.add(room);
 		}
 		return result;
-
 	}
 }

@@ -3,17 +3,10 @@ package edu.jennifer.hotel.dao;
 import edu.jennifer.common.AppUtil;
 import edu.jennifer.hotel.model.User;
 import edu.jennifer.hotel.problem.ProblemPool;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-
 import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 
 public class UserDAOImpl extends BaseDao implements UserDAO{
 
@@ -30,22 +23,18 @@ public class UserDAOImpl extends BaseDao implements UserDAO{
 	public User login(String username, String password) {
 		try{
 			String query = "SELECT * FROM users where username = ? AND password = ?";
-			User user = jdbcTemplate.query(query, new String[]{username, plainToMD5(password)}, new ResultSetExtractor<User>() {
-				public User extractData(ResultSet rs) throws SQLException,
-						DataAccessException {
-			if(rs.next()){
-				User u = new User();
-				u.setId(rs.getString("id"));
-				u.setPassword("");
-				u.setUsername(rs.getString("username"));
-				u.setRealName(rs.getString("realname"));
-				return u;
-			}
-					return null;
-				}
-			});
+			return jdbcTemplate.query(query, new String[]{username, plainToMD5(password)}, rs -> {
+        if(rs.next()){
+            User u = new User();
+            u.setId(rs.getString("id"));
+            u.setPassword("");
+            u.setUsername(rs.getString("username"));
+            u.setRealName(rs.getString("realname"));
+            return u;
+        }
+                return null;
+            });
 
-			return user;
 		}catch(Exception ex){
 			return null;
 		}
@@ -59,15 +48,12 @@ public class UserDAOImpl extends BaseDao implements UserDAO{
 	public boolean isUsernameUnique(String username) {
 		try{
 			String query = "SELECT * FROM users where username = ?";
-			User user = jdbcTemplate.query(query, new String[]{username}, new ResultSetExtractor<User>() {
-				public User extractData(ResultSet rs) throws SQLException,
-						DataAccessException {
-					if(rs.next()){
-						return new User();
-					}
-					return null;
-				}
-			});
+			User user = jdbcTemplate.query(query, new String[]{username}, rs -> {
+                if(rs.next()){
+                    return new User();
+                }
+                return null;
+            });
 			return user == null;
 		}catch(Exception ex){
 			return false;

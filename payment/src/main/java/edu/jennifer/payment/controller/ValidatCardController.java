@@ -18,8 +18,7 @@ public class ValidatCardController{
 	@RequestMapping("/validateCard")
 	public CheckResult validate(@RequestParam(name = "cardNumber") String cardNumber){
 		boolean useICheck =  config.isIcheckEnabled();
-		CheckResult result = validateCard(cardNumber,useICheck);
-		return result;
+		return validateCard(cardNumber,useICheck);
 	}
 
 	private CheckResult validateCard(String cardNumber,boolean useICheck){
