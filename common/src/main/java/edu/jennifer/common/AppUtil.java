@@ -73,9 +73,8 @@ public class AppUtil {
     public static String getRandomName(){
         String[] firstName = {"Khalid","David","Alex","Sami","Sally","Dana","Chris","Chalse","Albert"};
         String[] lastName  = {"Zhang","Robert","Saeed","Andy","Justin","Craig","Grant","Bert","Lester"};
-        int firstNameIndex = (int) Math.random() * firstName.length;
-        int lastNameIndex = (int) Math.random() * lastName.length;
-        String name = firstName[firstNameIndex] + " " + lastName[lastNameIndex];
-        return name;
+        int firstNameIndex = (int) (Math.random() * firstName.length);
+        int lastNameIndex = (int) (Math.random() * lastName.length);
+        return firstName[firstNameIndex] + " " + lastName[lastNameIndex];
     }
 }

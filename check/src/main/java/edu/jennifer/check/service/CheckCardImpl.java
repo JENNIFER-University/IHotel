@@ -12,12 +12,9 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
 
-    private final String VALID = "valid";
-    private final String INVALID = "invalid";
-
     /**
      * Default Constructor
-     * @throws RemoteException
+     * @throws RemoteException remote exception
      */
     public CheckCardImpl() throws RemoteException{ }
 
@@ -25,9 +22,9 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
      * Simulate checking if a credit card if valid or no.
      * @param cardNumber Credit Card Number
      * @return String <strong>valid</strong> if the credit card is valid, <strong>invalid</strong> if not
-     * @throws RemoteException
+     * @throws RemoteException remote exception
      */
-    public String checkCreditCard(String cardNumber) throws RemoteException {
+    public String checkCreditCard(String cardNumber) {
         boolean delayProcessing = cardNumber.split("-").length == 2;
 
         String result = isCardValid(cardNumber);
@@ -38,6 +35,11 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
         return result;
     }
 
+    /**
+     * Check if the card valid based on length
+     * @param cardNumber The card number to be checked
+     * @return String "valid" or "invalid"
+     */
     private String isCardValid(String cardNumber) {
         int iterations = cardNumber.length();
         if (iterations > 10 || iterations == 0) {
@@ -45,9 +47,12 @@ public class CheckCardImpl extends UnicastRemoteObject implements ICheck {
         }
 
         boolean isCardValid = CheckTask.verifyCard(iterations, cardNumber);
-        return isCardValid ? VALID : INVALID;
+        return isCardValid ? "valid" : "invalid";
     }
 
+    /**
+     * Dummy method to slow down the processing logic
+     */
     private void validateCheckResult() {
         long starTime = System.currentTimeMillis();
         final int PERIOD = AppUtil.getRandom(20000, 25000);

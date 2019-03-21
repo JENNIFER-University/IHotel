@@ -15,25 +15,7 @@ public class RunCheck {
     /**
      * Default listening port
      */
-    public static final int PORT = 28080;
-
-    public static void main(String[] args) {
-        int portNumber = 0;
-        if(args.length > 0){
-            try{
-                portNumber = Integer.parseInt(args[0]);
-            }catch (NumberFormatException ex){
-                Logger.warn(String.format("Invalid port number. Using default port [%d]", PORT));
-                portNumber = PORT;
-            }
-        }else{
-            portNumber = PORT;
-        }
-
-        RunCheck app = new RunCheck();
-        app.startServer(portNumber);
-
-    }
+    private static final int PORT = 28080;
 
     /**
      * Start the server and await connections
@@ -49,6 +31,22 @@ public class RunCheck {
         }catch (Exception ex){
             Logger.error("Error while starting up the server", ex);
         }
+    }
+
+    public static void main(String[] args) {
+        int portNumber;
+        if(args.length > 0){
+            try{
+                portNumber = Integer.parseInt(args[0]);
+            }catch (NumberFormatException ex){
+                Logger.warn(String.format("Invalid port number. Using default port [%d]", PORT));
+                portNumber = PORT;
+            }
+        }else{
+            portNumber = PORT;
+        }
+
+        new RunCheck().startServer(portNumber);
     }
 
 }

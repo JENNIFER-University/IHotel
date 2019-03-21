@@ -1,9 +1,5 @@
 package edu.jennifer.check.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 /**
  * @author Khalid Elshafie
  * @Created 9/15/17 2:06 PM.
@@ -29,7 +25,6 @@ public class CheckTask {
         else
             return sum > 10;
     }
-
 
     /**
      * @param level
