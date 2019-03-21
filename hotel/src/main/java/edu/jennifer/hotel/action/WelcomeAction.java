@@ -17,13 +17,6 @@ public class WelcomeAction extends BaseAction {
         init();
         setRooms(getRoomService().findFeatured());
 
-//        if (isLogged()) {
-//            String currentUser = getCurrentUser();
-//            if (currentUser != null) {
-//                getUserDAO().getProfile(currentUser, null);
-//            }
-//        }
-
         return SUCCESS;
     }
 
