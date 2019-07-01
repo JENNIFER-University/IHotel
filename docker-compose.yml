@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  db-service:
+    container_name: ihotel_dev_db
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ihoteldb
+      MYSQL_USER: ihotel
+      MYSQL_PASSWORD: password

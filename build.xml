@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="compress hotel" default="check_dirs">
+
+    <property name="build.dir" value="./build" />
+
+    <target name="check_dirs">
+        <antcall target="remove_build" />
+        <mkdir dir="${build.dir}" />
+    </target>
+
+    <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
+        <delete verbose="true" includeEmptyDirs="true">
+            <fileset dir="${build.dir}"  />
+        </delete>
+    </target>
+
+    <target name="check_build_dir">
+        <condition property="build_dir_exists" >
+            <available file="${build.dir}" type="dir"/>
+        </condition>
+    </target>
+
+</project>
+

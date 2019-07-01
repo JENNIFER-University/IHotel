@@ -14,11 +14,10 @@ public class Version {
         try {
             Properties properties = new Properties();
             properties.load(Version.class.getClassLoader().getResourceAsStream("../../META-INF/MANIFEST.MF"));
-            String version = properties.getProperty("Implementation-Version");
-            return version;
-        }catch (IOException io) {
-            //Default (before this was implemented)
-            return "2.0.0";
+            return properties.getProperty("Implementation-Version");
+        }catch (Exception io) {
+            // For Development
+            return "3.0.0-Development";
         }
     }
 }

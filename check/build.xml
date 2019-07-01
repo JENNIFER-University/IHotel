@@ -2,25 +2,17 @@
 <project name="compress credit card check server" default="build">
 
     <property name="target.dir" value="./target" />
-    <property name="build.dir" value="./build" />
+    <property name="build.dir" value="../build" />
     <property name="tmp.dir" value="./tmp" />
 
-    <tstamp>
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd_HH:mm:ss"/>-->
-        <!--<format property="time.stamp" pattern="yyyy-MM-dd"/>-->
-    </tstamp>
-
     <target name="build">
-        <echo message="Starting compressing build version ${check.version}" />
+        <echo message="Starting compressing build version ${app.version}" />
 
-        <antcall target="remove_build" />
-
-        <mkdir dir="${build.dir}" />
         <mkdir dir="${tmp.dir}" />
 
         <copy todir="${tmp.dir}/lib" verbose="true">
             <fileset dir="${target.dir}">
-                <include name="check-${check.version}.jar" />
+                <include name="check-${app.version}.jar" />
             </fileset>
             <fileset dir="${target.dir}/lib">
                 <include name="*.jar" />
@@ -41,21 +33,9 @@
     </target>
 
     <target name="compress">
-        <zip destfile="${build.dir}/check-v${check.version}.zip">
+        <zip destfile="${build.dir}/check-v${app.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
-    </target>
-
-    <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
-        <delete verbose="true" includeemptydirs="true">
-            <fileset dir="${build.dir}"  />
-        </delete>
-    </target>
-
-    <target name="check_build_dir">
-        <condition property="build_dir_exists" >
-            <available file="${build.dir}" type="dir"/>
-        </condition>
     </target>
 
 

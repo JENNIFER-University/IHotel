@@ -3,17 +3,13 @@
 <project name="compress hotel" default="build">
 
     <property name="target.dir" value="./target" />
-    <property name="build.dir" value="./build" />
+    <property name="build.dir" value="../build" />
     <property name="tmp.dir" value="./tmp" />
     <property name="mysql.driver" value="mysql-connector-java-5.1.44-bin.jar" />
 
     <target name="build">
-        <echo message="Starting compressing build version ${hotel.version}" />
+        <echo message="Starting compressing build version ${app.version}" />
 
-        <antcall target="remove_build" />
-
-
-        <mkdir dir="${build.dir}" />
         <mkdir dir="${tmp.dir}" />
 
         <copy todir="${tmp.dir}/" verbose="true">
@@ -31,21 +27,9 @@
     </target>
 
     <target name="compress">
-        <zip destfile="${build.dir}/ihotel-v${hotel.version}.zip">
+        <zip destfile="${build.dir}/ihotel-v${app.version}.zip">
             <zipfileset dir="${tmp.dir}" />
         </zip>
-    </target>
-
-    <target name="remove_build" description="Remove build dir" depends="check_build_dir" if="build_dir_exists">
-        <delete verbose="true" includeEmptyDirs="true">
-            <fileset dir="${build.dir}"  />
-        </delete>
-    </target>
-
-    <target name="check_build_dir">
-        <condition property="build_dir_exists" >
-            <available file="${build.dir}" type="dir"/>
-        </condition>
     </target>
 
 

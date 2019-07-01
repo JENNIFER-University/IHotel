@@ -10,3 +10,8 @@ The application main components are:
 * iPayment: Payment processing application for the hotel (SpringBoot)
 * iCheck: Credit Card Validation (Java Daemon)
 * stress: Load simulation tool
+
+    ![iHotel_Schema](https://user-images.githubusercontent.com/3861725/60411741-2f142980-9c09-11e9-9c38-96882ae2eb85.jpg)
+
+## Development Guide
+To run iHotel locally, check the [Dev Guide](./Dev_Guide.md)

@@ -104,8 +104,7 @@
                                 <id>build.payment</id>
                                 <configuration>
                                     <tasks>
-                                        <property name="payment.version" value="${ihotel.version}"/>
-
+                                        <property name="app.version" value="${ihotel.version}"/>
                                         <ant antfile="./build.xml" inheritRefs="true" />
                                     </tasks>
                                 </configuration>
